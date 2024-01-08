@@ -21,7 +21,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <QueryProvider>
           <Navbar />
-          <div className="relative top-[60px] bg-gray-50 min-h-[calc(100vh-60px)]">
+          <div className="relative top-[60px] bg-gray-100 min-h-[calc(100vh-60px)]">
             {children}
           </div>
         </QueryProvider>

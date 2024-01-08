@@ -9,15 +9,17 @@ const axiosHandler = (url: string) => {
   });
 };
 
-interface TeamData {
+export interface TeamData {
   logo: string;
   location: string;
   name: string;
   record: string;
   score: string;
+  linescores: number[];
+  winner: boolean;
 }
 
-interface NflScoreboardData {
+export interface NflScoreboardData {
   id: string;
   date: string;
   awayTeamData: TeamData;
@@ -29,6 +31,7 @@ interface NflScoreboardData {
 }
 
 const formatNflScoreboardData = (data: any) => {
+  console.log(data);
   const formatTeamData = (data: any): TeamData => {
     const teamData = data.team;
     return {
@@ -37,6 +40,10 @@ const formatNflScoreboardData = (data: any) => {
       name: teamData.name,
       record: data.records[0].summary,
       score: data.score,
+      linescores: data.linescores.map(
+        (score: { value: number }) => score.value
+      ),
+      winner: data.winner,
     };
   };
 

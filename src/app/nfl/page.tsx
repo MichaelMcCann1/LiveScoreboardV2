@@ -2,6 +2,7 @@
 
 import ErrorState from "@/components/ErrorState";
 import LoadingSpinner from "@/components/LoadingSpinner";
+import ScoreBox from "@/components/ScoreBox/ScoreBox";
 import { useNflScoreboard } from "@/data/queries";
 import React from "react";
 
@@ -19,11 +20,9 @@ export default function page() {
   console.log(data);
 
   return (
-    <div>
+    <div className="flex flex-col gap-8">
       {data.map((game) => (
-        <div key={game.id}>
-          {game.homeTeamData.name} vs {game.awayTeamData.name}
-        </div>
+        <ScoreBox key={game.id} gameData={game} />
       ))}
     </div>
   );
