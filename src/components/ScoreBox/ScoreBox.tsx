@@ -34,10 +34,12 @@ interface Props {
 
 export default function ScoreBox({ gameData }: Props) {
   return (
-    <div className="shadow-xl flex bg-white w-full max-w-[700px] py-3 px-2 gap-14">
+    <div className="flex gap-14 py-3">
       <div className="flex flex-col w-full">
         <div className="flex gap-3 w-full items-center">
-          <span className="text-sm">{getTimeDisplay(gameData)}</span>
+          <span className="text-sm font-semibold">
+            {getTimeDisplay(gameData)}
+          </span>
           <Linescores periods={periods} />
         </div>
         <TeamBox teamData={gameData.awayTeamData} />

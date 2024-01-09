@@ -7,7 +7,7 @@ interface Props {
 
 export default function Leader({ leader }: Props) {
   return (
-    <div className="flex gap-2 items-center text-xs text-gray-500">
+    <div className="flex gap-2 items-center text-xs text-gray-500 w-[250px]">
       <span className="w-[50px]">{leader.shortDisplayName}</span>
       <div className="h-9 w-9 border border-gray-300 rounded-full flex items-center justify-center overflow-hidden">
         <img
@@ -18,7 +18,9 @@ export default function Leader({ leader }: Props) {
       </div>
       <div className="flex flex-col whitespace-nowrap">
         <div className="flex gap-1">
-          <span className="font-semibold">{leader.shortName}</span>
+          <span className="font-semibold text-gray-800">
+            {leader.shortName}
+          </span>
           <span>{leader.position}</span>
         </div>
         <span>{leader.displayValue}</span>
