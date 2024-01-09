@@ -3,6 +3,7 @@ import { DateTime } from "luxon";
 import React from "react";
 import TeamBox from "./components/TeamBox";
 import Linescores from "./components/Linescores";
+import Leader from "./components/Leader";
 
 const periods = [1, 2, 3, 4];
 
@@ -33,13 +34,20 @@ interface Props {
 
 export default function ScoreBox({ gameData }: Props) {
   return (
-    <div className="shadow-xl flex flex-col bg-white w-full p-2">
-      <div className="flex gap-3 w-full items-center">
-        <span className="text-sm">{getTimeDisplay(gameData)}</span>
-        <Linescores periods={periods} />
+    <div className="shadow-xl flex bg-white w-full max-w-[700px] py-3 px-2 gap-14">
+      <div className="flex flex-col w-full">
+        <div className="flex gap-3 w-full items-center">
+          <span className="text-sm">{getTimeDisplay(gameData)}</span>
+          <Linescores periods={periods} />
+        </div>
+        <TeamBox teamData={gameData.awayTeamData} />
+        <TeamBox teamData={gameData.homeTeamData} />
       </div>
-      <TeamBox teamData={gameData.awayTeamData} />
-      <TeamBox teamData={gameData.homeTeamData} />
+      <div className="flex flex-col gap-2">
+        {gameData.leaders.map((leader) => (
+          <Leader key={leader.shortDisplayName} leader={leader} />
+        ))}
+      </div>
     </div>
   );
 }

@@ -19,6 +19,14 @@ export interface TeamData {
   winner: boolean;
 }
 
+export interface LeaderData {
+  shortDisplayName: string;
+  displayValue: string;
+  shortName: string;
+  position: string;
+  headshot: string;
+}
+
 export interface NflScoreboardData {
   id: string;
   date: string;
@@ -28,6 +36,7 @@ export interface NflScoreboardData {
   clock: string;
   period: number;
   tv: string;
+  leaders: LeaderData[];
 }
 
 const formatNflScoreboardData = (data: any) => {
@@ -59,6 +68,15 @@ const formatNflScoreboardData = (data: any) => {
       clock: game.status.displayClock,
       period: game.status.period,
       tv: competetion?.broadcasts?.[0]?.names?.[0],
+      leaders: (competetion.leaders as any[]).map((leader) => {
+        return {
+          shortDisplayName: leader.shortDisplayName,
+          displayValue: leader.leaders[0].displayValue,
+          shortName: leader.leaders[0].athlete.shortName,
+          position: leader.leaders[0].athlete.position.abbreviation,
+          headshot: leader.leaders[0].athlete.headshot,
+        };
+      }),
     } as NflScoreboardData;
   });
 };

@@ -20,7 +20,7 @@ export default function page() {
   console.log(data);
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-8 items-center">
       {data.map((game) => (
         <ScoreBox key={game.id} gameData={game} />
       ))}
