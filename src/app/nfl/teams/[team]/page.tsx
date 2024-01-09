@@ -1,8 +1,7 @@
 "use client";
 
-import { useNflTeamBanner } from "@/data/queries";
-import React from "react";
 import TeamBanner from "./components/TeamBanner";
+import TeamSchedule from "./components/TeamSchedule";
 
 interface Props {
   params: { team: string };
@@ -10,13 +9,13 @@ interface Props {
 
 export default function page({ params }: Props) {
   const team = params.team;
-  const query = useNflTeamBanner(team);
-
-  console.log(query.data);
 
   return (
     <div>
       <TeamBanner team={team} />
+      <div className="flex gap-4 justify-center">
+        <TeamSchedule team={team} />
+      </div>
     </div>
   );
 }

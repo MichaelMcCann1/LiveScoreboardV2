@@ -17,6 +17,7 @@ export interface TeamData {
   score: string;
   linescores: number[];
   winner: boolean;
+  abbreviation: string;
 }
 
 export interface LeaderData {
@@ -52,6 +53,7 @@ const formatNflScoreboardData = (data: any) => {
         (score: { value: number }) => score.value
       ),
       winner: data.winner,
+      abbreviation: teamData.abbreviation,
     };
   };
 
@@ -121,5 +123,54 @@ export const useNflTeamBanner = (team: string) => {
       );
     },
     select: (data) => formatNflTeamBannerData(data),
+  });
+};
+
+export interface NflTeamScheduleData {
+  date: string;
+  tv: string;
+  logo: string;
+  homeAway: "home" | "away";
+  opponentNickname: string;
+  opponentAbbreviation: string;
+  winner: boolean;
+  selectedTeamScore: string;
+  opponentTeamScore: string;
+}
+
+const formatNflTeamSchedule = (data: any, team: string) => {
+  return (data.events as any[]).map((game) => {
+    const gameData = game.competitions[0];
+
+    const selectedTeamData = (gameData.competitors as any[]).find(
+      (competitor) => competitor.team.abbreviation === team
+    );
+    const opponentData = (gameData.competitors as any[]).find(
+      (competitor) => competitor.team.abbreviation !== team
+    );
+
+    return {
+      date: gameData.date,
+      tv: gameData.broadcasts[0].media.shortName,
+      logo: opponentData.team.logos[0].href,
+      homeAway: selectedTeamData.homeAway,
+      opponentNickname: opponentData.team.nickname,
+      opponentAbbreviation: opponentData.team.abbreviation,
+      winner: selectedTeamData.winner,
+      selectedTeamScore: selectedTeamData.score.displayValue,
+      opponentTeamScore: opponentData.score.displayValue,
+    } as NflTeamScheduleData;
+  });
+};
+
+export const useNflTeamSchedule = (team: string) => {
+  return useQuery({
+    queryKey: ["nflTeamSchedule", team],
+    queryFn: async () => {
+      return axiosHandler(
+        `https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/${team}/schedule?seasontype=2`
+      );
+    },
+    select: (data) => formatNflTeamSchedule(data, team),
   });
 };
