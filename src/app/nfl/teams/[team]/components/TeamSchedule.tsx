@@ -12,8 +12,6 @@ interface Props {
 export default function TeamSchedule({ team }: Props) {
   const { isLoading, isError, isSuccess, data } = useNflTeamSchedule(team);
 
-  console.log(data);
-
   if (isSuccess) {
     return (
       <div className="flex flex-col w-[300px] bg-white rounded-xl">

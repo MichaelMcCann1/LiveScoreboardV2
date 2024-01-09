@@ -174,3 +174,50 @@ export const useNflTeamSchedule = (team: string) => {
     select: (data) => formatNflTeamSchedule(data, team),
   });
 };
+
+interface NflStandingsData {
+  name: string;
+  standings: NflTeamStandingsData[];
+}
+
+interface NflTeamStandingsData {
+  abbreviation: string;
+  location: string;
+  wins: string;
+  losses: string;
+  ties: string;
+  pct: string;
+}
+
+const formatNflStandings = (data: any) => {
+  const divisions = [
+    ...data.content.standings.groups[0].groups,
+    ...data.content.standings.groups[1].groups,
+  ];
+
+  return divisions.map((division) => {
+    return {
+      name: division.name,
+      standings: (division.standings.entries as any[]).map((entry) => {
+        return {
+          abbreviation: entry.team.abbreviation,
+          location: entry.team.location,
+          wins: entry.stats[0].displayValue,
+          losses: entry.stats[1].displayValue,
+          ties: entry.stats[2].displayValue,
+          pct: entry.stats[3].displayValue,
+        } as NflTeamStandingsData;
+      }),
+    } as NflStandingsData;
+  });
+};
+
+export const useNflStandings = () => {
+  return useQuery({
+    queryKey: ["nflStandings"],
+    queryFn: async () => {
+      return axiosHandler(`https://cdn.espn.com/core/nfl/standings?xhr=1`);
+    },
+    select: (data) => formatNflStandings(data),
+  });
+};
