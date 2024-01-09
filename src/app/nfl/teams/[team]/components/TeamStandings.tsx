@@ -13,15 +13,15 @@ export default function TeamStandings({ team }: Props) {
   const { data, isSuccess } = useNflStandings();
 
   if (isSuccess) {
-    console.log(data);
     const division = data.find((division) =>
       division.standings.some((t) => t.abbreviation === team)
     );
 
-    console.log(division);
     return (
-      <div className="flex flex-col bg-white rounded-xl w-[300px] px-2">
-        <span className="py-4 px-2 font-semibold text-lg">{division?.name} Standings</span>
+      <div className="flex flex-col bg-white rounded-xl w-[400px] px-2">
+        <span className="py-4 px-2 font-semibold text-lg">
+          {division?.name} Standings
+        </span>
         <Divider />
         <Standing
           team={"Team"}

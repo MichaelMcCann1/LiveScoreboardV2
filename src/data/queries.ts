@@ -221,3 +221,30 @@ export const useNflStandings = () => {
     select: (data) => formatNflStandings(data),
   });
 };
+
+const formatNflTeamStatData = (data: any) => {
+  const passingYards = data.splits.categories[1].stats[22];
+  const rushingYards = data.splits.categories[2].stats[5];
+  const pointsPerGame = data.splits.categories[9].stats[9];
+  const sacks = data.splits.categories[4].stats[14];
+
+  return [passingYards, rushingYards, pointsPerGame, sacks].map((stat) => {
+    return {
+      stat: stat.displayName,
+      value: stat.displayValue,
+      rank: stat.rank,
+    };
+  });
+};
+
+export const useNflTeamStats = (team: string) => {
+  return useQuery({
+    queryKey: ["nflTeamStats", team],
+    queryFn: async () => {
+      return axiosHandler(
+        `https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2023/types/2/teams/${team}/statistics`
+      );
+    },
+    select: (data) => formatNflTeamStatData(data),
+  });
+};
