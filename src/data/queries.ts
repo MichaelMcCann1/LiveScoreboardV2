@@ -40,7 +40,6 @@ export interface NflScoreboardData {
 }
 
 const formatNflScoreboardData = (data: any) => {
-  console.log(data);
   const formatTeamData = (data: any): TeamData => {
     const teamData = data.team;
     return {
@@ -90,5 +89,37 @@ export const useNflScoreboard = () => {
       );
     },
     select: (data) => formatNflScoreboardData(data),
+  });
+};
+
+interface NflTeamBannerData {
+  location: string;
+  nickname: string;
+  standingSummary: string;
+  logo: string;
+  record: string;
+}
+
+const formatNflTeamBannerData = (data: any) => {
+  const teamData = data.team;
+
+  return {
+    location: teamData.location,
+    nickname: teamData.nickname,
+    standingSummary: teamData.standingSummary,
+    logo: teamData.logos[0].href,
+    record: teamData.record.items[0].summary,
+  } as NflTeamBannerData;
+};
+
+export const useNflTeamBanner = (team: string) => {
+  return useQuery({
+    queryKey: ["nflTeam"],
+    queryFn: async () => {
+      return axiosHandler(
+        `https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/${team}`
+      );
+    },
+    select: (data) => formatNflTeamBannerData(data),
   });
 };
