@@ -27,6 +27,7 @@ export interface LeaderData {
   shortName: string;
   position: string;
   headshot: string;
+  id: string;
 }
 
 export interface NflScoreboardData {
@@ -77,6 +78,7 @@ const formatNflScoreboardData = (data: any) => {
           shortName: leader.leaders[0].athlete.shortName,
           position: leader.leaders[0].athlete.position.abbreviation,
           headshot: leader.leaders[0].athlete.headshot,
+          id: leader.leaders[0].athlete.id,
         };
       }),
     } as NflScoreboardData;
@@ -262,6 +264,7 @@ interface NflTeamLeaderAthleteData {
   headshot: string;
   position: string;
   jersey: string;
+  id: string;
 }
 export type Categories = "Offense" | "Defense";
 
@@ -298,6 +301,7 @@ const formatNflLeaderData = (data: any) => {
     headshot: data.headshot.href,
     position: data.position.abbreviation,
     jersey: data.jersey,
+    id: data.id,
   } as NflTeamLeaderAthleteData;
 };
 
@@ -345,4 +349,87 @@ export const useNflTeamLeaders = (team: string) => {
   }, [teamLeaderData, leaderQueries]);
 
   return finalData as UseQueryResult<NflTeamLeaderData[], Error>;
+};
+
+interface NflPlayerData {
+  firstName: string;
+  lastName: string;
+  jersey: string;
+  position: string;
+  height: string;
+  weight: string;
+  draft: string;
+  headshot: string;
+  teamLink: string;
+  location: string;
+  nickname: string;
+  logo: string;
+  abbreviation: string;
+  age: number;
+  city: string;
+  state: string;
+}
+
+const formatNflPlayerData = (data: any) => {
+  console.log(data)
+  return {
+    firstName: data.firstName,
+    lastName: data.lastName,
+    jersey: data.jersey,
+    position: data.position.displayName,
+    height: data.displayHeight,
+    weight: data.displayWeight,
+    draft: data.draft.displayText,
+    headshot: data.headshot.href,
+    teamLink: data.team.$ref,
+    age: data.age,
+    city: data.birthPlace.city,
+    state: data.birthPlace.state,
+  };
+};
+
+const formatNflPlayerTeamData = (data: any) => {
+  return {
+    location: data.location,
+    nickname: data.nickname,
+    logo: data.logos[0].href,
+    abbreviation: data.abbreviation,
+  };
+};
+
+export const useNflPlayer = (playerID: string) => {
+  const playerInfoQuery = useQuery({
+    queryKey: ["nflPlayerInfo", playerID],
+    queryFn: async () => {
+      return axiosHandler(
+        `http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2023/athletes/${playerID}`
+      );
+    },
+    select: (data) => formatNflPlayerData(data),
+  });
+
+  const playerTeamQuery = useQuery({
+    queryKey: ["nflPlayerTeam"],
+    queryFn: async () => {
+      return axiosHandler(playerInfoQuery.data?.teamLink);
+    },
+    enabled: !!playerInfoQuery.data?.teamLink,
+    select: (data) => formatNflPlayerTeamData(data),
+  });
+
+  const returnQuery = useMemo(() => {
+    if (!playerTeamQuery.data) {
+      return { ...playerInfoQuery, isLoading: true };
+    }
+
+    return {
+      ...playerInfoQuery,
+      data: {
+        ...playerInfoQuery.data,
+        ...playerTeamQuery.data,
+      },
+    };
+  }, [playerTeamQuery.data, playerInfoQuery]);
+
+  return returnQuery as UseQueryResult<NflPlayerData, Error>;
 };

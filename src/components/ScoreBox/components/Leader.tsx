@@ -1,4 +1,5 @@
 import { LeaderData } from "@/data/queries";
+import Link from "next/link";
 import React from "react";
 
 interface Props {
@@ -7,7 +8,10 @@ interface Props {
 
 export default function Leader({ leader }: Props) {
   return (
-    <div className="flex gap-2 items-center text-xs text-gray-500 w-[250px]">
+    <Link
+      href={`/nfl/players/${leader.id}`}
+      className="flex gap-2 items-center text-xs text-gray-500 w-[250px]"
+    >
       <span className="w-[50px]">{leader.shortDisplayName}</span>
       <div className="h-9 w-9 border border-gray-300 rounded-full flex items-center justify-center overflow-hidden">
         <img
@@ -25,6 +29,6 @@ export default function Leader({ leader }: Props) {
         </div>
         <span>{leader.displayValue}</span>
       </div>
-    </div>
+    </Link>
   );
 }

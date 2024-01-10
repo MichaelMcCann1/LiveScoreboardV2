@@ -3,6 +3,7 @@
 import Divider from "@/components/Divider";
 import { Categories, useNflTeamLeaders } from "@/data/queries";
 import classNames from "classnames";
+import Link from "next/link";
 import React, { Fragment, useState } from "react";
 
 const categories = ["Offense", "Defense"] as Categories[];
@@ -42,7 +43,10 @@ export default function TeamLeaders({ team }: Props) {
       <Divider />
       {leadersData?.map((leader, index) => (
         <Fragment key={leader.displayName}>
-          <div className="flex flex-col py-3 px-1 gap-1">
+          <Link
+            href={`/nfl/players/${leader.athlete.id}`}
+            className="flex flex-col py-3 px-1 gap-1"
+          >
             <span className="text-sm">{leader.displayName}</span>
             <div className="flex gap-4">
               <div className="h-16 w-16 border border-gray-300 rounded-full flex items-center justify-center overflow-hidden">
@@ -65,7 +69,7 @@ export default function TeamLeaders({ team }: Props) {
                 </span>
               </div>
             </div>
-          </div>
+          </Link>
           {index !== leadersData.length - 1 && <Divider />}
         </Fragment>
       ))}
