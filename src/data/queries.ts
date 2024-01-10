@@ -1,6 +1,7 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
+import { UseQueryResult, useQueries, useQuery } from "@tanstack/react-query";
+import { useMemo } from "react";
 import axios from "axios";
 
 const axiosHandler = (url: string) => {
@@ -247,4 +248,101 @@ export const useNflTeamStats = (team: string) => {
     },
     select: (data) => formatNflTeamStatData(data),
   });
+};
+
+interface NflTeamLeaderData {
+  displayName: string;
+  value: string;
+  athlete: NflTeamLeaderAthleteData;
+  category: Categories;
+}
+
+interface NflTeamLeaderAthleteData {
+  fullName: string;
+  headshot: string;
+  position: string;
+  jersey: string;
+}
+export type Categories = "Offense" | "Defense";
+
+const formatNflTeamLeaderLinks = (data: any) => {
+  const formatData = (data: any, category: Categories) => {
+    return {
+      displayName: data.displayName,
+      value: data.leaders[0].value,
+      athlete: data.leaders[0].athlete.$ref,
+      category,
+    };
+  };
+
+  const passsingData = data.categories[3];
+  const rushingData = data.categories[4];
+  const receivingData = data.categories[5];
+  const tacklesData = data.categories[6];
+  const sacksData = data.categories[7];
+  const interceptionsData = data.categories[8];
+
+  const offenseData = [passsingData, rushingData, receivingData].map((data) =>
+    formatData(data, "Offense")
+  );
+  const defenseData = [tacklesData, sacksData, interceptionsData].map((data) =>
+    formatData(data, "Defense")
+  );
+
+  return [...offenseData, ...defenseData];
+};
+
+const formatNflLeaderData = (data: any) => {
+  return {
+    fullName: data.fullName,
+    headshot: data.headshot.href,
+    position: data.position.abbreviation,
+    jersey: data.jersey,
+  } as NflTeamLeaderAthleteData;
+};
+
+export const useNflTeamLeaders = (team: string) => {
+  const teamLeaderData = useQuery({
+    queryKey: ["nflTeamLeader"],
+    queryFn: async () => {
+      return axiosHandler(
+        `https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2023/types/2/teams/${team}/leaders`
+      );
+    },
+    select: (data) => formatNflTeamLeaderLinks(data),
+  });
+
+  const leaderQueries = useQueries({
+    queries:
+      teamLeaderData.data?.map((leader) => {
+        return {
+          queryKey: ["leaderData", leader.athlete],
+          queryFn: async () => {
+            return axiosHandler(leader.athlete);
+          },
+          select: (data: any) => formatNflLeaderData(data),
+          enabled: !!leader.athlete,
+        };
+      }) || [],
+  });
+
+  const finalData = useMemo(() => {
+    if (leaderQueries.every((query) => query.data)) {
+      const newData = teamLeaderData.data?.map((leader, index) => {
+        return {
+          ...leader,
+          athlete: leaderQueries[index].data,
+        };
+      });
+
+      return {
+        ...teamLeaderData,
+        data: newData,
+      };
+    }
+
+    return { ...teamLeaderData, isLoading: true };
+  }, [teamLeaderData, leaderQueries]);
+
+  return finalData as UseQueryResult<NflTeamLeaderData[], Error>;
 };
