@@ -27,6 +27,7 @@ export interface LeaderData {
   shortName: string;
   position: string;
   headshot: string;
+  id: string;
 }
 
 export interface NflScoreboardData {
@@ -77,6 +78,7 @@ const formatNflScoreboardData = (data: any) => {
           shortName: leader.leaders[0].athlete.shortName,
           position: leader.leaders[0].athlete.position.abbreviation,
           headshot: leader.leaders[0].athlete.headshot,
+          id: leader.leaders[0].athlete.id,
         };
       }),
     } as NflScoreboardData;
@@ -262,6 +264,7 @@ interface NflTeamLeaderAthleteData {
   headshot: string;
   position: string;
   jersey: string;
+  id: string;
 }
 export type Categories = "Offense" | "Defense";
 
@@ -298,6 +301,7 @@ const formatNflLeaderData = (data: any) => {
     headshot: data.headshot.href,
     position: data.position.abbreviation,
     jersey: data.jersey,
+    id: data.id,
   } as NflTeamLeaderAthleteData;
 };
 
@@ -345,4 +349,16 @@ export const useNflTeamLeaders = (team: string) => {
   }, [teamLeaderData, leaderQueries]);
 
   return finalData as UseQueryResult<NflTeamLeaderData[], Error>;
+};
+
+export const useNflPlayer = (playerID: string) => {
+  return useQuery({
+    queryKey: ["nflPlayer", playerID],
+    queryFn: async () => {
+      return axiosHandler(
+        `https://site.web.api.espn.com/apis/common/v3/sports/football/nfl/athletes/${playerID}/overview`
+      );
+    },
+    select: (data) => data,
+  });
 };

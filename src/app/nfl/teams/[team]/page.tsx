@@ -18,7 +18,7 @@ export default function page({ params }: Props) {
       <TeamBanner team={team} />
       <div className="flex gap-4 justify-center items-start">
         <TeamSchedule team={team} />
-        <TeamLeaders team={team}/>
+        <TeamLeaders team={team} />
         <div className="flex flex-col gap-4">
           <TeamStandings team={team} />
           <TeamStats team={team} />
