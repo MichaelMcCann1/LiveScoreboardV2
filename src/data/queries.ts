@@ -1,6 +1,7 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
+import { UseQueryResult, useQueries, useQuery } from "@tanstack/react-query";
+import { useMemo } from "react";
 import axios from "axios";
 
 const axiosHandler = (url: string) => {
@@ -17,6 +18,7 @@ export interface TeamData {
   score: string;
   linescores: number[];
   winner: boolean;
+  abbreviation: string;
 }
 
 export interface LeaderData {
@@ -52,6 +54,7 @@ const formatNflScoreboardData = (data: any) => {
         (score: { value: number }) => score.value
       ),
       winner: data.winner,
+      abbreviation: teamData.abbreviation,
     };
   };
 
@@ -122,4 +125,224 @@ export const useNflTeamBanner = (team: string) => {
     },
     select: (data) => formatNflTeamBannerData(data),
   });
+};
+
+export interface NflTeamScheduleData {
+  date: string;
+  tv: string;
+  logo: string;
+  homeAway: "home" | "away";
+  opponentNickname: string;
+  opponentAbbreviation: string;
+  winner: boolean;
+  selectedTeamScore: string;
+  opponentTeamScore: string;
+}
+
+const formatNflTeamSchedule = (data: any, team: string) => {
+  return (data.events as any[]).map((game) => {
+    const gameData = game.competitions[0];
+
+    const selectedTeamData = (gameData.competitors as any[]).find(
+      (competitor) => competitor.team.abbreviation === team
+    );
+    const opponentData = (gameData.competitors as any[]).find(
+      (competitor) => competitor.team.abbreviation !== team
+    );
+
+    return {
+      date: gameData.date,
+      tv: gameData.broadcasts[0].media.shortName,
+      logo: opponentData.team.logos[0].href,
+      homeAway: selectedTeamData.homeAway,
+      opponentNickname: opponentData.team.nickname,
+      opponentAbbreviation: opponentData.team.abbreviation,
+      winner: selectedTeamData.winner,
+      selectedTeamScore: selectedTeamData.score.displayValue,
+      opponentTeamScore: opponentData.score.displayValue,
+    } as NflTeamScheduleData;
+  });
+};
+
+export const useNflTeamSchedule = (team: string) => {
+  return useQuery({
+    queryKey: ["nflTeamSchedule", team],
+    queryFn: async () => {
+      return axiosHandler(
+        `https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/${team}/schedule?seasontype=2`
+      );
+    },
+    select: (data) => formatNflTeamSchedule(data, team),
+  });
+};
+
+interface NflStandingsData {
+  name: string;
+  standings: NflTeamStandingsData[];
+}
+
+interface NflTeamStandingsData {
+  abbreviation: string;
+  location: string;
+  wins: string;
+  losses: string;
+  ties: string;
+  pct: string;
+}
+
+const formatNflStandings = (data: any) => {
+  const divisions = [
+    ...data.content.standings.groups[0].groups,
+    ...data.content.standings.groups[1].groups,
+  ];
+
+  return divisions.map((division) => {
+    return {
+      name: division.name,
+      standings: (division.standings.entries as any[]).map((entry) => {
+        return {
+          abbreviation: entry.team.abbreviation,
+          location: entry.team.location,
+          wins: entry.stats[0].displayValue,
+          losses: entry.stats[1].displayValue,
+          ties: entry.stats[2].displayValue,
+          pct: entry.stats[3].displayValue,
+        } as NflTeamStandingsData;
+      }),
+    } as NflStandingsData;
+  });
+};
+
+export const useNflStandings = () => {
+  return useQuery({
+    queryKey: ["nflStandings"],
+    queryFn: async () => {
+      return axiosHandler(`https://cdn.espn.com/core/nfl/standings?xhr=1`);
+    },
+    select: (data) => formatNflStandings(data),
+  });
+};
+
+const formatNflTeamStatData = (data: any) => {
+  const passingYards = data.splits.categories[1].stats[22];
+  const rushingYards = data.splits.categories[2].stats[5];
+  const pointsPerGame = data.splits.categories[9].stats[9];
+  const sacks = data.splits.categories[4].stats[14];
+
+  return [passingYards, rushingYards, pointsPerGame, sacks].map((stat) => {
+    return {
+      stat: stat.displayName,
+      value: stat.displayValue,
+      rank: stat.rank,
+    };
+  });
+};
+
+export const useNflTeamStats = (team: string) => {
+  return useQuery({
+    queryKey: ["nflTeamStats", team],
+    queryFn: async () => {
+      return axiosHandler(
+        `https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2023/types/2/teams/${team}/statistics`
+      );
+    },
+    select: (data) => formatNflTeamStatData(data),
+  });
+};
+
+interface NflTeamLeaderData {
+  displayName: string;
+  value: string;
+  athlete: NflTeamLeaderAthleteData;
+  category: Categories;
+}
+
+interface NflTeamLeaderAthleteData {
+  fullName: string;
+  headshot: string;
+  position: string;
+  jersey: string;
+}
+export type Categories = "Offense" | "Defense";
+
+const formatNflTeamLeaderLinks = (data: any) => {
+  const formatData = (data: any, category: Categories) => {
+    return {
+      displayName: data.displayName,
+      value: data.leaders[0].value,
+      athlete: data.leaders[0].athlete.$ref,
+      category,
+    };
+  };
+
+  const passsingData = data.categories[3];
+  const rushingData = data.categories[4];
+  const receivingData = data.categories[5];
+  const tacklesData = data.categories[6];
+  const sacksData = data.categories[7];
+  const interceptionsData = data.categories[8];
+
+  const offenseData = [passsingData, rushingData, receivingData].map((data) =>
+    formatData(data, "Offense")
+  );
+  const defenseData = [tacklesData, sacksData, interceptionsData].map((data) =>
+    formatData(data, "Defense")
+  );
+
+  return [...offenseData, ...defenseData];
+};
+
+const formatNflLeaderData = (data: any) => {
+  return {
+    fullName: data.fullName,
+    headshot: data.headshot.href,
+    position: data.position.abbreviation,
+    jersey: data.jersey,
+  } as NflTeamLeaderAthleteData;
+};
+
+export const useNflTeamLeaders = (team: string) => {
+  const teamLeaderData = useQuery({
+    queryKey: ["nflTeamLeader"],
+    queryFn: async () => {
+      return axiosHandler(
+        `https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2023/types/2/teams/${team}/leaders`
+      );
+    },
+    select: (data) => formatNflTeamLeaderLinks(data),
+  });
+
+  const leaderQueries = useQueries({
+    queries:
+      teamLeaderData.data?.map((leader) => {
+        return {
+          queryKey: ["leaderData", leader.athlete],
+          queryFn: async () => {
+            return axiosHandler(leader.athlete);
+          },
+          select: (data: any) => formatNflLeaderData(data),
+          enabled: !!leader.athlete,
+        };
+      }) || [],
+  });
+
+  const finalData = useMemo(() => {
+    if (leaderQueries.every((query) => query.data)) {
+      const newData = teamLeaderData.data?.map((leader, index) => {
+        return {
+          ...leader,
+          athlete: leaderQueries[index].data,
+        };
+      });
+
+      return {
+        ...teamLeaderData,
+        data: newData,
+      };
+    }
+
+    return { ...teamLeaderData, isLoading: true };
+  }, [teamLeaderData, leaderQueries]);
+
+  return finalData as UseQueryResult<NflTeamLeaderData[], Error>;
 };

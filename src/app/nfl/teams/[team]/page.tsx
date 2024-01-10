@@ -1,8 +1,10 @@
 "use client";
 
-import { useNflTeamBanner } from "@/data/queries";
-import React from "react";
 import TeamBanner from "./components/TeamBanner";
+import TeamLeaders from "./components/TeamLeaders";
+import TeamSchedule from "./components/TeamSchedule";
+import TeamStandings from "./components/TeamStandings";
+import TeamStats from "./components/TeamStats";
 
 interface Props {
   params: { team: string };
@@ -10,13 +12,18 @@ interface Props {
 
 export default function page({ params }: Props) {
   const team = params.team;
-  const query = useNflTeamBanner(team);
-
-  console.log(query.data);
 
   return (
     <div>
       <TeamBanner team={team} />
+      <div className="flex gap-4 justify-center items-start">
+        <TeamSchedule team={team} />
+        <TeamLeaders team={team}/>
+        <div className="flex flex-col gap-4">
+          <TeamStandings team={team} />
+          <TeamStats team={team} />
+        </div>
+      </div>
     </div>
   );
 }
