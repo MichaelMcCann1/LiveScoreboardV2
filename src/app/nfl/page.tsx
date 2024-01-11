@@ -1,5 +1,6 @@
 import Divider from "@/components/Divider";
 import ScoreBox from "@/components/ScoreBox/ScoreBox";
+import WidgetWrapper from "@/components/WidgetWrapper";
 import { getNflScoreboardData } from "@/lib/nflAPI";
 import { groupBy } from "lodash";
 import { DateTime } from "luxon";
@@ -19,21 +20,18 @@ export default async function page() {
         const gameGroupDateTime = DateTime.fromISO(gameGroup[0].date);
 
         return (
-          <div
+          <WidgetWrapper
             key={gameGroupDateTime.weekdayShort}
-            className="w-full max-w-[800px] px-4 bg-white shadow-xl rounded-lg flex flex-col"
+            title={gameGroupDateTime.toFormat("ccc, LLL d")}
+            bottomPadding={false}
           >
-            <span className="py-3 font-semibold">
-              {gameGroupDateTime.toFormat("ccc, LLL d")}
-            </span>
-            <Divider />
             {gameGroup.map((game, index) => (
               <Fragment key={game.id}>
                 <ScoreBox gameData={game} />
                 {index !== gameGroup.length - 1 && <Divider />}
               </Fragment>
             ))}
-          </div>
+          </WidgetWrapper>
         );
       })}
     </div>

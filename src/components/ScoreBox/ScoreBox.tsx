@@ -1,9 +1,9 @@
-import { NflScoreboardData } from "@/data/queries";
 import { DateTime } from "luxon";
 import React from "react";
 import TeamBox from "./components/TeamBox";
 import Linescores from "./components/Linescores";
 import Leader from "./components/Leader";
+import { NflScoreboardData } from "@/lib/types";
 
 const periods = [1, 2, 3, 4];
 

@@ -2,6 +2,7 @@ import Divider from "@/components/Divider";
 import React from "react";
 import Standing from "./Standing";
 import { getNflStandings } from "@/lib/nflAPI";
+import WidgetWrapper from "@/components/WidgetWrapper";
 
 interface Props {
   team: string;
@@ -15,11 +16,7 @@ export default async function TeamStandings({ team }: Props) {
   );
 
   return (
-    <div className="flex flex-col bg-white rounded-xl w-[400px] px-2">
-      <span className="py-4 px-2 font-semibold text-lg">
-        {division?.name} Standings
-      </span>
-      <Divider />
+    <WidgetWrapper title={`${division?.name} Standings`} maxWidth={300}>
       <Standing
         team={"Team"}
         wins={"W"}
@@ -41,6 +38,6 @@ export default async function TeamStandings({ team }: Props) {
           bold={t.abbreviation === team}
         />
       ))}
-    </div>
+    </WidgetWrapper>
   );
 }

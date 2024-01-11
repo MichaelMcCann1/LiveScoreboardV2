@@ -1,4 +1,4 @@
-import Divider from "@/components/Divider";
+import WidgetWrapper from "@/components/WidgetWrapper";
 import { getNflTeamStats } from "@/lib/nflAPI";
 import React from "react";
 
@@ -7,12 +7,10 @@ interface Props {
 }
 
 export default async function TeamStats({ team }: Props) {
-  const data = await getNflTeamStats(team)
+  const data = await getNflTeamStats(team);
 
   return (
-    <div className="flex flex-col bg-white rounded-xl w-[400px] px-2 pb-4">
-      <span className="py-4 px-2 font-semibold text-lg">Team Stats</span>
-      <Divider />
+    <WidgetWrapper title="Team Stats" maxWidth={300}>
       <div className="grid grid-cols-2 gap-4 pt-2">
         {data?.map((stat) => (
           <div key={stat.stat} className="flex flex-col items-center border">
@@ -24,6 +22,6 @@ export default async function TeamStats({ team }: Props) {
           </div>
         ))}
       </div>
-    </div>
+    </WidgetWrapper>
   );
 }
