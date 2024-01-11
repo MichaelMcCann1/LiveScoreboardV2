@@ -2,7 +2,7 @@ import Divider from "@/components/Divider";
 import ScoreBox from "@/components/ScoreBox/ScoreBox";
 import WidgetWrapper from "@/components/WidgetWrapper";
 import { NflScoreboardData } from "@/lib/types";
-import { groupBy } from "lodash";
+import { groupBy, isEmpty } from "lodash";
 import { DateTime } from "luxon";
 import React, { Fragment } from "react";
 
@@ -15,6 +15,10 @@ export default function ScoreboardContent({ data }: Props) {
     data,
     (e) => DateTime.fromISO(e.date).weekdayShort
   );
+
+  if (isEmpty(data)) {
+    return <h3 className="text-2xl">No Games Scheduled</h3>;
+  }
 
   return (
     <>
