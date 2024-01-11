@@ -1,9 +1,9 @@
-import { NflScoreboardData } from "@/data/queries";
 import { DateTime } from "luxon";
 import React from "react";
 import TeamBox from "./components/TeamBox";
 import Linescores from "./components/Linescores";
 import Leader from "./components/Leader";
+import { NflScoreboardData } from "@/lib/types";
 
 const periods = [1, 2, 3, 4];
 
@@ -23,8 +23,9 @@ const getTimeDisplay = (gameData: NflScoreboardData) => {
     }`;
   }
   if (gameData.status === "Scheduled") {
-    return `${DateTime.fromISO(gameData.date).weekdayShort} 
-    ${DateTime.fromISO(gameData.date).toFormat("h:mma")} - ${gameData.tv}`;
+    return `${DateTime.fromISO(gameData.date).toFormat("h:mma")} - ${
+      gameData.tv
+    }`;
   }
 };
 
@@ -40,13 +41,13 @@ export default function ScoreBox({ gameData }: Props) {
           <span className="text-sm font-semibold">
             {getTimeDisplay(gameData)}
           </span>
-          <Linescores periods={periods} />
+          {gameData.status !== "Scheduled" && <Linescores periods={periods} />}
         </div>
-        <TeamBox teamData={gameData.awayTeamData} />
-        <TeamBox teamData={gameData.homeTeamData} />
+        <TeamBox teamData={gameData.awayTeamData} oddsType={'Spread'} odds={gameData.spread} />
+        <TeamBox teamData={gameData.homeTeamData} oddsType={'Total'} odds={gameData.overUnder} />
       </div>
       <div className="flex flex-col gap-2">
-        {gameData.leaders.map((leader) => (
+        {gameData?.leaders?.map((leader) => (
           <Leader key={leader.shortDisplayName} leader={leader} />
         ))}
       </div>

@@ -1,4 +1,5 @@
-import { LeaderData } from "@/data/queries";
+import PlayerHeadshot from "@/components/PlayerHeadshot";
+import { LeaderData } from "@/lib/types";
 import Link from "next/link";
 import React from "react";
 
@@ -13,13 +14,7 @@ export default function Leader({ leader }: Props) {
       className="flex gap-2 items-center text-xs text-gray-500 w-[250px]"
     >
       <span className="w-[50px]">{leader.shortDisplayName}</span>
-      <div className="h-9 w-9 border border-gray-300 rounded-full flex items-center justify-center overflow-hidden">
-        <img
-          className="w-[50px] max-w-none h-auto"
-          src={leader.headshot}
-          alt={leader.shortDisplayName}
-        />
-      </div>
+      <PlayerHeadshot src={leader.headshot} size={36} name={leader.shortName} />
       <div className="flex flex-col whitespace-nowrap">
         <div className="flex gap-1">
           <span className="font-semibold text-gray-800">
