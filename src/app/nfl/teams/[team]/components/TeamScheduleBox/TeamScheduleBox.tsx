@@ -1,5 +1,4 @@
 import { NflTeamScheduleData } from "@/lib/types";
-import classNames from "classnames";
 import Link from "next/link";
 import React from "react";
 import Results from "./components/Results";
@@ -16,7 +15,11 @@ export default function TeamScheduleBox({ gameData }: Props) {
       href={`/nfl/teams/${gameData.opponentAbbreviation}`}
     >
       <div className="flex items-center relative">
-        <img src={gameData.logo} className="h-[36px]" />
+        <img
+          src={gameData.logo}
+          className="h-[36px]"
+          alt={`${gameData.opponentNickname} logo`}
+        />
         <span className="text-xs px-2">
           {gameData.homeAway === "home" ? "vs" : "@"}
         </span>

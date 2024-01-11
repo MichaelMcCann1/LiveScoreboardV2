@@ -20,7 +20,7 @@ export default async function TeamSchedule({ team }: Props) {
   if (!isEmpty(postSeasonData)) {
     data.unshift({ title: "PostSeason", scheduleData: postSeasonData });
   }
-
+  
   return (
     <WidgetWrapper title="2023 Schedule" maxWidth={300}>
       {data.map((season) => (

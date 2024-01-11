@@ -23,11 +23,16 @@ export default async function page({ params }: Props) {
       <div className="flex gap-6 items-center">
         <div className="h-[220px] relative">
           <div className="h-full overflow-hidden absolute left-1/2 -translate-x-1/2">
-            <img className="h-[250px] max-w-none opacity-30" src={data?.logo} />
+            <img
+              className="h-[250px] max-w-none opacity-30"
+              src={data?.logo}
+              alt={`${data.location} logo`}
+            />
           </div>
           <img
             className="h-full max-w-none relative z-10"
             src={data?.headshot}
+            alt={`${data?.firstName} ${data?.lastName}`}
           />
         </div>
         <div className="flex flex-col">

@@ -47,7 +47,11 @@ export default function TeamLeadersContent({ data }: Props) {
           >
             <span className="text-sm">{leader.displayName}</span>
             <div className="flex gap-4">
-              <PlayerHeadshot src={leader.athlete.headshot} size={64} />
+              <PlayerHeadshot
+                src={leader.athlete.headshot}
+                size={64}
+                name={leader.athlete.fullName}
+              />
               <div className="flex flex-col gap-1">
                 <div>
                   <span className="font-medium pr-1">

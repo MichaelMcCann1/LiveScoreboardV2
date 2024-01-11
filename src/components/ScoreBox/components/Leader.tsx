@@ -14,7 +14,7 @@ export default function Leader({ leader }: Props) {
       className="flex gap-2 items-center text-xs text-gray-500 w-[250px]"
     >
       <span className="w-[50px]">{leader.shortDisplayName}</span>
-      <PlayerHeadshot src={leader.headshot} size={36} />
+      <PlayerHeadshot src={leader.headshot} size={36} name={leader.shortName} />
       <div className="flex flex-col whitespace-nowrap">
         <div className="flex gap-1">
           <span className="font-semibold text-gray-800">
