@@ -45,9 +45,9 @@ export interface NflTeamScheduleData {
   homeAway: "home" | "away";
   opponentNickname: string;
   opponentAbbreviation: string;
-  winner: boolean;
-  selectedTeamScore: string;
-  opponentTeamScore: string;
+  winner?: boolean;
+  selectedTeamScore?: string;
+  opponentTeamScore?: string;
 }
 
 export interface NflStandingsData {

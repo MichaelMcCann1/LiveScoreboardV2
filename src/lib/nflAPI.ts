@@ -101,12 +101,7 @@ export const getNflTeamBannerData = async (team: string) => {
   } as NflTeamBannerData;
 };
 
-export const getNflTeamSchedule = async (team: string) => {
-  const reponse = await fetch(
-    `https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/${team}/schedule?seasontype=2`
-  );
-  const data = await reponse.json();
-
+const formatScheduleData = (data: any, team: string) => {
   return (data.events as any[]).map((game) => {
     const gameData = game.competitions[0];
 
@@ -129,6 +124,22 @@ export const getNflTeamSchedule = async (team: string) => {
       opponentTeamScore: opponentData.score.displayValue,
     } as NflTeamScheduleData;
   });
+};
+
+export const getNflTeamScheduleRegular = async (team: string) => {
+  const reponse = await fetch(
+    `https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/${team}/schedule?seasontype=2`
+  );
+  const data = await reponse.json();
+  return formatScheduleData(data, team);
+};
+
+export const getNflTeamSchedulePostSeason = async (team: string) => {
+  const reponse = await fetch(
+    `https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/${team}/schedule?seasontype=3`
+  );
+  const data = await reponse.json();
+  return formatScheduleData(data, team);
 };
 
 export const getNflStandings = async () => {
