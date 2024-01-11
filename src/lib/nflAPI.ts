@@ -14,20 +14,25 @@ import {
 const formatTeamData = (data: any): TeamData => {
   const teamData = data.team;
   return {
-    logo: teamData.logo,
-    location: teamData.location,
-    name: teamData.name,
-    record: data.records[0].summary,
-    score: data.score,
-    linescores: data.linescores.map((score: { value: number }) => score.value),
-    winner: data.winner,
-    abbreviation: teamData.abbreviation,
+    logo: teamData?.logo,
+    location: teamData?.location,
+    name: teamData?.name,
+    record: data?.records?.[0]?.summary,
+    score: data?.score,
+    linescores: data?.linescores?.map(
+      (score: { value: number }) => score?.value
+    ),
+    winner: data?.winner,
+    abbreviation: teamData?.abbreviation,
   };
 };
 
-export const getNflScoreboardData = async () => {
+export const getNflScoreboardData = async (week: string) => {
+  const numberWeek = Number(week);
   const reponse = await fetch(
-    `https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard`
+    `https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?seasontype=${
+      numberWeek > 18 ? 3 : 2
+    }&week=${numberWeek > 18 ? numberWeek - 18 : numberWeek}`
   );
   const data = await reponse.json();
 
@@ -35,22 +40,24 @@ export const getNflScoreboardData = async () => {
     const competetion = game.competitions[0];
 
     return {
-      id: competetion.id,
-      date: competetion.date,
-      awayTeamData: formatTeamData(competetion.competitors[1]),
-      homeTeamData: formatTeamData(competetion.competitors[0]),
-      status: game.status.type.description,
-      clock: game.status.displayClock,
-      period: game.status.period,
+      id: competetion?.id,
+      date: competetion?.date,
+      awayTeamData: formatTeamData(competetion?.competitors?.[1]),
+      homeTeamData: formatTeamData(competetion?.competitors?.[0]),
+      status: game?.status?.type?.description,
+      clock: game?.status?.displayClock,
+      period: game?.status?.period,
       tv: competetion?.broadcasts?.[0]?.names?.[0],
-      leaders: (competetion.leaders as any[]).map((leader) => {
+      spread: competetion?.odds?.[0]?.details,
+      overUnder: competetion?.odds?.[0]?.overUnder,
+      leaders: (competetion?.leaders as any[])?.map((leader) => {
         return {
-          shortDisplayName: leader.shortDisplayName,
-          displayValue: leader.leaders[0].displayValue,
-          shortName: leader.leaders[0].athlete.shortName,
-          position: leader.leaders[0].athlete.position.abbreviation,
-          headshot: leader.leaders[0].athlete.headshot,
-          id: leader.leaders[0].athlete.id,
+          shortDisplayName: leader?.shortDisplayName,
+          displayValue: leader?.leaders?.[0]?.displayValue,
+          shortName: leader?.leaders?.[0]?.athlete?.shortName,
+          position: leader?.leaders?.[0]?.athlete?.position?.abbreviation,
+          headshot: leader?.leaders?.[0]?.athlete?.headshot,
+          id: leader?.leaders?.[0]?.athlete?.id,
         };
       }),
     } as NflScoreboardData;
@@ -113,15 +120,15 @@ const formatScheduleData = (data: any, team: string) => {
     );
 
     return {
-      date: gameData.date,
-      tv: gameData.broadcasts[0].media.shortName,
-      logo: opponentData.team.logos[0].href,
-      homeAway: selectedTeamData.homeAway,
-      opponentNickname: opponentData.team.nickname,
-      opponentAbbreviation: opponentData.team.abbreviation,
-      winner: selectedTeamData.winner,
-      selectedTeamScore: selectedTeamData.score.displayValue,
-      opponentTeamScore: opponentData.score.displayValue,
+      date: gameData?.date,
+      tv: gameData?.broadcasts?.[0]?.media?.shortName,
+      logo: opponentData?.team?.logos?.[0]?.href,
+      homeAway: selectedTeamData?.homeAway,
+      opponentNickname: opponentData?.team?.nickname,
+      opponentAbbreviation: opponentData?.team?.abbreviation,
+      winner: selectedTeamData?.winner,
+      selectedTeamScore: selectedTeamData?.score?.displayValue,
+      opponentTeamScore: opponentData?.score?.displayValue,
     } as NflTeamScheduleData;
   });
 };
@@ -235,4 +242,12 @@ export const getNflTeamLeaderData = async (team: string) => {
       };
     })
   )) as NflTeamLeaderData[];
+};
+
+export const getNflWeek = async () => {
+  const reponse = await fetch(
+    `https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard`
+  );
+  const data = await reponse.json();
+  return data?.week?.number as number;
 };

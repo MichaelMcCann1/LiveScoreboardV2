@@ -28,6 +28,8 @@ export interface NflScoreboardData {
   period: number;
   tv: string;
   leaders: LeaderData[];
+  spread: string;
+  overUnder: string;
 }
 
 export interface NflTeamBannerData {

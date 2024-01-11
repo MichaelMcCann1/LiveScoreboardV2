@@ -1,5 +1,3 @@
-"use client";
-
 import TeamBanner from "./components/TeamBanner";
 import TeamLeaders from "./components/TeamLeaders";
 import TeamSchedule from "./components/TeamSchedule";

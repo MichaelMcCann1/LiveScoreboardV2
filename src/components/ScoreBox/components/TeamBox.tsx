@@ -1,14 +1,16 @@
-import { TeamData } from "@/data/queries";
 import React from "react";
 import Linescores from "./Linescores";
 import classNames from "classnames";
 import Link from "next/link";
+import { TeamData } from "@/lib/types";
 
 interface Props {
   teamData: TeamData;
+  odds?: string;
+  oddsType: string;
 }
 
-export default function TeamBox({ teamData }: Props) {
+export default function TeamBox({ teamData, odds, oddsType }: Props) {
   return (
     <div className={"flex h-14 py-2 items-center gap-2"}>
       <Link
@@ -23,7 +25,7 @@ export default function TeamBox({ teamData }: Props) {
         <div
           className={classNames(
             "flex flex-col",
-            !teamData.winner && "opacity-60"
+            teamData.winner === false && "opacity-60"
           )}
         >
           <span className="text-xs leading-3">{teamData.location}</span>
@@ -35,11 +37,18 @@ export default function TeamBox({ teamData }: Props) {
           </span>
         </div>
       </Link>
-      <Linescores
-        periods={teamData.linescores}
-        total={teamData.score}
-        losingTeam={!teamData.winner}
-      />
+      {odds !== undefined ? (
+        <div className="flex gap-2 flex-1 justify-center items-center">
+          <span className="font-medium text-xs text-gray-500">{oddsType}:</span>
+          <span className="text-sm font-semibold">{odds}</span>
+        </div>
+      ) : (
+        <Linescores
+          periods={teamData.linescores}
+          total={teamData.score}
+          losingTeam={!teamData.winner}
+        />
+      )}
     </div>
   );
 }

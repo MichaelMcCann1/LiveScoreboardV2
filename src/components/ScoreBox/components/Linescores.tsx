@@ -16,7 +16,7 @@ export default function Linescores({ periods, total, losingTeam }: Props) {
         losingTeam && "opacity-60"
       )}
     >
-      {periods.map((period, index) => (
+      {periods?.map((period, index) => (
         <span className="w-5 text-center" key={`${period} ${index}`}>
           {period}
         </span>
