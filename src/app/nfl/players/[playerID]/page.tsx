@@ -1,6 +1,4 @@
-"use client";
-
-import { useNflPlayer } from "@/data/queries";
+import { getNflPlayerPageData } from "@/lib/nflAPI";
 import Link from "next/link";
 import React from "react";
 
@@ -8,11 +6,9 @@ interface Props {
   params: { playerID: string };
 }
 
-export default function page({ params }: Props) {
+export default async function page({ params }: Props) {
   const playerID = params.playerID;
-  const { data } = useNflPlayer(playerID);
-
-  console.log(data);
+  const data = await getNflPlayerPageData(playerID);
 
   const stats = [
     { label: "Height", value: data?.height },

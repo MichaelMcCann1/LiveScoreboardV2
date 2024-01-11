@@ -1,24 +1,12 @@
-"use client";
-
 import Divider from "@/components/Divider";
-import ErrorState from "@/components/ErrorState";
-import LoadingSpinner from "@/components/LoadingSpinner";
 import ScoreBox from "@/components/ScoreBox/ScoreBox";
-import { useNflScoreboard } from "@/data/queries";
+import { getNflScoreboardData } from "@/lib/nflAPI";
 import { groupBy } from "lodash";
 import { DateTime } from "luxon";
 import React, { Fragment } from "react";
 
-export default function page() {
-  const { data, isError, isLoading, isSuccess } = useNflScoreboard();
-
-  if (isLoading) {
-    return <LoadingSpinner />;
-  }
-
-  if (isError || !isSuccess) {
-    return <ErrorState />;
-  }
+export default async function page() {
+  const data = await getNflScoreboardData();
 
   const groupedData = groupBy(
     data,

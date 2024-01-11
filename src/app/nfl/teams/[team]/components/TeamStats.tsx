@@ -1,13 +1,13 @@
 import Divider from "@/components/Divider";
-import { useNflTeamStats } from "@/data/queries";
+import { getNflTeamStats } from "@/lib/nflAPI";
 import React from "react";
 
 interface Props {
   team: string;
 }
 
-export default function TeamStats({ team }: Props) {
-  const { data } = useNflTeamStats(team);
+export default async function TeamStats({ team }: Props) {
+  const data = await getNflTeamStats(team)
 
   return (
     <div className="flex flex-col bg-white rounded-xl w-[400px] px-2 pb-4">
