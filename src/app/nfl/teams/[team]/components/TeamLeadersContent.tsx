@@ -1,6 +1,7 @@
 "use client";
 
 import Divider from "@/components/Divider";
+import PlayerHeadshot from "@/components/PlayerHeadshot";
 import { Categories, NflTeamLeaderData } from "@/lib/types";
 import classNames from "classnames";
 import Link from "next/link";
@@ -46,12 +47,7 @@ export default function TeamLeadersContent({ data }: Props) {
           >
             <span className="text-sm">{leader.displayName}</span>
             <div className="flex gap-4">
-              <div className="h-16 w-16 border border-gray-300 rounded-full flex items-center justify-center overflow-hidden">
-                <img
-                  className="h-16 w-auto max-w-none"
-                  src={leader.athlete.headshot}
-                />
-              </div>
+              <PlayerHeadshot src={leader.athlete.headshot} size={64} />
               <div className="flex flex-col gap-1">
                 <div>
                   <span className="font-medium pr-1">
