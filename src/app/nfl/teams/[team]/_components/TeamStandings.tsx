@@ -3,6 +3,8 @@ import React from "react";
 import Standing from "./Standing";
 import { getNflStandings } from "@/lib/nflAPI";
 import WidgetWrapper from "@/components/WidgetWrapper";
+import { Skeleton } from "@/components/ui/skeleton";
+import { times } from "lodash";
 
 interface Props {
   team: string;
@@ -41,3 +43,15 @@ export default async function TeamStandings({ team }: Props) {
     </WidgetWrapper>
   );
 }
+
+TeamStandings.Skeleton = function TeamStandingSkeleton() {
+  return (
+    <WidgetWrapper.Skeleton maxWidth={300}>
+      <div className="flex flex-col gap-2 py-4">
+        {times(4).map((_, i) => (
+          <Skeleton key={i} className="w-full h-6" />
+        ))}
+      </div>
+    </WidgetWrapper.Skeleton>
+  );
+};

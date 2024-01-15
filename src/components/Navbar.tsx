@@ -20,7 +20,7 @@ export default function Navbar() {
   const pathname = usePathname();
 
   return (
-    <div className="flex h-[60px] bg-gray-200 shadow-lg fixed w-full z-10 items-center justify-center">
+    <div className="flex h-[60px] bg-gray-200 shadow-lg fixed top-0 w-full z-10 items-center justify-center">
       <nav className="flex gap-16">
         {linkData.map((link) => (
           <Link
