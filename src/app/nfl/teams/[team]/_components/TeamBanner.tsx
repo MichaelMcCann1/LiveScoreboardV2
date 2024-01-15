@@ -1,3 +1,4 @@
+import { Skeleton } from "@/components/ui/skeleton";
 import { getNflTeamBannerData } from "@/lib/nflAPI";
 import React from "react";
 
@@ -27,3 +28,15 @@ export default async function TeamBanner({ team }: Props) {
     </div>
   );
 }
+
+TeamBanner.Skeleton = function TeamBannerSkeleton() {
+  return (
+    <div className="flex gap-6 items-center justify-center py-10 ">
+      <Skeleton className="w-[160px] h-[160px] bg-gray-200" />
+      <div className="flex flex-col gap-2">
+        <Skeleton className="w-[250px] h-9 bg-gray-200" />
+        <Skeleton className="w-[150px] h-5 bg-gray-200" />
+      </div>
+    </div>
+  );
+};

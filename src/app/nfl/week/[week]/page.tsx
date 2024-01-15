@@ -1,14 +1,14 @@
-import { getNflScoreboardData } from "@/lib/nflAPI";
 import classNames from "classnames";
 import Link from "next/link";
-import React from "react";
-import ScoreboardContent from "./components/ScoreboardContent";
+import React, { Suspense } from "react";
+import ScoreboardContent from "./_components/ScoreboardContent";
+import { times } from "lodash";
 
 const getButtonText = (currentWeek: number) => {
-  const regularSeasonWeeks = Array.from({ length: 18 }, (_, i) => {
+  const regularSeasonWeeks = times(18).map((week) => {
     return {
-      week: i + 1,
-      text: `Week ${i + 1}`,
+      week: week + 1,
+      text: `Week ${week + 1}`,
     };
   });
   const playoffWeeks = [
@@ -30,7 +30,6 @@ interface Props {
 
 export default async function page({ params }: Props) {
   const currentWeek = params.week;
-  const data = await getNflScoreboardData(currentWeek);
 
   return (
     <div className="flex flex-col gap-4 items-center pb-10">
@@ -38,6 +37,7 @@ export default async function page({ params }: Props) {
       <div className="flex gap-8 mb-10">
         {getButtonText(Number(currentWeek)).map((data) => (
           <Link
+            key={data.week}
             className={classNames(
               "border border-gray-600 px-3 py-2 rounded-xl bg-white",
               Number(currentWeek) === data.week ? "border-blue-600" : ""
@@ -48,7 +48,9 @@ export default async function page({ params }: Props) {
           </Link>
         ))}
       </div>
-      <ScoreboardContent data={data} />
+      <Suspense fallback={<ScoreboardContent.Skeleton />}>
+        <ScoreboardContent week={currentWeek} />
+      </Suspense>
     </div>
   );
 }
