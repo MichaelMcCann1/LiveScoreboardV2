@@ -31,9 +31,10 @@ const getTimeDisplay = (gameData: NflScoreboardData) => {
 
 interface Props {
   gameData: NflScoreboardData;
+  sport: string;
 }
 
-export default function ScoreBox({ gameData }: Props) {
+export default function ScoreBox({ gameData, sport }: Props) {
   return (
     <div className="flex gap-14 py-3">
       <div className="flex flex-col w-full">
@@ -43,12 +44,22 @@ export default function ScoreBox({ gameData }: Props) {
           </span>
           {gameData.status !== "Scheduled" && <Linescores periods={periods} />}
         </div>
-        <TeamBox teamData={gameData.awayTeamData} oddsType={'Spread'} odds={gameData.spread} />
-        <TeamBox teamData={gameData.homeTeamData} oddsType={'Total'} odds={gameData.overUnder} />
+        <TeamBox
+          teamData={gameData.awayTeamData}
+          oddsType={"Spread"}
+          odds={gameData.spread}
+          sport={sport}
+        />
+        <TeamBox
+          teamData={gameData.homeTeamData}
+          oddsType={"Total"}
+          odds={gameData.overUnder}
+          sport={sport}
+        />
       </div>
       <div className="hidden flex-col gap-2 md:flex">
         {gameData?.leaders?.map((leader) => (
-          <Leader key={leader.shortDisplayName} leader={leader} />
+          <Leader key={leader.shortDisplayName} leader={leader} sport={sport} />
         ))}
       </div>
     </div>

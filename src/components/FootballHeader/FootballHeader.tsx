@@ -1,5 +1,5 @@
-import WeekButtons from "@/app/nfl/week/[week]/_components/weekButtons";
-import WeekPicker from "@/app/nfl/week/[week]/_components/weekPicker";
+import WeekButtons from "@/components/FootballHeader/components/weekButtons";
+import WeekPicker from "@/components/FootballHeader/components/weekPicker";
 import React, { ReactNode, Suspense } from "react";
 import Scoreboard from "../Scoreboard/Scoreboard";
 import { WeeksList } from "@/lib/types";

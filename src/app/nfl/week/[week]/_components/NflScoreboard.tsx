@@ -9,5 +9,5 @@ interface Props {
 export default async function NflScoreboard({ week }: Props) {
   const data = await getNflScoreboardData(week);
 
-  return <Scoreboard data={data} />;
+  return <Scoreboard data={data} sport="nfl" />;
 }

@@ -8,13 +8,14 @@ interface Props {
   teamData: TeamData;
   odds?: string;
   oddsType: string;
+  sport: string
 }
 
-export default function TeamBox({ teamData, odds, oddsType }: Props) {
+export default function TeamBox({ teamData, odds, oddsType, sport }: Props) {
   return (
     <div className={"flex h-14 py-2 items-center gap-2"}>
       <Link
-        href={`/nfl/teams/${teamData.abbreviation}`}
+        href={`/${sport}/teams/${teamData.abbreviation}`}
         className="h-full flex items-center gap-2"
       >
         <img

@@ -6,9 +6,10 @@ import React from "react";
 
 interface Props {
   data: NflPlayerData;
+  sport: string;
 }
 
-export default function PlayerProfile({ data }: Props) {
+export default function PlayerProfile({ data, sport }: Props) {
   const stats = [
     { label: "Height", value: data?.height },
     { label: "Weight", value: data?.weight },
@@ -39,7 +40,7 @@ export default function PlayerProfile({ data }: Props) {
           <span className="text-6xl font-medium">{data?.lastName}</span>
           <div className="mt-2">
             <span className="font-light">
-              <Link href={`/nfl/teams/${data?.abbreviation}`}>
+              <Link href={`/${sport}/teams/${data?.abbreviation}`}>
                 {data?.location} {data?.nickname}
               </Link>
               - {data?.position} - #{data?.jersey}

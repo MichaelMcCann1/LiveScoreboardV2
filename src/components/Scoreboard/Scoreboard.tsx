@@ -3,15 +3,16 @@ import { groupBy, isEmpty, times } from "lodash";
 import { DateTime } from "luxon";
 import React, { Fragment } from "react";
 import WidgetWrapper from "../WidgetWrapper";
-import ScoreBox from "../ScoreBox/ScoreBox";
+import ScoreBox from "./components/ScoreBox/ScoreBox";
 import Divider from "../Divider";
 import { Skeleton } from "../ui/skeleton";
 
 interface Props {
   data: NflScoreboardData[];
+  sport: string;
 }
 
-export default function Scoreboard({ data }: Props) {
+export default function Scoreboard({ data, sport }: Props) {
   const groupedData = groupBy(data, (e) =>
     DateTime.fromISO(e.date).toLocaleString(DateTime.DATE_MED)
   );
@@ -33,7 +34,7 @@ export default function Scoreboard({ data }: Props) {
           >
             {gameGroup.map((game, index) => (
               <Fragment key={game.id}>
-                <ScoreBox gameData={game} />
+                <ScoreBox gameData={game} sport={sport} />
                 {index !== gameGroup.length - 1 && <Divider />}
               </Fragment>
             ))}

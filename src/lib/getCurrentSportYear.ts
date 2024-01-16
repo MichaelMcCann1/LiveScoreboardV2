@@ -10,3 +10,14 @@ export const getCurrentNflYear = () => {
 
   return year;
 };
+
+export const getCurrentNcaafYear = () => {
+  const year = DateTime.now().year;
+  const month = DateTime.now().month;
+
+  if (month < 7) {
+    return year - 1;
+  }
+
+  return year;
+};

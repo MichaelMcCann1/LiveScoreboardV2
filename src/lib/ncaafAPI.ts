@@ -1,5 +1,6 @@
+import { getCurrentNcaafYear } from "./getCurrentSportYear";
 import { formatTeamData } from "./nflAPI";
-import { NflScoreboardData } from "./types";
+import { NflPlayerData, NflScoreboardData } from "./types";
 
 export const getNcaafScoreboardData = async (week: string) => {
   const numberWeek = Number(week);
@@ -54,4 +55,34 @@ export const getNcaafWeek = async () => {
   const week = data?.week?.number as number;
 
   return season === 3 ? week + 15 : week;
+};
+
+export const getNcaafPlayerPageData = async (playerID: string) => {
+  const year = getCurrentNcaafYear();
+  const playerDataResponse = await fetch(
+    `http://sports.core.api.espn.com/v2/sports/football/leagues/college-football/seasons/${year}/athletes/${playerID}`,
+    { cache: "no-cache" }
+  );
+  const playerData = await playerDataResponse.json();
+  const teamDataResponse = await fetch(playerData?.team?.$ref);
+  const teamData = await teamDataResponse.json();
+
+  return {
+    firstName: playerData.firstName,
+    lastName: playerData.lastName,
+    jersey: playerData.jersey,
+    position: playerData.position.displayName,
+    height: playerData.displayHeight,
+    weight: playerData.displayWeight,
+    draft: playerData?.draft?.displayText,
+    headshot: playerData.headshot.href,
+    teamLink: playerData.team.$ref,
+    age: playerData.age,
+    city: playerData.birthPlace.city,
+    state: playerData.birthPlace.state,
+    location: teamData.location,
+    nickname: teamData.name,
+    logo: teamData.logos[0].href,
+    abbreviation: teamData.abbreviation,
+  } as NflPlayerData;
 };

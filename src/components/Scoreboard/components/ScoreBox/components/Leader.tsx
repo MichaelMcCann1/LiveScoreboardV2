@@ -5,12 +5,13 @@ import React from "react";
 
 interface Props {
   leader: LeaderData;
+  sport: string;
 }
 
-export default function Leader({ leader }: Props) {
+export default function Leader({ leader, sport }: Props) {
   return (
     <Link
-      href={`/nfl/players/${leader.id}`}
+      href={`/${sport}/players/${leader.id}`}
       className="flex gap-2 items-center text-xs text-gray-500 w-[250px]"
     >
       <span className="w-[50px]">{leader.shortDisplayName}</span>
