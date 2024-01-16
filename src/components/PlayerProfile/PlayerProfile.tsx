@@ -42,7 +42,7 @@ export default function PlayerProfile({ data, sport }: Props) {
             <span className="font-light">
               <Link href={`/${sport}/teams/${data?.abbreviation}`}>
                 {data?.location} {data?.nickname}
-              </Link>
+              </Link>{" "}
               - {data?.position} - #{data?.jersey}
             </span>
           </div>
