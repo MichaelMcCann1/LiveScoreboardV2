@@ -100,3 +100,8 @@ export interface NflPlayerData {
   city: string;
   state: string;
 }
+
+export type WeeksList = {
+  week: number;
+  text: string;
+}[];

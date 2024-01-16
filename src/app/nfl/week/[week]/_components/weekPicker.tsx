@@ -10,17 +10,22 @@ import {
 } from "@/components/ui/select";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { getNflWeeks } from "@/lib/utils/NFL/getNflWeeks";
+import { WeeksList } from "@/lib/types";
 
 interface Props {
   currentWeek: string;
+  weeksList: WeeksList;
+  sportRoute: string;
 }
 
-export default function WeekPicker({ currentWeek }: Props) {
+export default function WeekPicker({
+  currentWeek,
+  weeksList,
+  sportRoute,
+}: Props) {
   const [value, setValue] = useState(currentWeek);
   const router = useRouter();
-  const weeks = getNflWeeks();
-  const selectedWeek = weeks.find((week) => String(week.week) === value);
+  const selectedWeek = weeksList.find((week) => String(week.week) === value);
 
   if (!selectedWeek) {
     return null;
@@ -31,7 +36,7 @@ export default function WeekPicker({ currentWeek }: Props) {
       value={value}
       onValueChange={(week) => {
         setValue(week);
-        router.push(`/nfl/week/${week}`);
+        router.push(`/${sportRoute}/week/${week}`);
       }}
     >
       <SelectTrigger className="w-[150px]">
@@ -39,7 +44,7 @@ export default function WeekPicker({ currentWeek }: Props) {
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          {weeks.map((week) => (
+          {weeksList.map((week) => (
             <SelectItem key={week.week} value={String(week.week)}>
               {week.text}
             </SelectItem>

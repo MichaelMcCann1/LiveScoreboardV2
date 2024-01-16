@@ -43,3 +43,15 @@ export const getNcaafScoreboardData = async (week: string) => {
         game.awayTeamData.name !== "TBD" && game.homeTeamData.name !== "TBD"
     );
 };
+
+export const getNcaafWeek = async () => {
+  const reponse = await fetch(
+    `https://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard`,
+    { cache: "no-cache" }
+  );
+  const data = await reponse.json();
+  const season = data?.season?.type as number;
+  const week = data?.week?.number as number;
+
+  return season === 3 ? week + 15 : week;
+};

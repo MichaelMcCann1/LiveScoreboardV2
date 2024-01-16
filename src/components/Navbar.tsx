@@ -14,6 +14,7 @@ const isActivePathname = (pathname: string, link: string) => {
 const linkData = [
   { text: "Home", href: "/" },
   { text: "NFL", href: "/nfl" },
+  { text: "NCAAF", href: "/ncaaf" },
 ];
 
 export default function Navbar() {
