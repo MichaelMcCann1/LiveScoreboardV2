@@ -19,6 +19,7 @@ export default function WeekButtons({ currentWeek }: Props) {
     <div className="flex gap-2">
       {getButtonText(Number(currentWeek)).map((data) => (
         <Button
+          key={data.week}
           asChild
           variant={data.week === Number(currentWeek) ? "selected" : "outline"}
         >
