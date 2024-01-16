@@ -1,9 +1,8 @@
-import classNames from "classnames";
-import Link from "next/link";
 import React, { Suspense } from "react";
 import { times } from "lodash";
 import ScoreboardContent from "./_components/ScoreboardContent";
 import WeekPicker from "./_components/weekPicker";
+import WeekButtons from "./_components/weekButtons";
 
 export const getWeeks = () => {
   const regularSeasonWeeks = times(18).map((week) => {
@@ -22,13 +21,6 @@ export const getWeeks = () => {
   return [...regularSeasonWeeks, ...playoffWeeks];
 };
 
-const getButtonText = (currentWeek: number) => {
-  const weeks = getWeeks();
-  if (currentWeek === 1) return weeks.slice(0, 3);
-  if (currentWeek === weeks.length) return weeks.slice(weeks.length - 3);
-  return weeks.slice(currentWeek - 2, currentWeek + 1);
-};
-
 interface Props {
   params: { week: string };
 }
@@ -41,18 +33,7 @@ export default async function page({ params }: Props) {
       <h1 className="text-5xl mt-20 mb-10">NFL Scoreboard</h1>
       <div className="flex gap-8 mb-10">
         <WeekPicker currentWeek={currentWeek} />
-        {getButtonText(Number(currentWeek)).map((data) => (
-          <Link
-            key={data.week}
-            className={classNames(
-              "border border-gray-600 px-3 py-2 rounded-xl bg-white",
-              Number(currentWeek) === data.week ? "border-blue-600" : ""
-            )}
-            href={`/nfl/week/${data.week}`}
-          >
-            {data.text}
-          </Link>
-        ))}
+        <WeekButtons currentWeek={currentWeek} />
       </div>
       <Suspense fallback={<ScoreboardContent.Skeleton />}>
         <ScoreboardContent week={currentWeek} />
