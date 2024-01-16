@@ -46,7 +46,7 @@ export default function ScoreBox({ gameData }: Props) {
         <TeamBox teamData={gameData.awayTeamData} oddsType={'Spread'} odds={gameData.spread} />
         <TeamBox teamData={gameData.homeTeamData} oddsType={'Total'} odds={gameData.overUnder} />
       </div>
-      <div className="flex flex-col gap-2">
+      <div className="hidden flex-col gap-2 md:flex">
         {gameData?.leaders?.map((leader) => (
           <Leader key={leader.shortDisplayName} leader={leader} />
         ))}
