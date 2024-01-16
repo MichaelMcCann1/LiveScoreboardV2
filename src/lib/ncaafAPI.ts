@@ -1,3 +1,4 @@
+import { NcaafWeeks } from "./constants";
 import { getCurrentNcaafYear } from "./getCurrentSportYear";
 import { formatTeamData } from "./nflAPI";
 import { NflPlayerData, NflScoreboardData } from "./types";
@@ -6,8 +7,8 @@ export const getNcaafScoreboardData = async (week: string) => {
   const numberWeek = Number(week);
   const reponse = await fetch(
     `https://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard?seasontype=${
-      numberWeek > 15 ? 3 : 2
-    }&week=${numberWeek > 15 ? numberWeek - 15 : numberWeek}`,
+      numberWeek > NcaafWeeks ? 3 : 2
+    }&week=${numberWeek > NcaafWeeks ? numberWeek - NcaafWeeks : numberWeek}`,
     { cache: "no-cache" }
   );
   const data = await reponse.json();
@@ -54,7 +55,7 @@ export const getNcaafWeek = async () => {
   const season = data?.season?.type as number;
   const week = data?.week?.number as number;
 
-  return season === 3 ? week + 15 : week;
+  return season === 3 ? week + NcaafWeeks : week;
 };
 
 export const getNcaafPlayerPageData = async (playerID: string) => {

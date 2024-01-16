@@ -1,5 +1,6 @@
 "use client";
 
+import { NcaafUrl, NflUrl } from "@/lib/constants";
 import classNames from "classnames";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -13,8 +14,8 @@ const isActivePathname = (pathname: string, link: string) => {
 
 const linkData = [
   { text: "Home", href: "/" },
-  { text: "NFL", href: "/nfl" },
-  { text: "NCAAF", href: "/ncaaf" },
+  { text: "NFL", href: `/${NflUrl}` },
+  { text: "NCAAF", href: `/${NcaafUrl}` },
 ];
 
 export default function Navbar() {

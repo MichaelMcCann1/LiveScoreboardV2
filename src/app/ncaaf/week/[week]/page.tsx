@@ -2,6 +2,7 @@ import FootballHeader from "@/components/FootballHeader/FootballHeader";
 import React from "react";
 import NcaafScoreboard from "./_components/NcaafScoreboard";
 import { getNcaaWeeks } from "@/lib/utils/NCAAF/getNcaafWeeks";
+import { NcaafUrl } from "@/lib/constants";
 
 interface Props {
   params: { week: string };
@@ -15,7 +16,7 @@ export default async function page({ params }: Props) {
       week={week}
       sport="NCAAF"
       weeksList={getNcaaWeeks()}
-      sportRoute="ncaaf"
+      sportRoute={NcaafUrl}
     >
       <NcaafScoreboard week={week} />
     </FootballHeader>

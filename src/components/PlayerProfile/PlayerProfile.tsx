@@ -16,7 +16,7 @@ export default function PlayerProfile({ data, sport }: Props) {
     { label: "Age", value: data?.age },
     { label: "Draft", value: data?.draft },
     { label: "Home Town", value: `${data?.city}, ${data?.state}` },
-  ];
+  ].filter((stat) => stat.value);
 
   return (
     <div className="flex flex-col gap-10 items-center pt-20">

@@ -1,7 +1,8 @@
+import { NflWeeks } from "@/lib/constants";
 import { times } from "lodash";
 
 export const getNflWeeks = () => {
-  const regularSeasonWeeks = times(18).map((week) => {
+  const regularSeasonWeeks = times(NflWeeks).map((week) => {
     return {
       week: week + 1,
       text: `Week ${week + 1}`,

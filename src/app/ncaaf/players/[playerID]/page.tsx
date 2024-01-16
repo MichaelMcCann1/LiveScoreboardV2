@@ -1,4 +1,5 @@
 import PlayerProfile from "@/components/PlayerProfile/PlayerProfile";
+import { NcaafUrl } from "@/lib/constants";
 import { getNcaafPlayerPageData } from "@/lib/ncaafAPI";
 import React, { Suspense } from "react";
 
@@ -12,7 +13,7 @@ export default async function page({ params }: Props) {
 
   return (
     <Suspense fallback={<PlayerProfile.Skeleton />}>
-      <PlayerProfile data={data} sport="ncaaf"/>
+      <PlayerProfile data={data} sport={NcaafUrl} />
     </Suspense>
   );
 }

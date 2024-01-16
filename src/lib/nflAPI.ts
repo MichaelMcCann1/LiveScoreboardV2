@@ -1,5 +1,6 @@
 "use server";
 
+import { NflWeeks } from "./constants";
 import { getCurrentNflYear } from "./getCurrentSportYear";
 import {
   Categories,
@@ -34,8 +35,8 @@ export const getNflScoreboardData = async (week: string) => {
   const numberWeek = Number(week);
   const reponse = await fetch(
     `https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?seasontype=${
-      numberWeek > 18 ? 3 : 2
-    }&week=${numberWeek > 18 ? numberWeek - 18 : numberWeek}`,
+      numberWeek > NflWeeks ? 3 : 2
+    }&week=${numberWeek > NflWeeks ? numberWeek - NflWeeks : numberWeek}`,
     { cache: "no-cache" }
   );
   const data = await reponse.json();
@@ -273,5 +274,5 @@ export const getNflWeek = async () => {
   const season = data?.season?.type as number;
   const week = data?.week?.number as number;
 
-  return season === 3 ? week + 18 : week;
+  return season === 3 ? week + NflWeeks : week;
 };

@@ -1,4 +1,5 @@
 import Scoreboard from "@/components/Scoreboard/Scoreboard";
+import { NcaafUrl } from "@/lib/constants";
 import { getNcaafScoreboardData } from "@/lib/ncaafAPI";
 import React from "react";
 
@@ -9,5 +10,5 @@ interface Props {
 export default async function NcaafScoreboard({ week }: Props) {
   const data = await getNcaafScoreboardData(week);
 
-  return <Scoreboard data={data} sport="ncaaf" />;
+  return <Scoreboard data={data} sport={NcaafUrl}/>;
 }
