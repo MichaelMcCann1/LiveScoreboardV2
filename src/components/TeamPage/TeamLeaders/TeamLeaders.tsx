@@ -1,5 +1,5 @@
 import { getNflTeamLeaderData } from "@/lib/nflAPI";
-import TeamLeadersContent from "./TeamLeadersContent";
+import TeamLeadersContent from "./components/TeamLeadersContent";
 import WidgetWrapper from "@/components/WidgetWrapper/WidgetWrapper";
 import { Skeleton } from "@/components/ui/skeleton";
 import { times } from "lodash";

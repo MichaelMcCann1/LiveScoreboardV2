@@ -1,5 +1,5 @@
 import React from "react";
-import Standing from "./Standing";
+import Standing from "./components/Standing";
 import { getNflStandings } from "@/lib/nflAPI";
 import WidgetWrapper from "@/components/WidgetWrapper/WidgetWrapper";
 import { Skeleton } from "@/components/ui/skeleton";

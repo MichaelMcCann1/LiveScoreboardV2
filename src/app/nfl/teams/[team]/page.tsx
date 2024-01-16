@@ -1,9 +1,9 @@
 import { Suspense } from "react";
-import TeamBanner from "./_components/TeamBanner";
-import TeamLeaders from "./_components/TeamLeaders";
-import TeamSchedule from "./_components/TeamSchedule";
-import TeamStandings from "./_components/TeamStandings";
-import TeamStats from "./_components/TeamStats";
+import TeamBanner from "../../../../components/TeamPage/TeamBanner/TeamBanner";
+import TeamLeaders from "../../../../components/TeamPage/TeamLeaders/TeamLeaders";
+import TeamSchedule from "../../../../components/TeamPage/TeamSchedule/TeamSchedule";
+import TeamStandings from "../../../../components/TeamPage/TeamStandings/TeamStandings";
+import TeamStats from "../../../../components/TeamPage/TeamStats/TeamStats";
 
 interface Props {
   params: { team: string };
