@@ -14,7 +14,7 @@ import {
   TeamData,
 } from "./types";
 
-const formatTeamData = (data: any): TeamData => {
+export const formatTeamData = (data: any): TeamData => {
   const teamData = data.team;
   return {
     logo: teamData?.logo,

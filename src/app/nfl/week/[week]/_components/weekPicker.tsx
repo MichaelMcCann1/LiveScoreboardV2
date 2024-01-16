@@ -9,8 +9,8 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 import React, { useState } from "react";
-import { getWeeks } from "../page";
 import { useRouter } from "next/navigation";
+import { getNflWeeks } from "@/lib/utils/NFL/getNflWeeks";
 
 interface Props {
   currentWeek: string;
@@ -19,7 +19,7 @@ interface Props {
 export default function WeekPicker({ currentWeek }: Props) {
   const [value, setValue] = useState(currentWeek);
   const router = useRouter();
-  const weeks = getWeeks();
+  const weeks = getNflWeeks();
   const selectedWeek = weeks.find((week) => String(week.week) === value);
 
   if (!selectedWeek) {

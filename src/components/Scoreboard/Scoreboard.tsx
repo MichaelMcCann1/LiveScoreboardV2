@@ -1,22 +1,19 @@
-import Divider from "@/components/Divider";
-import ScoreBox from "@/components/ScoreBox/ScoreBox";
-import WidgetWrapper from "@/components/WidgetWrapper";
-import { Skeleton } from "@/components/ui/skeleton";
-import { getNflScoreboardData } from "@/lib/nflAPI";
+import { NflScoreboardData } from "@/lib/types";
 import { groupBy, isEmpty, times } from "lodash";
 import { DateTime } from "luxon";
 import React, { Fragment } from "react";
+import WidgetWrapper from "../WidgetWrapper";
+import ScoreBox from "../ScoreBox/ScoreBox";
+import Divider from "../Divider";
+import { Skeleton } from "../ui/skeleton";
 
 interface Props {
-  week: string;
+  data: NflScoreboardData[];
 }
 
-export default async function ScoreboardContent({ week }: Props) {
-  const data = await getNflScoreboardData(week);
-
-  const groupedData = groupBy(
-    data,
-    (e) => DateTime.fromISO(e.date).weekdayShort
+export default function Scoreboard({ data }: Props) {
+  const groupedData = groupBy(data, (e) =>
+    DateTime.fromISO(e.date).toLocaleString(DateTime.DATE_MED)
   );
 
   if (isEmpty(data)) {
@@ -47,7 +44,7 @@ export default async function ScoreboardContent({ week }: Props) {
   );
 }
 
-ScoreboardContent.Skeleton = function SkeletonScoreboardContent() {
+Scoreboard.Skeleton = function SkeletonScoreboardContent() {
   return (
     <WidgetWrapper.Skeleton>
       {times(3).map((game) => (

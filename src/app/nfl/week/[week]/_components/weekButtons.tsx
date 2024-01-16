@@ -1,10 +1,10 @@
 import React from "react";
-import { getWeeks } from "../page";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { getNflWeeks } from "@/lib/utils/NFL/getNflWeeks";
 
 const getButtonText = (currentWeek: number) => {
-  const weeks = getWeeks();
+  const weeks = getNflWeeks();
   if (currentWeek === 1) return weeks.slice(0, 3);
   if (currentWeek === weeks.length) return weeks.slice(weeks.length - 3);
   return weeks.slice(currentWeek - 2, currentWeek + 1);
