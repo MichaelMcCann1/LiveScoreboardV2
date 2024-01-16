@@ -29,9 +29,9 @@ export default async function page({ params }: Props) {
   const currentWeek = params.week;
 
   return (
-    <div className="flex flex-col gap-4 items-center">
+    <div className="flex flex-col gap-4 items-center px-6 ">
       <h1 className="text-5xl mt-20 mb-10">NFL Scoreboard</h1>
-      <div className="flex gap-8 mb-10">
+      <div className="flex gap-8 mb-10 md:flex-row flex-col items-center">
         <WeekPicker currentWeek={currentWeek} />
         <WeekButtons currentWeek={currentWeek} />
       </div>

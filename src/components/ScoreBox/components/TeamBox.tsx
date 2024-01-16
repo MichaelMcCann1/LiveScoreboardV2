@@ -38,9 +38,13 @@ export default function TeamBox({ teamData, odds, oddsType }: Props) {
         </div>
       </Link>
       {odds !== undefined ? (
-        <div className="flex gap-2 flex-1 justify-center items-center">
-          <span className="font-medium text-xs text-gray-500">{oddsType}:</span>
-          <span className="text-sm font-semibold">{odds}</span>
+        <div className="flex flex-1 justify-end">
+          <div className="w-[150px] flex gap-2 items-center">
+            <span className="font-medium text-xs text-gray-500">
+              {oddsType}:
+            </span>
+            <span className="text-sm font-semibold">{odds}</span>
+          </div>
         </div>
       ) : (
         <Linescores
