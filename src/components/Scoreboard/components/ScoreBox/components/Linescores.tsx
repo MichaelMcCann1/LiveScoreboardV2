@@ -1,4 +1,4 @@
-import classNames from "classnames";
+import { cn } from "@/lib/utils";
 import React from "react";
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
 export default function Linescores({ periods, total, losingTeam }: Props) {
   return (
     <div
-      className={classNames(
+      className={cn(
         "flex gap-2 ml-auto items-center text-sm",
         total === undefined && "font-semibold",
         losingTeam && "opacity-60"
@@ -22,7 +22,7 @@ export default function Linescores({ periods, total, losingTeam }: Props) {
         </span>
       ))}
       <span
-        className={classNames(
+        className={cn(
           "w-[50px] text-right",
           total !== undefined && "text-xl font-semibold"
         )}

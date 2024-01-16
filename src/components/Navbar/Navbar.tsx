@@ -1,7 +1,7 @@
 "use client";
 
 import { NcaafUrl, NflUrl } from "@/lib/constants";
-import classNames from "classnames";
+import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
@@ -27,7 +27,7 @@ export default function Navbar() {
         {linkData.map((link) => (
           <Link
             key={link.text}
-            className={classNames(
+            className={cn(
               "text-xl font-medium ease-linear duration-200 hover:text-blue-600",
               {
                 underline: isActivePathname(pathname, link.href),

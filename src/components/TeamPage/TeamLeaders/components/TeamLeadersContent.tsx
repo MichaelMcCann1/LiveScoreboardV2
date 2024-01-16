@@ -3,7 +3,7 @@
 import PlayerHeadshot from "@/components/PlayerHeadshot/PlayerHeadshot";
 import { Separator } from "@/components/ui/separator";
 import { Categories, NflTeamLeaderData } from "@/lib/types";
-import classNames from "classnames";
+import { cn } from "@/lib/utils";
 import Link from "next/link";
 import React, { Fragment, useState } from "react";
 
@@ -27,7 +27,7 @@ export default function TeamLeadersContent({ data }: Props) {
           <button
             key={category}
             onClick={() => setSelectedCategory(category)}
-            className={classNames(
+            className={cn(
               "w-1/2	p-3 hover:opacity-100 hover:font-semibold",
               category === selectedCategory
                 ? "font-semibold border-b-2 border-red-500"

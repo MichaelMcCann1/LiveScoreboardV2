@@ -1,4 +1,4 @@
-import classNames from "classnames";
+import { cn } from "@/lib/utils";
 import Link from "next/link";
 import React from "react";
 
@@ -29,7 +29,7 @@ export default function Standing({
         <span className="uppercase font-bold">{team}</span>
       ) : (
         <Link
-          className={classNames(
+          className={cn(
             "hover:underline hover:font-medium",
             bold && "font-medium"
           )}
@@ -42,7 +42,7 @@ export default function Standing({
         {[wins, losses, ties, pct].map((item, index) => (
           <span
             key={item}
-            className={classNames(
+            className={cn(
               "w-[30px] text-center",
               header && "font-bold",
               bold && "font-medium",

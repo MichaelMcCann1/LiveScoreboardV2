@@ -1,4 +1,4 @@
-import classNames from "classnames";
+import { cn } from "@/lib/utils";
 import React from "react";
 
 const formatScore = (selectedTeamScore: number, opponentScore: number) => {
@@ -23,7 +23,7 @@ export default function Results({
   return (
     <>
       <span
-        className={classNames(
+        className={cn(
           "font-semibold absolute right-[70px] text-center w-5",
           winner ? "text-green-600" : "text-red-600"
         )}

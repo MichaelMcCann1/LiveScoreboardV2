@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
-import classNames from "classnames";
 import { Skeleton } from "../ui/skeleton";
 import { Separator } from "../ui/separator";
+import { cn } from "@/lib/utils";
 
 interface Props {
   title?: ReactNode;
@@ -18,7 +18,7 @@ export default function WidgetWrapper({
 }: Props) {
   return (
     <div
-      className={classNames(
+      className={cn(
         "w-full max-w-[800px] px-4  bg-white shadow-xl rounded-lg flex flex-col",
         { "pb-4": bottomPadding }
       )}

@@ -1,8 +1,8 @@
 import React from "react";
 import Linescores from "./Linescores";
-import classNames from "classnames";
 import Link from "next/link";
 import { TeamData } from "@/lib/types";
+import { cn } from "@/lib/utils";
 
 interface Props {
   teamData: TeamData;
@@ -24,7 +24,7 @@ export default function TeamBox({ teamData, odds, oddsType, sport }: Props) {
           alt={`${teamData.name} logo`}
         />
         <div
-          className={classNames(
+          className={cn(
             "flex flex-col",
             teamData.winner === false && "opacity-60"
           )}
