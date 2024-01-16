@@ -1,10 +1,11 @@
 import classNames from "classnames";
 import Link from "next/link";
 import React, { Suspense } from "react";
-import ScoreboardContent from "./_components/ScoreboardContent";
 import { times } from "lodash";
+import ScoreboardContent from "./_components/ScoreboardContent";
+import WeekPicker from "./_components/weekPicker";
 
-const getButtonText = (currentWeek: number) => {
+export const getWeeks = () => {
   const regularSeasonWeeks = times(18).map((week) => {
     return {
       week: week + 1,
@@ -18,7 +19,11 @@ const getButtonText = (currentWeek: number) => {
     { week: 22, text: "Pro Bowl" },
     { week: 23, text: "Super Bowl" },
   ];
-  const weeks = [...regularSeasonWeeks, ...playoffWeeks];
+  return [...regularSeasonWeeks, ...playoffWeeks];
+};
+
+const getButtonText = (currentWeek: number) => {
+  const weeks = getWeeks();
   if (currentWeek === 1) return weeks.slice(0, 3);
   if (currentWeek === weeks.length) return weeks.slice(weeks.length - 3);
   return weeks.slice(currentWeek - 2, currentWeek + 1);
@@ -35,6 +40,7 @@ export default async function page({ params }: Props) {
     <div className="flex flex-col gap-4 items-center pb-10">
       <h1 className="text-5xl mt-20 mb-10">NFL Scoreboard</h1>
       <div className="flex gap-8 mb-10">
+        <WeekPicker currentWeek={currentWeek} />
         {getButtonText(Number(currentWeek)).map((data) => (
           <Link
             key={data.week}
