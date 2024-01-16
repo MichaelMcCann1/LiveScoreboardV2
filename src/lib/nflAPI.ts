@@ -1,5 +1,6 @@
 "use server";
 
+import { getCurrentNflYear } from "./getCurrentSportYear";
 import {
   Categories,
   NflPlayerData,
@@ -34,7 +35,8 @@ export const getNflScoreboardData = async (week: string) => {
   const reponse = await fetch(
     `https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard?seasontype=${
       numberWeek > 18 ? 3 : 2
-    }&week=${numberWeek > 18 ? numberWeek - 18 : numberWeek}`
+    }&week=${numberWeek > 18 ? numberWeek - 18 : numberWeek}`,
+    { cache: "no-cache" }
   );
   const data = await reponse.json();
 
@@ -72,8 +74,10 @@ export const getNflScoreboardData = async (week: string) => {
 };
 
 export const getNflPlayerPageData = async (playerID: string) => {
+  const year = getCurrentNflYear();
   const playerDataResponse = await fetch(
-    `http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2023/athletes/${playerID}`
+    `http://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/${year}/athletes/${playerID}`,
+    { cache: "no-cache" }
   );
   const playerData = await playerDataResponse.json();
   const teamDataResponse = await fetch(playerData?.team?.$ref);
@@ -101,7 +105,8 @@ export const getNflPlayerPageData = async (playerID: string) => {
 
 export const getNflTeamBannerData = async (team: string) => {
   const reponse = await fetch(
-    `https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/${team}`
+    `https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/${team}`,
+    { cache: "no-cache" }
   );
   const data = await reponse.json();
 
@@ -142,7 +147,8 @@ const formatScheduleData = (data: any, team: string) => {
 
 export const getNflTeamScheduleRegular = async (team: string) => {
   const reponse = await fetch(
-    `https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/${team}/schedule?seasontype=2`
+    `https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/${team}/schedule?seasontype=2`,
+    { cache: "no-cache" }
   );
   const data = await reponse.json();
   return formatScheduleData(data, team);
@@ -150,14 +156,17 @@ export const getNflTeamScheduleRegular = async (team: string) => {
 
 export const getNflTeamSchedulePostSeason = async (team: string) => {
   const reponse = await fetch(
-    `https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/${team}/schedule?seasontype=3`
+    `https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/${team}/schedule?seasontype=3`,
+    { cache: "no-cache" }
   );
   const data = await reponse.json();
   return formatScheduleData(data, team);
 };
 
 export const getNflStandings = async () => {
-  const reponse = await fetch(`https://cdn.espn.com/core/nfl/standings?xhr=1`);
+  const reponse = await fetch(`https://cdn.espn.com/core/nfl/standings?xhr=1`, {
+    cache: "no-cache",
+  });
   const data = await reponse.json();
 
   const divisions = [
@@ -183,28 +192,32 @@ export const getNflStandings = async () => {
 };
 
 export const getNflTeamStats = async (team: string) => {
+  const year = getCurrentNflYear();
   const reponse = await fetch(
-    `https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2023/types/2/teams/${team}/statistics`
+    `https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/${year}/types/2/teams/${team}/statistics`,
+    { cache: "no-cache" }
   );
   const data = await reponse.json();
 
-  const passingYards = data.splits.categories[1].stats[22];
-  const rushingYards = data.splits.categories[2].stats[5];
-  const pointsPerGame = data.splits.categories[9].stats[9];
-  const sacks = data.splits.categories[4].stats[14];
+  const passingYards = data?.splits?.categories?.[1]?.stats?.[22];
+  const rushingYards = data?.splits?.categories?.[2]?.stats?.[5];
+  const pointsPerGame = data?.splits?.categories?.[9]?.stats?.[9];
+  const sacks = data?.splits?.categories?.[4]?.stats?.[14];
 
-  return [passingYards, rushingYards, pointsPerGame, sacks].map((stat) => {
+  return [passingYards, rushingYards, pointsPerGame, sacks]?.map((stat) => {
     return {
-      stat: stat.displayName,
-      value: stat.displayValue,
-      rank: stat.rank,
+      stat: stat?.displayName,
+      value: stat?.displayValue,
+      rank: stat?.rank,
     };
   });
 };
 
 export const getNflTeamLeaderData = async (team: string) => {
+  const year = getCurrentNflYear();
   const leaderSResponse = await fetch(
-    `https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/2023/types/2/teams/${team}/leaders`
+    `https://sports.core.api.espn.com/v2/sports/football/leagues/nfl/seasons/${year}/types/2/teams/${team}/leaders`,
+    { cache: "no-cache" }
   );
   const data = await leaderSResponse.json();
 
@@ -253,8 +266,12 @@ export const getNflTeamLeaderData = async (team: string) => {
 
 export const getNflWeek = async () => {
   const reponse = await fetch(
-    `https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard`
+    `https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard`,
+    { cache: "no-cache" }
   );
   const data = await reponse.json();
-  return data?.week?.number as number;
+  const season = data?.season?.type as number;
+  const week = data?.week?.number as number;
+
+  return season === 3 ? week + 18 : week;
 };

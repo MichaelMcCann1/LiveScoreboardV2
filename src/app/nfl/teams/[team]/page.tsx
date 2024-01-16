@@ -13,7 +13,7 @@ export default function page({ params }: Props) {
   const team = params.team;
 
   return (
-    <div>
+    <div className="flex flex-col">
       <Suspense fallback={<TeamBanner.Skeleton />}>
         <TeamBanner team={team} />
       </Suspense>
