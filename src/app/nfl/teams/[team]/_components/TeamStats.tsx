@@ -1,4 +1,4 @@
-import WidgetWrapper from "@/components/WidgetWrapper";
+import WidgetWrapper from "@/components/WidgetWrapper/WidgetWrapper";
 import { Skeleton } from "@/components/ui/skeleton";
 import { getNflTeamStats } from "@/lib/nflAPI";
 import { times } from "lodash";

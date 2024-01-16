@@ -2,10 +2,10 @@ import { NflScoreboardData } from "@/lib/types";
 import { groupBy, isEmpty, times } from "lodash";
 import { DateTime } from "luxon";
 import React, { Fragment } from "react";
-import WidgetWrapper from "../WidgetWrapper";
+import WidgetWrapper from "../WidgetWrapper/WidgetWrapper";
 import ScoreBox from "./components/ScoreBox/ScoreBox";
-import Divider from "../Divider";
 import { Skeleton } from "../ui/skeleton";
+import { Separator } from "../ui/separator";
 
 interface Props {
   data: NflScoreboardData[];
@@ -35,7 +35,7 @@ export default function Scoreboard({ data, sport }: Props) {
             {gameGroup.map((game, index) => (
               <Fragment key={game.id}>
                 <ScoreBox gameData={game} sport={sport} />
-                {index !== gameGroup.length - 1 && <Divider />}
+                {index !== gameGroup.length - 1 && <Separator />}
               </Fragment>
             ))}
           </WidgetWrapper>

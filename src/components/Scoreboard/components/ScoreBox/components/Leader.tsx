@@ -1,4 +1,4 @@
-import PlayerHeadshot from "@/components/PlayerHeadshot";
+import PlayerHeadshot from "@/components/PlayerHeadshot/PlayerHeadshot";
 import { LeaderData } from "@/lib/types";
 import Link from "next/link";
 import React from "react";

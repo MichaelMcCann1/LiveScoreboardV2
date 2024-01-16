@@ -1,7 +1,7 @@
 "use client";
 
-import Divider from "@/components/Divider";
-import PlayerHeadshot from "@/components/PlayerHeadshot";
+import PlayerHeadshot from "@/components/PlayerHeadshot/PlayerHeadshot";
+import { Separator } from "@/components/ui/separator";
 import { Categories, NflTeamLeaderData } from "@/lib/types";
 import classNames from "classnames";
 import Link from "next/link";
@@ -38,7 +38,7 @@ export default function TeamLeadersContent({ data }: Props) {
           </button>
         ))}
       </div>
-      <Divider />
+      <Separator />
       {leadersData?.map((leader, index) => (
         <Fragment key={leader.displayName}>
           <Link
@@ -67,7 +67,7 @@ export default function TeamLeadersContent({ data }: Props) {
               </div>
             </div>
           </Link>
-          {index !== leadersData.length - 1 && <Divider />}
+          {index !== leadersData.length - 1 && <Separator />}
         </Fragment>
       ))}
     </>

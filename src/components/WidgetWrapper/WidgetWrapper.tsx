@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
-import Divider from "./Divider";
 import classNames from "classnames";
-import { Skeleton } from "./ui/skeleton";
+import { Skeleton } from "../ui/skeleton";
+import { Separator } from "../ui/separator";
 
 interface Props {
   title?: ReactNode;
@@ -25,7 +25,7 @@ export default function WidgetWrapper({
       style={{ maxWidth: `${maxWidth}px` }}
     >
       <span className="py-4 font-semibold text-lg">{title}</span>
-      <Divider />
+      <Separator />
       {children}
     </div>
   );
@@ -46,7 +46,7 @@ WidgetWrapper.Skeleton = function WidgetWrapperSkeleton({
       style={{ maxWidth: `${maxWidth}px` }}
     >
       <Skeleton className="h-7 w-[250px] my-4" />
-      <Divider />
+      <Separator />
       {children}
     </div>
   );

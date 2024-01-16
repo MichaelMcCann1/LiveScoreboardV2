@@ -1,13 +1,13 @@
 import React, { Fragment } from "react";
 import TeamScheduleBox from "./TeamScheduleBox/TeamScheduleBox";
-import Divider from "@/components/Divider";
 import {
   getNflTeamSchedulePostSeason,
   getNflTeamScheduleRegular,
 } from "@/lib/nflAPI";
-import WidgetWrapper from "@/components/WidgetWrapper";
+import WidgetWrapper from "@/components/WidgetWrapper/WidgetWrapper";
 import { isEmpty, times } from "lodash";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Separator } from "@/components/ui/separator";
 
 interface Props {
   team: string;
@@ -31,11 +31,11 @@ export default async function TeamSchedule({ team }: Props) {
           <span className="p-2 uppercase text-xs font-medium">
             {season.title}
           </span>
-          <Divider />
+          <Separator />
           {season.scheduleData.map((game) => (
             <Fragment key={game.date}>
               <TeamScheduleBox gameData={game} />
-              <Divider />
+              <Separator />
             </Fragment>
           ))}
         </Fragment>

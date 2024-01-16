@@ -1,10 +1,10 @@
-import Divider from "@/components/Divider";
 import React from "react";
 import Standing from "./Standing";
 import { getNflStandings } from "@/lib/nflAPI";
-import WidgetWrapper from "@/components/WidgetWrapper";
+import WidgetWrapper from "@/components/WidgetWrapper/WidgetWrapper";
 import { Skeleton } from "@/components/ui/skeleton";
 import { times } from "lodash";
+import { Separator } from "@/components/ui/separator";
 
 interface Props {
   team: string;
@@ -27,7 +27,7 @@ export default async function TeamStandings({ team }: Props) {
         pct={"PCT"}
         header
       />
-      <Divider />
+      <Separator />
       {division?.standings.map((t) => (
         <Standing
           key={t.abbreviation}
