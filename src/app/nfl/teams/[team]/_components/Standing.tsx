@@ -38,27 +38,21 @@ export default function Standing({
           {team}
         </Link>
       )}
-      <span
-        className={classNames(
-          "px-2 ml-auto",
-          header && "font-bold",
-          bold && "font-medium"
-        )}
-      >
-        {wins}
-      </span>
-      {[losses, ties, pct].map((item) => (
-        <span
-          key={item}
-          className={classNames(
-            "px-2",
-            header && "font-bold",
-            bold && "font-medium"
-          )}
-        >
-          {item}
-        </span>
-      ))}
+      <div className="ml-auto flex items-center">
+        {[wins, losses, ties, pct].map((item, index) => (
+          <span
+            key={item}
+            className={classNames(
+              "w-[30px] text-center",
+              header && "font-bold",
+              bold && "font-medium",
+              index === 3 && "ml-1"
+            )}
+          >
+            {item}
+          </span>
+        ))}
+      </div>
     </div>
   );
 }
