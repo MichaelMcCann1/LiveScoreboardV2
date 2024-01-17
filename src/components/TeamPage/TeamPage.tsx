@@ -15,6 +15,7 @@ import TeamStats from "./TeamStats/TeamStats";
 interface Props {
   team: string;
   sportUrl: string;
+  colWidth?: number;
   bannerQuery: (team: string) => Promise<NflTeamBannerData>;
   scheduleQuery: (team: string) => Promise<ScheduleData[]>;
   leadersQuery: (team: string) => Promise<NflTeamLeaderData[]>;
@@ -25,6 +26,7 @@ interface Props {
 export default function TeamPage({
   team,
   sportUrl,
+  colWidth,
   bannerQuery,
   scheduleQuery,
   leadersQuery,
@@ -49,6 +51,7 @@ export default function TeamPage({
               team={team}
               query={standingsQuery}
               sportUrl={sportUrl}
+              colWidth={colWidth}
             />
           </Suspense>
           <Suspense fallback={<TeamStats.Skeleton />}>

@@ -24,6 +24,7 @@ export default function page({ params }: Props) {
       leadersQuery={getNcaafTeamLeaderData}
       standingsQuery={getNcaafStandings}
       statQuery={getNcaafTeamStats}
+      colWidth={60}
     />
   );
 }

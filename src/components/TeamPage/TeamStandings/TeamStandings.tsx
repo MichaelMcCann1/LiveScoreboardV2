@@ -10,9 +10,15 @@ interface Props {
   team: string;
   query: () => Promise<StandingsData[]>;
   sportUrl: string;
+  colWidth?: number;
 }
 
-export default async function TeamStandings({ team, query, sportUrl }: Props) {
+export default async function TeamStandings({
+  team,
+  query,
+  sportUrl,
+  colWidth,
+}: Props) {
   const data = await query();
 
   const division = data.find((division) =>
@@ -21,7 +27,7 @@ export default async function TeamStandings({ team, query, sportUrl }: Props) {
 
   return (
     <WidgetWrapper title={`${division?.name} Standings`} maxWidth={300}>
-      <Standing data={division?.headers} header />
+      <Standing data={division?.headers} header colWidth={colWidth} />
       <Separator />
       {division?.standings.map((t) => (
         <Standing
@@ -30,6 +36,7 @@ export default async function TeamStandings({ team, query, sportUrl }: Props) {
           abbreviation={t.abbreviation}
           bold={t.abbreviation === team}
           sportUrl={sportUrl}
+          colWidth={colWidth}
         />
       ))}
     </WidgetWrapper>
