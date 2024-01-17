@@ -17,7 +17,8 @@ export const formatScheduleData = (data: any, team: string) => {
       tv: gameData?.broadcasts?.[0]?.media?.shortName,
       logo: opponentData?.team?.logos?.[0]?.href,
       homeAway: selectedTeamData?.homeAway,
-      opponentNickname: opponentData?.team?.nickname,
+      opponentNickname:
+        opponentData?.team?.nickname || opponentData?.team?.shortDisplayName,
       opponentId: opponentData?.team?.id,
       winner: selectedTeamData?.winner,
       selectedTeamScore: selectedTeamData?.score?.displayValue,
