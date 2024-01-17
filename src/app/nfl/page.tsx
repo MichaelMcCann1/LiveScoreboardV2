@@ -1,4 +1,4 @@
-import { getNflWeek } from "@/lib/nflAPI";
+import { getNflWeek } from "@/api/nflAPI";
 import { redirect } from "next/navigation";
 import React from "react";
 

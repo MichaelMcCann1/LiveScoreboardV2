@@ -1,20 +1,16 @@
-import { isEmpty } from "lodash";
-import { NcaafWeeks } from "./constants";
-import { getCurrentNcaafYear } from "./getCurrentSportYear";
-import { formatScheduleData, formatTeamData } from "./nflAPI";
+import { NcaafWeeks } from "../lib/constants";
+import { getCurrentNcaafYear } from "../lib/getCurrentSportYear";
+import { Categories, StandingsData } from "../lib/types";
+import { formatScoreboardData } from "./utils/formatScoreboardData";
+import { formatPlayerData } from "./utils/formatPlayerData";
+import { formatTeamBannerData } from "./utils/formatTeamBannerData";
 import {
-  Categories,
-  NflPlayerData,
-  NflScoreboardData,
-  NflStandingsData,
-  NflTeamBannerData,
-  NflTeamLeaderAthleteData,
-  NflTeamLeaderData,
-  NflTeamStandingsData,
-  ScheduleData,
-  TeamStat,
-  StandingsData,
-} from "./types";
+  filterScheduleData,
+  formatScheduleData,
+} from "./utils/formatScheduleData";
+import { formatTeamStats } from "./utils/formatTeamStats";
+import { formatTeamLeadersData } from "./utils/formatTeamLeadersData";
+import { getWeek } from "./utils/getWeek";
 
 export const getNcaafScoreboardData = async (week: string) => {
   const numberWeek = Number(week);
@@ -26,37 +22,7 @@ export const getNcaafScoreboardData = async (week: string) => {
   );
   const data = await reponse.json();
 
-  return (data.events as any[])
-    .map((game: any) => {
-      const competetion = game.competitions[0];
-
-      return {
-        id: competetion?.id,
-        date: competetion?.date,
-        awayTeamData: formatTeamData(competetion?.competitors?.[1]),
-        homeTeamData: formatTeamData(competetion?.competitors?.[0]),
-        status: game?.status?.type?.description,
-        clock: game?.status?.displayClock,
-        period: game?.status?.period,
-        tv: competetion?.broadcasts?.[0]?.names?.[0],
-        spread: competetion?.odds?.[0]?.details,
-        overUnder: competetion?.odds?.[0]?.overUnder,
-        leaders: (competetion?.leaders as any[])?.map((leader) => {
-          return {
-            shortDisplayName: leader?.shortDisplayName,
-            displayValue: leader?.leaders?.[0]?.displayValue,
-            shortName: leader?.leaders?.[0]?.athlete?.shortName,
-            position: leader?.leaders?.[0]?.athlete?.position?.abbreviation,
-            headshot: leader?.leaders?.[0]?.athlete?.headshot,
-            id: leader?.leaders?.[0]?.athlete?.id,
-          };
-        }),
-      } as NflScoreboardData;
-    })
-    .filter(
-      (game) =>
-        game.awayTeamData.name !== "TBD" && game.homeTeamData.name !== "TBD"
-    );
+  return formatScoreboardData(data);
 };
 
 export const getNcaafWeek = async () => {
@@ -65,10 +31,8 @@ export const getNcaafWeek = async () => {
     { cache: "no-cache" }
   );
   const data = await reponse.json();
-  const season = data?.season?.type as number;
-  const week = data?.week?.number as number;
 
-  return season === 3 ? week + NcaafWeeks : week;
+  return getWeek(data, NcaafWeeks);
 };
 
 export const getNcaafPlayerPageData = async (playerID: string) => {
@@ -81,24 +45,7 @@ export const getNcaafPlayerPageData = async (playerID: string) => {
   const teamDataResponse = await fetch(playerData?.team?.$ref);
   const teamData = await teamDataResponse.json();
 
-  return {
-    firstName: playerData.firstName,
-    lastName: playerData.lastName,
-    jersey: playerData.jersey,
-    position: playerData.position.displayName,
-    height: playerData.displayHeight,
-    weight: playerData.displayWeight,
-    draft: playerData?.draft?.displayText,
-    headshot: playerData.headshot.href,
-    teamLink: playerData.team.$ref,
-    age: playerData.age,
-    city: playerData.birthPlace.city,
-    state: playerData.birthPlace.state,
-    location: teamData.location,
-    nickname: teamData.name,
-    logo: teamData.logos[0].href,
-    abbreviation: teamData.id,
-  } as NflPlayerData;
+  return formatPlayerData(playerData, teamData);
 };
 
 export const getNcaafTeamBannerData = async (team: string) => {
@@ -107,15 +54,7 @@ export const getNcaafTeamBannerData = async (team: string) => {
     { cache: "no-cache" }
   );
   const data = await reponse.json();
-
-  const teamData = data.team;
-  return {
-    location: teamData.location,
-    nickname: teamData.name,
-    standingSummary: teamData.standingSummary,
-    logo: teamData.logos[0].href,
-    record: teamData.record.items[0].summary,
-  } as NflTeamBannerData;
+  return formatTeamBannerData(data);
 };
 
 const getNcaafTeamScheduleRegular = async (team: string) => {
@@ -144,12 +83,7 @@ export const getNcaafTeamSchedule = async (team: string) => {
     getNcaafTeamSchedulePostSeason(team),
   ]);
 
-  const data = [{ title: "Regular Season", scheduleData: regularSeasonData }];
-  if (!isEmpty(postSeasonData)) {
-    data.unshift({ title: "PostSeason", scheduleData: postSeasonData });
-  }
-
-  return data as ScheduleData[];
+  return filterScheduleData(regularSeasonData, postSeasonData);
 };
 
 export const getNcaafStandings = async () => {
@@ -194,13 +128,7 @@ export const getNcaafTeamStats = async (team: string) => {
   const pointsPerGame = data?.splits?.categories?.[9]?.stats?.[9];
   const sacks = data?.splits?.categories?.[4]?.stats?.[14];
 
-  return [passingYards, rushingYards, pointsPerGame, sacks]?.map((stat) => {
-    return {
-      stat: stat?.displayName,
-      value: stat?.displayValue,
-      rank: stat?.rank,
-    } as TeamStat;
-  });
+  return formatTeamStats([passingYards, rushingYards, pointsPerGame, sacks]);
 };
 
 export const getNcaafTeamLeaderData = async (team: string) => {
@@ -227,31 +155,8 @@ export const getNcaafTeamLeaderData = async (team: string) => {
   const sacksData = data?.categories?.[7];
   const interceptionsData = data?.categories?.[8];
 
-  const offenseData = [passsingData, rushingData, receivingData].map((data) =>
-    formatData(data, "Offense")
+  return formatTeamLeadersData(
+    [passsingData, rushingData, receivingData],
+    [tacklesData, sacksData, interceptionsData]
   );
-  const defenseData = [tacklesData, sacksData, interceptionsData].map((data) =>
-    formatData(data, "Defense")
-  );
-
-  const orderedLeaders = [...offenseData, ...defenseData].filter(
-    (leader) => leader.athlete
-  );
-  return (await Promise.all(
-    orderedLeaders.map(async (leader) => {
-      const athleteReponse = await fetch(leader?.athlete);
-      const athleteData = await athleteReponse.json();
-
-      return {
-        ...leader,
-        athlete: {
-          fullName: athleteData.fullName,
-          headshot: athleteData.headshot.href,
-          position: athleteData.position.abbreviation,
-          jersey: athleteData.jersey,
-          id: athleteData.id,
-        } as NflTeamLeaderAthleteData,
-      };
-    })
-  )) as NflTeamLeaderData[];
 };

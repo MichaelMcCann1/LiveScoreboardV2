@@ -6,7 +6,7 @@ import {
   getNcaafTeamLeaderData,
   getNcaafTeamSchedule,
   getNcaafTeamStats,
-} from "@/lib/ncaafAPI";
+} from "@/api/ncaafAPI";
 
 interface Props {
   params: { team: string };

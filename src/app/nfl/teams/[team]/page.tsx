@@ -4,7 +4,7 @@ import {
   getNflTeamLeaderData,
   getNflTeamSchedule,
   getNflTeamStats,
-} from "@/lib/nflAPI";
+} from "@/api/nflAPI";
 import TeamPage from "@/components/TeamPage/TeamPage";
 import { NflUrl } from "@/lib/constants";
 

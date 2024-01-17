@@ -1,4 +1,4 @@
-import { getNflPlayerPageData } from "@/lib/nflAPI";
+import { getNflPlayerPageData } from "@/api/nflAPI";
 import React, { Suspense } from "react";
 import PlayerProfile from "../../../../components/PlayerProfile/PlayerProfile";
 import { NflUrl } from "@/lib/constants";

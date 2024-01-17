@@ -1,4 +1,4 @@
-import { getNcaafWeek } from "@/lib/ncaafAPI";
+import { getNcaafWeek } from "@/api/ncaafAPI";
 import { redirect } from "next/navigation";
 import React from "react";
 

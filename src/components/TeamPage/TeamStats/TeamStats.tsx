@@ -1,6 +1,6 @@
 import WidgetWrapper from "@/components/WidgetWrapper/WidgetWrapper";
 import { Skeleton } from "@/components/ui/skeleton";
-import { getNflTeamStats } from "@/lib/nflAPI";
+import { getNflTeamStats } from "@/api/nflAPI";
 import { times } from "lodash";
 import React from "react";
 import indicator from "ordinal/indicator";
