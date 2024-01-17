@@ -1,7 +1,6 @@
 import WidgetWrapper from "@/components/WidgetWrapper/WidgetWrapper";
 import { Skeleton } from "@/components/ui/skeleton";
-import { getNflTeamStats } from "@/api/nflAPI";
-import { times } from "lodash";
+import { isEmpty, times } from "lodash";
 import React from "react";
 import indicator from "ordinal/indicator";
 import { TeamStat } from "@/lib/types";
@@ -13,6 +12,10 @@ interface Props {
 
 export default async function TeamStats({ team, query }: Props) {
   const data = await query(team);
+
+  if (isEmpty(data)) {
+    return null;
+  }
 
   return (
     <WidgetWrapper title="Team Stats" maxWidth={300}>

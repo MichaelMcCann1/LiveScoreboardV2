@@ -25,6 +25,10 @@ export default async function TeamStandings({
     division?.standings?.some((t) => t?.id === team)
   )!;
 
+  if (!division) {
+    return null;
+  }
+
   return (
     <WidgetWrapper title={`${division?.name} Standings`} maxWidth={300}>
       <Standing data={division?.headers} header colWidth={colWidth} />

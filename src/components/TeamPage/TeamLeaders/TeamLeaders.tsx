@@ -1,7 +1,7 @@
 import TeamLeadersContent from "./components/TeamLeadersContent";
 import WidgetWrapper from "@/components/WidgetWrapper/WidgetWrapper";
 import { Skeleton } from "@/components/ui/skeleton";
-import { times } from "lodash";
+import { isEmpty, times } from "lodash";
 import { TeamLeaderData } from "@/lib/types";
 
 interface Props {
@@ -12,6 +12,10 @@ interface Props {
 
 export default async function TeamLeaders({ team, query, sportUrl }: Props) {
   const data = await query(team);
+
+  if (isEmpty(data)) {
+    return null;
+  }
 
   return (
     <WidgetWrapper title="Team Leaders" maxWidth={350}>

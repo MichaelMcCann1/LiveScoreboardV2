@@ -12,20 +12,26 @@ export default async function TeamBanner({ team, query }: Props) {
 
   return (
     <div className="flex gap-6 items-center justify-center py-10">
-      <img
-        src={data?.logo}
-        className="h-[160px]"
-        alt={`${data.location} logo`}
-      />
-      <div className="flex flex-col gap-2">
-        <span className="text-3xl font-medium">
-          {data?.location} {data?.nickname}
-        </span>
-        <div>
-          <span className="font-medium">({data?.record}) -</span>{" "}
-          <span className="font-light">{data?.standingSummary}</span>
-        </div>
-      </div>
+      {!data.location ? (
+        <h3 className="text-2xl">No Team Found</h3>
+      ) : (
+        <>
+          <img
+            src={data?.logo}
+            className="h-[160px]"
+            alt={`${data.location} logo`}
+          />
+          <div className="flex flex-col gap-2">
+            <span className="text-3xl font-medium">
+              {data?.location} {data?.nickname}
+            </span>
+            <div>
+              <span className="font-medium">({data?.record}) -</span>{" "}
+              <span className="font-light">{data?.standingSummary}</span>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }

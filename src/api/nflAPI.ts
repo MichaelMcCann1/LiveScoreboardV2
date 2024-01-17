@@ -1,16 +1,8 @@
 "use server";
 
-import { isEmpty } from "lodash";
 import { NflWeeks } from "../lib/constants";
 import { getCurrentNflYear } from "../lib/getCurrentSportYear";
-import {
-  Categories,
-  TeamLeaderAthleteData,
-  TeamLeaderData,
-  ScheduleData,
-  StandingsData,
-  TeamStat,
-} from "../lib/types";
+import { StandingsData } from "../lib/types";
 import { formatScoreboardData } from "./utils/formatScoreboardData";
 import { formatPlayerData } from "./utils/formatPlayerData";
 import { formatTeamBannerData } from "./utils/formatTeamBannerData";
@@ -42,10 +34,8 @@ export const getNflPlayerPageData = async (playerID: string) => {
     { cache: "no-cache" }
   );
   const playerData = await playerDataResponse.json();
-  const teamDataResponse = await fetch(playerData?.team?.$ref);
-  const teamData = await teamDataResponse.json();
 
-  return formatPlayerData(playerData, teamData);
+  return await formatPlayerData(playerData);
 };
 
 export const getNflTeamBannerData = async (team: string) => {
@@ -139,21 +129,12 @@ export const getNflTeamLeaderData = async (team: string) => {
   );
   const data = await leaderSResponse.json();
 
-  const formatData = (data: any, category: Categories) => {
-    return {
-      displayName: data.displayName,
-      value: data.leaders[0].value,
-      athlete: data.leaders[0].athlete.$ref,
-      category,
-    };
-  };
-
-  const passsingData = data.categories[3];
-  const rushingData = data.categories[4];
-  const receivingData = data.categories[5];
-  const tacklesData = data.categories[6];
-  const sacksData = data.categories[7];
-  const interceptionsData = data.categories[8];
+  const passsingData = data?.categories?.[3];
+  const rushingData = data?.categories?.[4];
+  const receivingData = data?.categories?.[5];
+  const tacklesData = data?.categories?.[6];
+  const sacksData = data?.categories?.[7];
+  const interceptionsData = data?.categories?.[8];
 
   return formatTeamLeadersData(
     [passsingData, rushingData, receivingData],

@@ -1,6 +1,8 @@
+"use server";
+
 import { NcaafWeeks } from "../lib/constants";
 import { getCurrentNcaafYear } from "../lib/getCurrentSportYear";
-import { Categories, StandingsData } from "../lib/types";
+import { StandingsData } from "../lib/types";
 import { formatScoreboardData } from "./utils/formatScoreboardData";
 import { formatPlayerData } from "./utils/formatPlayerData";
 import { formatTeamBannerData } from "./utils/formatTeamBannerData";
@@ -42,10 +44,8 @@ export const getNcaafPlayerPageData = async (playerID: string) => {
     { cache: "no-cache" }
   );
   const playerData = await playerDataResponse.json();
-  const teamDataResponse = await fetch(playerData?.team?.$ref);
-  const teamData = await teamDataResponse.json();
 
-  return formatPlayerData(playerData, teamData);
+  return await formatPlayerData(playerData);
 };
 
 export const getNcaafTeamBannerData = async (team: string) => {
@@ -138,15 +138,6 @@ export const getNcaafTeamLeaderData = async (team: string) => {
     { cache: "no-cache" }
   );
   const data = await leaderSResponse.json();
-
-  const formatData = (data: any, category: Categories) => {
-    return {
-      displayName: data?.displayName,
-      value: data?.leaders?.[0]?.value,
-      athlete: data?.leaders?.[0]?.athlete?.$ref,
-      category,
-    };
-  };
 
   const passsingData = data?.categories?.[3];
   const rushingData = data?.categories?.[4];

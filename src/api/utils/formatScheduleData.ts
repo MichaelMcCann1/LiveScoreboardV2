@@ -2,14 +2,14 @@ import { TeamScheduleData, ScheduleData } from "@/lib/types";
 import { isEmpty } from "lodash";
 
 export const formatScheduleData = (data: any, team: string) => {
-  return (data.events as any[]).map((game) => {
-    const gameData = game.competitions[0];
+  return (data?.events as any[])?.map((game) => {
+    const gameData = game?.competitions?.[0];
 
     const selectedTeamData = (gameData.competitors as any[]).find(
-      (competitor) => competitor.team.id === team
+      (competitor) => competitor?.team?.id === team
     );
     const opponentData = (gameData.competitors as any[]).find(
-      (competitor) => competitor.team.id !== team
+      (competitor) => competitor?.team?.id !== team
     );
 
     return {

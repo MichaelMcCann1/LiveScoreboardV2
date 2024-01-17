@@ -18,10 +18,14 @@ export default function PlayerProfile({ data, sport }: Props) {
     { label: "Home Town", value: `${data?.city}, ${data?.state}` },
   ].filter((stat) => stat.value);
 
+  if (!data) {
+    return <h1 className="text-center pt-40 text-3xl">No Player Found</h1>;
+  }
+
   return (
     <div className="flex flex-col gap-10 items-center pt-20">
       <div className="flex gap-6 items-center">
-        <div className="h-[220px] relative">
+        <div className="h-[220px] min-w-[250px] relative">
           <div className="h-full overflow-hidden absolute left-1/2 -translate-x-1/2">
             <img
               className="h-[250px] max-w-none opacity-30"
