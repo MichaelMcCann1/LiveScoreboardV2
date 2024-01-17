@@ -15,7 +15,7 @@ export default function TeamBox({ teamData, odds, oddsType, sport }: Props) {
   return (
     <div className={"flex h-14 py-2 items-center gap-2"}>
       <Link
-        href={`/${sport}/teams/${teamData.abbreviation}`}
+        href={`/${sport}/teams/${teamData.id}`}
         className="h-full flex items-center gap-2"
       >
         <img

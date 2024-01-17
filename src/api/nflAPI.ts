@@ -5,8 +5,8 @@ import { NflWeeks } from "../lib/constants";
 import { getCurrentNflYear } from "../lib/getCurrentSportYear";
 import {
   Categories,
-  NflTeamLeaderAthleteData,
-  NflTeamLeaderData,
+  TeamLeaderAthleteData,
+  TeamLeaderData,
   ScheduleData,
   StandingsData,
   TeamStat,
@@ -101,7 +101,7 @@ export const getNflStandings = async () => {
       headers: ["Team", "W", "L", "T", "PCT"],
       standings: (division.standings.entries as any[]).map((entry) => {
         return {
-          abbreviation: entry.team.id,
+          id: entry.team.id,
           data: [
             entry.team.location,
             entry.stats[0].displayValue,

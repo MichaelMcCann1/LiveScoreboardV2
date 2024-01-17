@@ -2,11 +2,11 @@ import TeamLeadersContent from "./components/TeamLeadersContent";
 import WidgetWrapper from "@/components/WidgetWrapper/WidgetWrapper";
 import { Skeleton } from "@/components/ui/skeleton";
 import { times } from "lodash";
-import { NflTeamLeaderData } from "@/lib/types";
+import { TeamLeaderData } from "@/lib/types";
 
 interface Props {
   team: string;
-  query: (team: string) => Promise<NflTeamLeaderData[]>;
+  query: (team: string) => Promise<TeamLeaderData[]>;
   sportUrl: string;
 }
 

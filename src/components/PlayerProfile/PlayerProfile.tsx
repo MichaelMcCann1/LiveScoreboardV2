@@ -1,11 +1,11 @@
 import { Skeleton } from "@/components/ui/skeleton";
-import { NflPlayerData } from "@/lib/types";
+import { PlayerData } from "@/lib/types";
 import { times } from "lodash";
 import Link from "next/link";
 import React from "react";
 
 interface Props {
-  data: NflPlayerData;
+  data: PlayerData;
   sport: string;
 }
 
@@ -40,7 +40,7 @@ export default function PlayerProfile({ data, sport }: Props) {
           <span className="text-6xl font-medium">{data?.lastName}</span>
           <div className="mt-2">
             <span className="font-light">
-              <Link href={`/${sport}/teams/${data?.abbreviation}`}>
+              <Link href={`/${sport}/teams/${data?.id}`}>
                 {data?.location} {data?.nickname}
               </Link>{" "}
               - {data?.position} - #{data?.jersey}

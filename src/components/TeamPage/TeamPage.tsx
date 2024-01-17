@@ -1,8 +1,8 @@
 import React, { Suspense } from "react";
 import TeamBanner from "./TeamBanner/TeamBanner";
 import {
-  NflTeamBannerData,
-  NflTeamLeaderData,
+  TeamBannerData,
+  TeamLeaderData,
   ScheduleData,
   StandingsData,
   TeamStat,
@@ -16,9 +16,9 @@ interface Props {
   team: string;
   sportUrl: string;
   colWidth?: number;
-  bannerQuery: (team: string) => Promise<NflTeamBannerData>;
+  bannerQuery: (team: string) => Promise<TeamBannerData>;
   scheduleQuery: (team: string) => Promise<ScheduleData[]>;
-  leadersQuery: (team: string) => Promise<NflTeamLeaderData[]>;
+  leadersQuery: (team: string) => Promise<TeamLeaderData[]>;
   standingsQuery: () => Promise<StandingsData[]>;
   statQuery: (team: string) => Promise<TeamStat[]>;
 }

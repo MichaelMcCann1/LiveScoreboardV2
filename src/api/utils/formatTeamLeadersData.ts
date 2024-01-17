@@ -1,8 +1,4 @@
-import {
-  Categories,
-  NflTeamLeaderAthleteData,
-  NflTeamLeaderData,
-} from "@/lib/types";
+import { Categories, TeamLeaderAthleteData, TeamLeaderData } from "@/lib/types";
 
 export const formatTeamLeadersData = async (
   offenseData: any[],
@@ -26,13 +22,13 @@ export const formatTeamLeadersData = async (
         athlete: {
           fullName: athleteData.fullName,
           headshot: athleteData.headshot.href,
-          position: athleteData.position.abbreviation,
+          position: athleteData.position.id,
           jersey: athleteData.jersey,
           id: athleteData.id,
-        } as NflTeamLeaderAthleteData,
+        } as TeamLeaderAthleteData,
       };
     })
-  )) as NflTeamLeaderData[];
+  )) as TeamLeaderData[];
 };
 
 const formatData = (data: any, category: Categories) => {

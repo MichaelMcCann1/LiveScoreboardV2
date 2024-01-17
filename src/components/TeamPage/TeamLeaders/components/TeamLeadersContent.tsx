@@ -2,7 +2,7 @@
 
 import PlayerHeadshot from "@/components/PlayerHeadshot/PlayerHeadshot";
 import { Separator } from "@/components/ui/separator";
-import { Categories, NflTeamLeaderData } from "@/lib/types";
+import { Categories, TeamLeaderData } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import React, { Fragment, useState } from "react";
@@ -10,7 +10,7 @@ import React, { Fragment, useState } from "react";
 const categories = ["Offense", "Defense"] as Categories[];
 
 interface Props {
-  data: NflTeamLeaderData[];
+  data: TeamLeaderData[];
   sportUrl: string;
 }
 

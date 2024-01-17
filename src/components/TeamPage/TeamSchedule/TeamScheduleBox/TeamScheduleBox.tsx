@@ -1,11 +1,11 @@
-import { NflTeamScheduleData } from "@/lib/types";
+import { TeamScheduleData } from "@/lib/types";
 import Link from "next/link";
 import React from "react";
 import Results from "./components/Results";
 import GameInfo from "./components/GameInfo";
 
 interface Props {
-  gameData: NflTeamScheduleData;
+  gameData: TeamScheduleData;
   sportUrl: string;
 }
 
@@ -13,7 +13,7 @@ export default function TeamScheduleBox({ gameData, sportUrl }: Props) {
   return (
     <Link
       className="p-2 hover:bg-gray-200 text-sm"
-      href={`/${sportUrl}/teams/${gameData.opponentAbbreviation}`}
+      href={`/${sportUrl}/teams/${gameData.opponentId}`}
     >
       <div className="flex items-center relative">
         <img

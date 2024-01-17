@@ -1,4 +1,4 @@
-import { NflScoreboardData } from "@/lib/types";
+import { ScoreboardData } from "@/lib/types";
 import { groupBy, isEmpty, times } from "lodash";
 import { DateTime } from "luxon";
 import React, { Fragment } from "react";
@@ -8,7 +8,7 @@ import { Skeleton } from "../ui/skeleton";
 import { Separator } from "../ui/separator";
 
 interface Props {
-  data: NflScoreboardData[];
+  data: ScoreboardData[];
   sport: string;
 }
 

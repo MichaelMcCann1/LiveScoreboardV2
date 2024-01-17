@@ -4,7 +4,7 @@ import React from "react";
 
 interface Props {
   data: string[];
-  abbreviation?: string;
+  id?: string;
   header?: boolean;
   bold?: boolean;
   sportUrl?: string;
@@ -13,7 +13,7 @@ interface Props {
 
 export default function Standing({
   data,
-  abbreviation,
+  id,
   header,
   bold,
   sportUrl,
@@ -29,7 +29,7 @@ export default function Standing({
             "hover:underline hover:font-medium",
             bold && "font-medium"
           )}
-          href={`/${sportUrl}/teams/${abbreviation}`}
+          href={`/${sportUrl}/teams/${id}`}
         >
           {data[0]}
         </Link>

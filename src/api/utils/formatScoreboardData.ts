@@ -1,4 +1,4 @@
-import { NflScoreboardData, TeamData } from "@/lib/types";
+import { ScoreboardData, TeamData } from "@/lib/types";
 
 export const formatScoreboardData = (data: any) => {
   return (data.events as any[])
@@ -21,12 +21,12 @@ export const formatScoreboardData = (data: any) => {
             shortDisplayName: leader?.shortDisplayName,
             displayValue: leader?.leaders?.[0]?.displayValue,
             shortName: leader?.leaders?.[0]?.athlete?.shortName,
-            position: leader?.leaders?.[0]?.athlete?.position?.abbreviation,
+            position: leader?.leaders?.[0]?.athlete?.position?.id,
             headshot: leader?.leaders?.[0]?.athlete?.headshot,
             id: leader?.leaders?.[0]?.athlete?.id,
           };
         }),
-      } as NflScoreboardData;
+      } as ScoreboardData;
     })
     .filter(
       (game) =>
@@ -47,6 +47,6 @@ export const formatTeamScoreboardData = (data: any): TeamData => {
       (score: { value: number }) => score?.value
     ),
     winner: data?.winner,
-    abbreviation: teamData?.id,
+    id: teamData?.id,
   };
 };

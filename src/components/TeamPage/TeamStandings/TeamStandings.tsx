@@ -22,7 +22,7 @@ export default async function TeamStandings({
   const data = await query();
 
   const division = data.find((division) =>
-    division?.standings?.some((t) => t?.abbreviation === team)
+    division?.standings?.some((t) => t?.id === team)
   )!;
 
   return (
@@ -31,10 +31,10 @@ export default async function TeamStandings({
       <Separator />
       {division?.standings.map((t) => (
         <Standing
-          key={t.abbreviation}
+          key={t.id}
           data={t.data}
-          abbreviation={t.abbreviation}
-          bold={t.abbreviation === team}
+          id={t.id}
+          bold={t.id === team}
           sportUrl={sportUrl}
           colWidth={colWidth}
         />

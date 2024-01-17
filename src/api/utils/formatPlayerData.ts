@@ -1,4 +1,4 @@
-import { NflPlayerData } from "@/lib/types";
+import { PlayerData } from "@/lib/types";
 
 export const formatPlayerData = (playerData: any, teamData: any) => {
   return {
@@ -17,6 +17,6 @@ export const formatPlayerData = (playerData: any, teamData: any) => {
     location: teamData.location,
     nickname: teamData.name,
     logo: teamData.logos[0].href,
-    abbreviation: teamData.id,
-  } as NflPlayerData;
+    id: teamData.id,
+  } as PlayerData;
 };

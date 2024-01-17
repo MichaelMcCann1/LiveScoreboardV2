@@ -103,7 +103,7 @@ export const getNcaafStandings = async () => {
       headers: ["Team", "Conf Rec", "Overall Rec"],
       standings: (division?.standings?.entries as any[])?.map((entry) => {
         return {
-          abbreviation: entry?.team?.id,
+          id: entry?.team?.id,
           data: [
             entry?.team?.location,
             entry?.stats?.[0]?.displayValue,

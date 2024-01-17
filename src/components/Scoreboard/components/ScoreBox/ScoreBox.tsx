@@ -3,11 +3,11 @@ import React from "react";
 import TeamBox from "./components/TeamBox";
 import Linescores from "./components/Linescores";
 import Leader from "./components/Leader";
-import { NflScoreboardData } from "@/lib/types";
+import { ScoreboardData } from "@/lib/types";
 
 const periods = [1, 2, 3, 4];
 
-const getTimeDisplay = (gameData: NflScoreboardData) => {
+const getTimeDisplay = (gameData: ScoreboardData) => {
   const getPeriodDisplay = (period: number) => {
     if (period === 1) return "1st";
     if (period === 2) return "2nd";
@@ -30,7 +30,7 @@ const getTimeDisplay = (gameData: NflScoreboardData) => {
 };
 
 interface Props {
-  gameData: NflScoreboardData;
+  gameData: ScoreboardData;
   sport: string;
 }
 

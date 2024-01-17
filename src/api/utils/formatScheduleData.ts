@@ -1,4 +1,4 @@
-import { NflTeamScheduleData, ScheduleData } from "@/lib/types";
+import { TeamScheduleData, ScheduleData } from "@/lib/types";
 import { isEmpty } from "lodash";
 
 export const formatScheduleData = (data: any, team: string) => {
@@ -18,17 +18,17 @@ export const formatScheduleData = (data: any, team: string) => {
       logo: opponentData?.team?.logos?.[0]?.href,
       homeAway: selectedTeamData?.homeAway,
       opponentNickname: opponentData?.team?.nickname,
-      opponentAbbreviation: opponentData?.team?.id,
+      opponentId: opponentData?.team?.id,
       winner: selectedTeamData?.winner,
       selectedTeamScore: selectedTeamData?.score?.displayValue,
       opponentTeamScore: opponentData?.score?.displayValue,
-    } as NflTeamScheduleData;
+    } as TeamScheduleData;
   });
 };
 
 export const filterScheduleData = (
-  regularSeasonData: NflTeamScheduleData[],
-  postSeasonData: NflTeamScheduleData[]
+  regularSeasonData: TeamScheduleData[],
+  postSeasonData: TeamScheduleData[]
 ) => {
   const data = [{ title: "Regular Season", scheduleData: regularSeasonData }];
   if (!isEmpty(postSeasonData)) {

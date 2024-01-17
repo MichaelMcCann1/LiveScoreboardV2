@@ -1,10 +1,10 @@
 import { Skeleton } from "@/components/ui/skeleton";
-import { NflTeamBannerData } from "@/lib/types";
+import { TeamBannerData } from "@/lib/types";
 import React from "react";
 
 interface Props {
   team: string;
-  query: (team: string) => Promise<NflTeamBannerData>;
+  query: (team: string) => Promise<TeamBannerData>;
 }
 
 export default async function TeamBanner({ team, query }: Props) {
