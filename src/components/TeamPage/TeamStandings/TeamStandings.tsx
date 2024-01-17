@@ -21,7 +21,7 @@ export default async function TeamStandings({
 }: Props) {
   const data = await query();
 
-  const division = data.find((division) =>
+  const division = data?.find((division) =>
     division?.standings?.some((t) => t?.id === team)
   )!;
 

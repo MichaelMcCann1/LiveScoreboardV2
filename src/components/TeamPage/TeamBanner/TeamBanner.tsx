@@ -12,7 +12,7 @@ export default async function TeamBanner({ team, query }: Props) {
 
   return (
     <div className="flex gap-6 items-center justify-center py-10">
-      {!data.location ? (
+      {!data?.location ? (
         <h3 className="text-2xl">No Team Found</h3>
       ) : (
         <>
