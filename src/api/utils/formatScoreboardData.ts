@@ -4,6 +4,7 @@ export const formatScoreboardData = (data: any) => {
   return (data.events as any[])
     .map((game: any) => {
       const competetion = game.competitions[0];
+      const tv = competetion?.broadcasts?.[0]?.names?.[0]
 
       return {
         id: competetion?.id,
@@ -13,7 +14,7 @@ export const formatScoreboardData = (data: any) => {
         status: game?.status?.type?.description,
         clock: game?.status?.displayClock,
         period: game?.status?.period,
-        tv: competetion?.broadcasts?.[0]?.names?.[0],
+        tv: tv === 'undefined' ? undefined : tv,
         spread: competetion?.odds?.[0]?.details,
         overUnder: competetion?.odds?.[0]?.overUnder,
         leaders: (competetion?.leaders as any[])?.map((leader) => {

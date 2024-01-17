@@ -1,6 +1,6 @@
 "use client";
 
-import { NcaafUrl, NflUrl } from "@/lib/constants";
+import { NbaUrl, NcaafUrl, NflUrl } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -16,6 +16,7 @@ const linkData = [
   { text: "Home", href: "/" },
   { text: "NFL", href: `/${NflUrl}` },
   { text: "NCAAF", href: `/${NcaafUrl}` },
+  { text: "NBA", href: `/${NbaUrl}` },
 ];
 
 export default function Navbar() {

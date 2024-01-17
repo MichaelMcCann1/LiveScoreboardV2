@@ -19,12 +19,12 @@ const getTimeDisplay = (gameData: ScoreboardData) => {
   if (gameData.status === "Final") return "Final";
   if (gameData.status === "In Progress") {
     return `${gameData.clock} ${getPeriodDisplay(gameData.period)} - ${
-      gameData.tv
+      gameData.tv ? `- ${gameData.tv}` : ""
     }`;
   }
   if (gameData.status === "Scheduled") {
-    return `${DateTime.fromISO(gameData.date).toFormat("h:mma")} - ${
-      gameData.tv
+    return `${DateTime.fromISO(gameData.date).toFormat("h:mma")} ${
+      gameData.tv ? `- ${gameData.tv}` : ""
     }`;
   }
 };
