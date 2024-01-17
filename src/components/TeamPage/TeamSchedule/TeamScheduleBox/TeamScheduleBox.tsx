@@ -6,13 +6,14 @@ import GameInfo from "./components/GameInfo";
 
 interface Props {
   gameData: NflTeamScheduleData;
+  sportUrl: string;
 }
 
-export default function TeamScheduleBox({ gameData }: Props) {
+export default function TeamScheduleBox({ gameData, sportUrl }: Props) {
   return (
     <Link
       className="p-2 hover:bg-gray-200 text-sm"
-      href={`/nfl/teams/${gameData.opponentAbbreviation}`}
+      href={`/${sportUrl}/teams/${gameData.opponentAbbreviation}`}
     >
       <div className="flex items-center relative">
         <img
@@ -23,7 +24,7 @@ export default function TeamScheduleBox({ gameData }: Props) {
         <span className="text-xs px-2">
           {gameData.homeAway === "home" ? "vs" : "@"}
         </span>
-        <span className="font-medium">{gameData.opponentNickname}</span>
+        <span className="font-medium text-sm">{gameData.opponentNickname}</span>
         {gameData.winner !== undefined ? (
           <Results
             winner={gameData.winner}

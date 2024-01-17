@@ -4,13 +4,15 @@ import { getNflTeamStats } from "@/lib/nflAPI";
 import { times } from "lodash";
 import React from "react";
 import indicator from "ordinal/indicator";
+import { TeamStat } from "@/lib/types";
 
 interface Props {
   team: string;
+  query: (team: string) => Promise<TeamStat[]>;
 }
 
-export default async function TeamStats({ team }: Props) {
-  const data = await getNflTeamStats(team);
+export default async function TeamStats({ team, query }: Props) {
+  const data = await query(team);
 
   return (
     <WidgetWrapper title="Team Stats" maxWidth={300}>

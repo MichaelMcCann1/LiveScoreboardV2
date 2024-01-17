@@ -11,9 +11,10 @@ const categories = ["Offense", "Defense"] as Categories[];
 
 interface Props {
   data: NflTeamLeaderData[];
+  sportUrl: string;
 }
 
-export default function TeamLeadersContent({ data }: Props) {
+export default function TeamLeadersContent({ data, sportUrl }: Props) {
   const [selectedCategory, setSelectedCategory] =
     useState<Categories>("Offense");
 
@@ -42,7 +43,7 @@ export default function TeamLeadersContent({ data }: Props) {
       {leadersData?.map((leader, index) => (
         <Fragment key={leader.displayName}>
           <Link
-            href={`/nfl/players/${leader.athlete.id}`}
+            href={`/${sportUrl}/players/${leader.athlete.id}`}
             className="flex flex-col py-3 px-1 gap-1"
           >
             <span className="text-sm">{leader.displayName}</span>

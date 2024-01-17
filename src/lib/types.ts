@@ -105,3 +105,25 @@ export type WeeksList = {
   week: number;
   text: string;
 }[];
+
+export type TeamStat = {
+  stat: string;
+  value: string;
+  rank: number;
+};
+
+export type ScheduleData = {
+  title: string;
+  scheduleData: NflTeamScheduleData[];
+};
+
+export type StandingsData = {
+  name: string;
+  headers: string[];
+  standings: TeamStandingData[];
+};
+
+export type TeamStandingData = {
+  abbreviation: string;
+  data: string[];
+};

@@ -1,5 +1,6 @@
 "use server";
 
+import { isEmpty } from "lodash";
 import { NflWeeks } from "./constants";
 import { getCurrentNflYear } from "./getCurrentSportYear";
 import {
@@ -12,7 +13,10 @@ import {
   NflTeamLeaderData,
   NflTeamScheduleData,
   NflTeamStandingsData,
+  ScheduleData,
+  StandingsData,
   TeamData,
+  TeamStat,
 } from "./types";
 
 export const formatTeamData = (data: any): TeamData => {
@@ -27,7 +31,7 @@ export const formatTeamData = (data: any): TeamData => {
       (score: { value: number }) => score?.value
     ),
     winner: data?.winner,
-    abbreviation: teamData?.abbreviation,
+    abbreviation: teamData?.id,
   };
 };
 
@@ -100,7 +104,7 @@ export const getNflPlayerPageData = async (playerID: string) => {
     location: teamData.location,
     nickname: teamData.nickname,
     logo: teamData.logos[0].href,
-    abbreviation: teamData.abbreviation,
+    abbreviation: teamData.id,
   } as NflPlayerData;
 };
 
@@ -121,15 +125,15 @@ export const getNflTeamBannerData = async (team: string) => {
   } as NflTeamBannerData;
 };
 
-const formatScheduleData = (data: any, team: string) => {
+export const formatScheduleData = (data: any, team: string) => {
   return (data.events as any[]).map((game) => {
     const gameData = game.competitions[0];
 
     const selectedTeamData = (gameData.competitors as any[]).find(
-      (competitor) => competitor.team.abbreviation === team
+      (competitor) => competitor.team.id === team
     );
     const opponentData = (gameData.competitors as any[]).find(
-      (competitor) => competitor.team.abbreviation !== team
+      (competitor) => competitor.team.id !== team
     );
 
     return {
@@ -138,7 +142,7 @@ const formatScheduleData = (data: any, team: string) => {
       logo: opponentData?.team?.logos?.[0]?.href,
       homeAway: selectedTeamData?.homeAway,
       opponentNickname: opponentData?.team?.nickname,
-      opponentAbbreviation: opponentData?.team?.abbreviation,
+      opponentAbbreviation: opponentData?.team?.id,
       winner: selectedTeamData?.winner,
       selectedTeamScore: selectedTeamData?.score?.displayValue,
       opponentTeamScore: opponentData?.score?.displayValue,
@@ -146,7 +150,7 @@ const formatScheduleData = (data: any, team: string) => {
   });
 };
 
-export const getNflTeamScheduleRegular = async (team: string) => {
+const getNflTeamScheduleRegular = async (team: string) => {
   const reponse = await fetch(
     `https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/${team}/schedule?seasontype=2`,
     { cache: "no-cache" }
@@ -155,13 +159,27 @@ export const getNflTeamScheduleRegular = async (team: string) => {
   return formatScheduleData(data, team);
 };
 
-export const getNflTeamSchedulePostSeason = async (team: string) => {
+const getNflTeamSchedulePostSeason = async (team: string) => {
   const reponse = await fetch(
     `https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams/${team}/schedule?seasontype=3`,
     { cache: "no-cache" }
   );
   const data = await reponse.json();
   return formatScheduleData(data, team);
+};
+
+export const getNflTeamSchedule = async (team: string) => {
+  const [regularSeasonData, postSeasonData] = await Promise.all([
+    getNflTeamScheduleRegular(team),
+    getNflTeamSchedulePostSeason(team),
+  ]);
+
+  const data = [{ title: "Regular Season", scheduleData: regularSeasonData }];
+  if (!isEmpty(postSeasonData)) {
+    data.unshift({ title: "PostSeason", scheduleData: postSeasonData });
+  }
+
+  return data as ScheduleData[];
 };
 
 export const getNflStandings = async () => {
@@ -178,17 +196,20 @@ export const getNflStandings = async () => {
   return divisions.map((division) => {
     return {
       name: division.name,
+      headers: ["Team", "W", "L", "T", "PCT"],
       standings: (division.standings.entries as any[]).map((entry) => {
         return {
-          abbreviation: entry.team.abbreviation,
-          location: entry.team.location,
-          wins: entry.stats[0].displayValue,
-          losses: entry.stats[1].displayValue,
-          ties: entry.stats[2].displayValue,
-          pct: entry.stats[3].displayValue,
-        } as NflTeamStandingsData;
+          abbreviation: entry.team.id,
+          data: [
+            entry.team.location,
+            entry.stats[0].displayValue,
+            entry.stats[1].displayValue,
+            entry.stats[2].displayValue,
+            entry.stats[3].displayValue,
+          ],
+        };
       }),
-    } as NflStandingsData;
+    } as StandingsData;
   });
 };
 
@@ -210,7 +231,7 @@ export const getNflTeamStats = async (team: string) => {
       stat: stat?.displayName,
       value: stat?.displayValue,
       rank: stat?.rank,
-    };
+    } as TeamStat;
   });
 };
 

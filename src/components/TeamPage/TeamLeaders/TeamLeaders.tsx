@@ -1,19 +1,21 @@
-import { getNflTeamLeaderData } from "@/lib/nflAPI";
 import TeamLeadersContent from "./components/TeamLeadersContent";
 import WidgetWrapper from "@/components/WidgetWrapper/WidgetWrapper";
 import { Skeleton } from "@/components/ui/skeleton";
 import { times } from "lodash";
+import { NflTeamLeaderData } from "@/lib/types";
 
 interface Props {
   team: string;
+  query: (team: string) => Promise<NflTeamLeaderData[]>;
+  sportUrl: string;
 }
 
-export default async function TeamLeaders({ team }: Props) {
-  const data = await getNflTeamLeaderData(team);
+export default async function TeamLeaders({ team, query, sportUrl }: Props) {
+  const data = await query(team);
 
   return (
     <WidgetWrapper title="Team Leaders" maxWidth={350}>
-      <TeamLeadersContent data={data} />
+      <TeamLeadersContent data={data} sportUrl={sportUrl} />
     </WidgetWrapper>
   );
 }

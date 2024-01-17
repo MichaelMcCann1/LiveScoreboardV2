@@ -3,43 +3,37 @@ import Link from "next/link";
 import React from "react";
 
 interface Props {
-  team: string;
-  wins: string;
-  losses: string;
-  ties: string;
-  pct: string;
+  data: string[];
   abbreviation?: string;
   header?: boolean;
   bold?: boolean;
+  sportUrl?: string;
 }
 
 export default function Standing({
-  team,
-  wins,
-  losses,
-  ties,
-  pct,
+  data,
   abbreviation,
   header,
   bold,
+  sportUrl,
 }: Props) {
   return (
     <div className="flex items-center font-light py-1 text-sm">
       {header ? (
-        <span className="uppercase font-bold">{team}</span>
+        <span className="uppercase font-bold">{data?.[0]}</span>
       ) : (
         <Link
           className={cn(
             "hover:underline hover:font-medium",
             bold && "font-medium"
           )}
-          href={`/nfl/teams/${abbreviation}`}
+          href={`/${sportUrl}/teams/${abbreviation}`}
         >
-          {team}
+          {data[0]}
         </Link>
       )}
       <div className="ml-auto flex items-center">
-        {[wins, losses, ties, pct].map((item, index) => (
+        {data?.slice(1).map((item, index) => (
           <span
             key={item}
             className={cn(

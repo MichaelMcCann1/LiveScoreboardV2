@@ -1,28 +1,19 @@
 import React, { Fragment } from "react";
 import TeamScheduleBox from "./TeamScheduleBox/TeamScheduleBox";
-import {
-  getNflTeamSchedulePostSeason,
-  getNflTeamScheduleRegular,
-} from "@/lib/nflAPI";
 import WidgetWrapper from "@/components/WidgetWrapper/WidgetWrapper";
-import { isEmpty, times } from "lodash";
+import { times } from "lodash";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Separator } from "@/components/ui/separator";
+import { ScheduleData } from "@/lib/types";
 
 interface Props {
   team: string;
+  query: (team: string) => Promise<ScheduleData[]>;
+  sportUrl: string;
 }
 
-export default async function TeamSchedule({ team }: Props) {
-  const [regularSeasonData, postSeasonData] = await Promise.all([
-    getNflTeamScheduleRegular(team),
-    getNflTeamSchedulePostSeason(team),
-  ]);
-
-  const data = [{ title: "Regular Season", scheduleData: regularSeasonData }];
-  if (!isEmpty(postSeasonData)) {
-    data.unshift({ title: "PostSeason", scheduleData: postSeasonData });
-  }
+export default async function TeamSchedule({ team, query, sportUrl }: Props) {
+  const data = await query(team);
 
   return (
     <WidgetWrapper title="2023 Schedule" maxWidth={300}>
@@ -34,7 +25,7 @@ export default async function TeamSchedule({ team }: Props) {
           <Separator />
           {season.scheduleData.map((game) => (
             <Fragment key={game.date}>
-              <TeamScheduleBox gameData={game} />
+              <TeamScheduleBox gameData={game} sportUrl={sportUrl} />
               <Separator />
             </Fragment>
           ))}

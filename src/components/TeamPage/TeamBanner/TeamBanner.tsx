@@ -1,13 +1,14 @@
 import { Skeleton } from "@/components/ui/skeleton";
-import { getNflTeamBannerData } from "@/lib/nflAPI";
+import { NflTeamBannerData } from "@/lib/types";
 import React from "react";
 
 interface Props {
   team: string;
+  query: (team: string) => Promise<NflTeamBannerData>;
 }
 
-export default async function TeamBanner({ team }: Props) {
-  const data = await getNflTeamBannerData(team);
+export default async function TeamBanner({ team, query }: Props) {
+  const data = await query(team);
 
   return (
     <div className="flex gap-6 items-center justify-center py-10">

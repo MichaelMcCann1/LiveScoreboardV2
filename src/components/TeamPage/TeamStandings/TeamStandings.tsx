@@ -1,43 +1,35 @@
 import React from "react";
 import Standing from "./components/Standing";
-import { getNflStandings } from "@/lib/nflAPI";
 import WidgetWrapper from "@/components/WidgetWrapper/WidgetWrapper";
 import { Skeleton } from "@/components/ui/skeleton";
 import { times } from "lodash";
 import { Separator } from "@/components/ui/separator";
+import { StandingsData } from "@/lib/types";
 
 interface Props {
   team: string;
+  query: () => Promise<StandingsData[]>;
+  sportUrl: string;
 }
 
-export default async function TeamStandings({ team }: Props) {
-  const data = await getNflStandings();
+export default async function TeamStandings({ team, query, sportUrl }: Props) {
+  const data = await query();
 
   const division = data.find((division) =>
-    division.standings.some((t) => t.abbreviation === team)
-  );
+    division?.standings?.some((t) => t?.abbreviation === team)
+  )!;
 
   return (
     <WidgetWrapper title={`${division?.name} Standings`} maxWidth={300}>
-      <Standing
-        team={"Team"}
-        wins={"W"}
-        losses={"L"}
-        ties={"T"}
-        pct={"PCT"}
-        header
-      />
+      <Standing data={division?.headers} header />
       <Separator />
       {division?.standings.map((t) => (
         <Standing
           key={t.abbreviation}
-          team={t.location}
-          wins={t.wins}
-          losses={t.losses}
-          ties={t.ties}
-          pct={t.pct}
+          data={t.data}
           abbreviation={t.abbreviation}
           bold={t.abbreviation === team}
+          sportUrl={sportUrl}
         />
       ))}
     </WidgetWrapper>
