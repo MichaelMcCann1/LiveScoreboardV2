@@ -1,6 +1,7 @@
-import { getNflPlayerPageData } from "@/lib/nflAPI";
+import { getNflPlayerPageData } from "@/api/nflAPI";
 import React, { Suspense } from "react";
-import PlayerProfile from "./_components/PlayerProfile";
+import PlayerProfile from "../../../../components/PlayerProfile/PlayerProfile";
+import { NflUrl } from "@/lib/constants";
 
 interface Props {
   params: { playerID: string };
@@ -12,7 +13,7 @@ export default async function page({ params }: Props) {
 
   return (
     <Suspense fallback={<PlayerProfile.Skeleton />}>
-      <PlayerProfile data={data} />
+      <PlayerProfile data={data} sport={NflUrl} />
     </Suspense>
   );
 }

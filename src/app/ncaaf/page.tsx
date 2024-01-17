@@ -1,12 +1,12 @@
-import { getNflWeek } from "@/api/nflAPI";
+import { getNcaafWeek } from "@/api/ncaafAPI";
 import { redirect } from "next/navigation";
 import React from "react";
 
 export default async function page() {
-  const data = await getNflWeek();
+  const data = await getNcaafWeek();
 
   if (data) {
-    redirect(`/nfl/week/${data}`);
+    redirect(`/ncaaf/week/${data}`);
   }
 
   return <div>Loading</div>;

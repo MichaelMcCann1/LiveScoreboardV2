@@ -6,7 +6,7 @@ export interface TeamData {
   score: string;
   linescores: number[];
   winner: boolean;
-  abbreviation: string;
+  id: string;
 }
 
 export interface LeaderData {
@@ -18,7 +18,7 @@ export interface LeaderData {
   id: string;
 }
 
-export interface NflScoreboardData {
+export interface ScoreboardData {
   id: string;
   date: string;
   awayTeamData: TeamData;
@@ -32,7 +32,7 @@ export interface NflScoreboardData {
   overUnder: string;
 }
 
-export interface NflTeamBannerData {
+export interface TeamBannerData {
   location: string;
   nickname: string;
   standingSummary: string;
@@ -40,40 +40,26 @@ export interface NflTeamBannerData {
   record: string;
 }
 
-export interface NflTeamScheduleData {
+export interface TeamScheduleData {
   date: string;
   tv: string;
   logo: string;
   homeAway: "home" | "away";
   opponentNickname: string;
-  opponentAbbreviation: string;
+  opponentId: string;
   winner?: boolean;
   selectedTeamScore?: string;
   opponentTeamScore?: string;
 }
 
-export interface NflStandingsData {
-  name: string;
-  standings: NflTeamStandingsData[];
-}
-
-export interface NflTeamStandingsData {
-  abbreviation: string;
-  location: string;
-  wins: string;
-  losses: string;
-  ties: string;
-  pct: string;
-}
-
-export interface NflTeamLeaderData {
+export interface TeamLeaderData {
   displayName: string;
   value: string;
-  athlete: NflTeamLeaderAthleteData;
+  athlete: TeamLeaderAthleteData;
   category: Categories;
 }
 
-export interface NflTeamLeaderAthleteData {
+export interface TeamLeaderAthleteData {
   fullName: string;
   headshot: string;
   position: string;
@@ -82,7 +68,7 @@ export interface NflTeamLeaderAthleteData {
 }
 export type Categories = "Offense" | "Defense";
 
-export interface NflPlayerData {
+export interface PlayerData {
   firstName: string;
   lastName: string;
   jersey: string;
@@ -95,8 +81,35 @@ export interface NflPlayerData {
   location: string;
   nickname: string;
   logo: string;
-  abbreviation: string;
+  id: string;
   age: number;
   city: string;
   state: string;
 }
+
+export type WeeksList = {
+  week: number;
+  text: string;
+}[];
+
+export type TeamStat = {
+  stat: string;
+  value: string;
+  rank: number;
+};
+
+export type ScheduleData = {
+  title: string;
+  scheduleData: TeamScheduleData[];
+};
+
+export type StandingsData = {
+  name: string;
+  headers: string[];
+  standings: TeamStandingData[];
+};
+
+type TeamStandingData = {
+  id: string;
+  data: string[];
+};
