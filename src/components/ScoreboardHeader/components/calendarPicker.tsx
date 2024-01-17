@@ -17,7 +17,7 @@ export default function CalendarPicker({ date }: Props) {
 
   return (
     <Calendar
-      className="bg-white"
+      className="bg-white text-xs"
       mode="single"
       selected={selectedDay}
       defaultMonth={selectedDay}
