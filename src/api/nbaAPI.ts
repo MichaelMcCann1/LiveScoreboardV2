@@ -1,7 +1,10 @@
 "use server";
 
 import { getCurrentNbafYear } from "@/lib/getCurrentSportYear";
-import { formatScoreboardData } from "./utils/formatScoreboardData";
+import {
+  formatScoreboardData,
+  formatScoreboardLeadersBasketball,
+} from "./utils/formatScoreboardData";
 import { formatPlayerData } from "./utils/formatPlayerData";
 import { formatTeamBannerData } from "./utils/formatTeamBannerData";
 import {
@@ -19,7 +22,7 @@ export const getNbaScoreboardData = async (date: string) => {
   );
   const data = await reponse.json();
 
-  return formatScoreboardData(data);
+  return formatScoreboardData(data, formatScoreboardLeadersBasketball);
 };
 
 export const getNbaPlayerPageData = async (playerID: string) => {
