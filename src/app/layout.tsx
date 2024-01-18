@@ -3,6 +3,7 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar/Navbar";
 import React from "react";
+import Scroll from "@/components/Scroll/Scroll";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -22,10 +23,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={poppins.className}>
+        <Scroll />
         <Navbar />
-        <div className="relative top-[60px] bg-gray-100 min-h-[calc(100vh-60px)] pb-10">
+        <main className="bg-gray-100 min-h-[calc(100vh-60px)] pb-10">
           {children}
-        </div>
+        </main>
       </body>
     </html>
   );

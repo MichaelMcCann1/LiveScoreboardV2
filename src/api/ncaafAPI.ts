@@ -3,7 +3,10 @@
 import { NcaafWeeks } from "../lib/constants";
 import { getCurrentNcaafYear } from "../lib/getCurrentSportYear";
 import { StandingsData } from "../lib/types";
-import { formatScoreboardData, formatScoreboardLeadersFootball } from "./utils/formatScoreboardData";
+import {
+  formatScoreboardData,
+  formatScoreboardLeadersFootball,
+} from "./utils/formatScoreboardData";
 import { formatPlayerData } from "./utils/formatPlayerData";
 import { formatTeamBannerData } from "./utils/formatTeamBannerData";
 import {

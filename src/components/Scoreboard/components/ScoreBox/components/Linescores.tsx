@@ -8,7 +8,6 @@ interface Props {
 }
 
 export default function Linescores({ periods, total, losingTeam }: Props) {
-  console.log(periods);
   return (
     <div
       className={cn(

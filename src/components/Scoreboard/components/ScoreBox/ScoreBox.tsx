@@ -42,7 +42,8 @@ export default function ScoreBox({ gameData, sport }: Props) {
           <span className="text-sm font-semibold">
             {getTimeDisplay(gameData)}
           </span>
-          {gameData.status !== "Scheduled" && <Linescores periods={periods} />}
+          {gameData.status !== "Scheduled" &&
+            gameData.status !== "Postponed" && <Linescores periods={periods} />}
         </div>
         <TeamBox
           teamData={gameData.awayTeamData}
