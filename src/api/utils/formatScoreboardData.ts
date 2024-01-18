@@ -75,7 +75,6 @@ export const formatScoreboardLeadersBasketball = (competition: any) => {
     }
   });
 
-  console.log(displayLeaders);
   return displayLeaders.map((leader) => {
     return {
       shortDisplayName: leader?.shortDisplayName,
