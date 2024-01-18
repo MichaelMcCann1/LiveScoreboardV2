@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { WeeksList } from "@/lib/types";
+import { WeeksList } from "@/types";
 
 const getButtonText = (currentWeek: number, weeksList: WeeksList) => {
   if (currentWeek === 1) return weeksList.slice(0, 3);

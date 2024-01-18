@@ -1,6 +1,6 @@
 "use client";
 
-import { NbaUrl, NcaafUrl, NflUrl } from "@/lib/constants";
+import { NbaUrl, NcaafUrl, NflUrl } from "@/constants";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";

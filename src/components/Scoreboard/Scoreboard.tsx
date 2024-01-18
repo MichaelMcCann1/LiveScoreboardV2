@@ -1,4 +1,4 @@
-import { ScoreboardData } from "@/lib/types";
+import { ScoreboardData } from "@/types";
 import { groupBy, isEmpty, times } from "lodash";
 import { DateTime } from "luxon";
 import React, { Fragment } from "react";

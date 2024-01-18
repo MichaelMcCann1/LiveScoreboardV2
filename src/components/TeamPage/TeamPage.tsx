@@ -6,7 +6,7 @@ import {
   ScheduleData,
   StandingsData,
   TeamStat,
-} from "@/lib/types";
+} from "@/types";
 import TeamSchedule from "./TeamSchedule/TeamSchedule";
 import TeamLeaders from "./TeamLeaders/TeamLeaders";
 import TeamStandings from "./TeamStandings/TeamStandings";

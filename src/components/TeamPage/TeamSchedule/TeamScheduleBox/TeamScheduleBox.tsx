@@ -1,4 +1,4 @@
-import { TeamScheduleData } from "@/lib/types";
+import { TeamScheduleData } from "@/types";
 import Link from "next/link";
 import React from "react";
 import Results from "./components/Results";

@@ -1,5 +1,5 @@
 import Scoreboard from "@/components/Scoreboard/Scoreboard";
-import { NflUrl } from "@/lib/constants";
+import { NflUrl } from "@/constants";
 import { getNflScoreboardData } from "@/api/nflAPI";
 import React from "react";
 

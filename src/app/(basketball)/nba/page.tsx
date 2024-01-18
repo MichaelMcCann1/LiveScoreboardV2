@@ -1,5 +1,5 @@
 import { getNbaDay } from "@/api/nbaAPI";
-import { NbaUrl } from "@/lib/constants";
+import { NbaUrl } from "@/constants";
 import { redirect } from "next/navigation";
 import React from "react";
 

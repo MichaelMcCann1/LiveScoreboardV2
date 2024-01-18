@@ -1,6 +1,6 @@
 "use server";
 
-import { getCurrentNbafYear } from "@/lib/getCurrentSportYear";
+import { getCurrentNbafYear } from "@/utils/getCurrentSportYear";
 import {
   formatScoreboardData,
   formatScoreboardLeadersBasketball,
@@ -13,7 +13,7 @@ import {
 } from "./utils/formatScheduleData";
 import { formatTeamLeadersData } from "./utils/formatTeamLeadersData";
 import { formatTeamStats } from "./utils/formatTeamStats";
-import { StandingsData } from "@/lib/types";
+import { StandingsData } from "@/types";
 
 export const getNbaScoreboardData = async (date: string) => {
   const reponse = await fetch(

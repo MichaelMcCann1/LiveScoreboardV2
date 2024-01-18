@@ -1,5 +1,5 @@
 import TeamPage from "@/components/TeamPage/TeamPage";
-import { NcaafUrl } from "@/lib/constants";
+import { NcaafUrl } from "@/constants";
 import {
   getNcaafStandings,
   getNcaafTeamBannerData,

@@ -1,8 +1,8 @@
 import React from "react";
 import ScoreboardHeader from "@/components/ScoreboardHeader/ScoreboardHeader";
 import NflScoreboard from "./_components/NflScoreboard";
-import { getNflWeeks } from "@/lib/utils/NFL/getNflWeeks";
-import { NflUrl } from "@/lib/constants";
+import { getNflWeeks } from "@/utils/NFL/getNflWeeks";
+import { NflUrl } from "@/constants";
 import WeekPicker from "@/components/ScoreboardHeader/components/weekPicker";
 import WeekButtons from "@/components/ScoreboardHeader/components/weekButtons";
 

@@ -1,4 +1,4 @@
-import { TeamStat } from "@/lib/types";
+import { TeamStat } from "@/types";
 
 export const formatTeamStats = (stats: any[]) => {
   return stats

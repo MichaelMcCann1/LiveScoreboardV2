@@ -4,7 +4,7 @@ import WidgetWrapper from "@/components/WidgetWrapper/WidgetWrapper";
 import { Skeleton } from "@/components/ui/skeleton";
 import { times } from "lodash";
 import { Separator } from "@/components/ui/separator";
-import { StandingsData } from "@/lib/types";
+import { StandingsData } from "@/types";
 
 interface Props {
   team: string;

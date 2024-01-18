@@ -1,4 +1,4 @@
-import { TeamBannerData } from "@/lib/types";
+import { TeamBannerData } from "@/types";
 
 export const formatTeamBannerData = (data: any) => {
   const teamData = data.team;

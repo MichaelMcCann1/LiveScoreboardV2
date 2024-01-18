@@ -1,5 +1,5 @@
 import PlayerHeadshot from "@/components/PlayerHeadshot/PlayerHeadshot";
-import { LeaderData } from "@/lib/types";
+import { LeaderData } from "@/types";
 import Link from "next/link";
 import React from "react";
 

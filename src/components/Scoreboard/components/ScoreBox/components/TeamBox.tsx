@@ -1,14 +1,14 @@
 import React from "react";
 import Linescores from "./Linescores";
 import Link from "next/link";
-import { TeamData } from "@/lib/types";
+import { TeamData } from "@/types";
 import { cn } from "@/lib/utils";
 
 interface Props {
   teamData: TeamData;
   odds?: string;
   oddsType: string;
-  sport: string
+  sport: string;
 }
 
 export default function TeamBox({ teamData, odds, oddsType, sport }: Props) {

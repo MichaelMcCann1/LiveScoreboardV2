@@ -1,5 +1,5 @@
 import { Skeleton } from "@/components/ui/skeleton";
-import { PlayerData } from "@/lib/types";
+import { PlayerData } from "@/types";
 import { times } from "lodash";
 import Link from "next/link";
 import React from "react";

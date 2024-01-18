@@ -1,5 +1,5 @@
 import { Skeleton } from "@/components/ui/skeleton";
-import { TeamBannerData } from "@/lib/types";
+import { TeamBannerData } from "@/types";
 import React from "react";
 
 interface Props {

@@ -2,7 +2,7 @@ import TeamLeadersContent from "./components/TeamLeadersContent";
 import WidgetWrapper from "@/components/WidgetWrapper/WidgetWrapper";
 import { Skeleton } from "@/components/ui/skeleton";
 import { isEmpty, times } from "lodash";
-import { TeamLeaderData } from "@/lib/types";
+import { TeamLeaderData } from "@/types";
 
 interface Props {
   team: string;

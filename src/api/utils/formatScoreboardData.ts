@@ -1,4 +1,4 @@
-import { LeaderData, ScoreboardData, TeamData } from "@/lib/types";
+import { LeaderData, ScoreboardData, TeamData } from "@/types";
 
 export const formatScoreboardData = (
   data: any,

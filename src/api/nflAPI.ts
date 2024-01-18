@@ -1,9 +1,12 @@
 "use server";
 
-import { NflWeeks } from "../lib/constants";
-import { getCurrentNflYear } from "../lib/getCurrentSportYear";
-import { StandingsData } from "../lib/types";
-import { formatScoreboardData, formatScoreboardLeadersFootball } from "./utils/formatScoreboardData";
+import { NflWeeks } from "../constants";
+import { getCurrentNflYear } from "../utils/getCurrentSportYear";
+import { StandingsData } from "../types";
+import {
+  formatScoreboardData,
+  formatScoreboardLeadersFootball,
+} from "./utils/formatScoreboardData";
 import { formatPlayerData } from "./utils/formatPlayerData";
 import { formatTeamBannerData } from "./utils/formatTeamBannerData";
 import {

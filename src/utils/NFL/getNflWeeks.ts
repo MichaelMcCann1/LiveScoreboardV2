@@ -1,4 +1,4 @@
-import { NflWeeks } from "@/lib/constants";
+import { NflWeeks } from "@/constants";
 import { times } from "lodash";
 
 export const getNflWeeks = () => {

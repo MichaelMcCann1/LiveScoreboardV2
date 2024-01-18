@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { NbaUrl, NcaafUrl, NflUrl } from "@/lib/constants";
+import { NbaUrl, NcaafUrl, NflUrl } from "@/constants";
 import Link from "next/link";
 
 const linkData = [

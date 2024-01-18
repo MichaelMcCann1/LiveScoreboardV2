@@ -1,6 +1,12 @@
-import { getNbaStandings, getNbaTeamBannerData, getNbaTeamLeaderData, getNbaTeamSchedule, getNbaTeamStats } from "@/api/nbaAPI";
+import {
+  getNbaStandings,
+  getNbaTeamBannerData,
+  getNbaTeamLeaderData,
+  getNbaTeamSchedule,
+  getNbaTeamStats,
+} from "@/api/nbaAPI";
 import TeamPage from "@/components/TeamPage/TeamPage";
-import { NbaUrl } from "@/lib/constants";
+import { NbaUrl } from "@/constants";
 import React from "react";
 
 interface Props {
