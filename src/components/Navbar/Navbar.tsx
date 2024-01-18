@@ -42,10 +42,10 @@ export default function Navbar() {
         ))}
         <Link
           href={"https://github.com/MichaelMcCann1/LiveScoreboardV2"}
-          className="absolute right-10 opacity-40 hover:opacity-100 transition-all duration-500"
+          className="absolute right-8 opacity-40 hover:opacity-100 transition-all duration-300"
           target="_blank"
         >
-          <Image src={"/github.svg"} width={40} height={40} alt="Git-hub" />
+          <Image src={"/github.svg"} width={30} height={30} alt="Git-hub" />
         </Link>
       </nav>
     </div>

@@ -25,7 +25,7 @@ export default function RootLayout({
       <body className={poppins.className}>
         <Scroll />
         <Navbar />
-        <main className="bg-gray-100 min-h-[calc(100vh-60px)] pb-10">
+        <main className="bg-gray-100 min-h-[calc(100vh-60px)] h-full pb-10">
           {children}
         </main>
       </body>
