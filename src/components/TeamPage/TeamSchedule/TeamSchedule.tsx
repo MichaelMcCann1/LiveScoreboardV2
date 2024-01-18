@@ -15,13 +15,13 @@ interface Props {
 export default async function TeamSchedule({ team, query, sportUrl }: Props) {
   const data = await query(team);
 
-  if (data.length === 1 && !data[0].scheduleData) {
+  if (!data || (data?.length === 1 && !data[0]?.scheduleData)) {
     return null;
   }
 
   return (
     <WidgetWrapper title="2023 Schedule" maxWidth={300}>
-      {data.map((season) => (
+      {data?.map((season) => (
         <Fragment key={season.title}>
           <span className="p-2 uppercase text-xs font-medium">
             {season.title}

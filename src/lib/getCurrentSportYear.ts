@@ -21,3 +21,14 @@ export const getCurrentNcaafYear = () => {
 
   return year;
 };
+
+export const getCurrentNbafYear = () => {
+  const year = DateTime.now().year;
+  const month = DateTime.now().month;
+
+  if (month < 9) {
+    return year - 1;
+  }
+
+  return year;
+};

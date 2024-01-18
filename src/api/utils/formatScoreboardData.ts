@@ -1,9 +1,13 @@
-import { ScoreboardData, TeamData } from "@/lib/types";
+import { LeaderData, ScoreboardData, TeamData } from "@/lib/types";
 
-export const formatScoreboardData = (data: any) => {
+export const formatScoreboardData = (
+  data: any,
+  getLeaders: (data: any) => LeaderData[]
+) => {
   return (data.events as any[])
-    .map((game: any) => {
+    ?.map((game: any) => {
       const competetion = game.competitions[0];
+      const tv = competetion?.broadcasts?.[0]?.names?.[0];
 
       return {
         id: competetion?.id,
@@ -13,19 +17,10 @@ export const formatScoreboardData = (data: any) => {
         status: game?.status?.type?.description,
         clock: game?.status?.displayClock,
         period: game?.status?.period,
-        tv: competetion?.broadcasts?.[0]?.names?.[0],
+        tv: tv === "undefined" ? undefined : tv,
         spread: competetion?.odds?.[0]?.details,
         overUnder: competetion?.odds?.[0]?.overUnder,
-        leaders: (competetion?.leaders as any[])?.map((leader) => {
-          return {
-            shortDisplayName: leader?.shortDisplayName,
-            displayValue: leader?.leaders?.[0]?.displayValue,
-            shortName: leader?.leaders?.[0]?.athlete?.shortName,
-            position: leader?.leaders?.[0]?.athlete?.position?.id,
-            headshot: leader?.leaders?.[0]?.athlete?.headshot,
-            id: leader?.leaders?.[0]?.athlete?.id,
-          };
-        }),
+        leaders: getLeaders(competetion),
       } as ScoreboardData;
     })
     .filter(
@@ -49,4 +44,45 @@ export const formatTeamScoreboardData = (data: any): TeamData => {
     winner: data?.winner,
     id: teamData?.id,
   };
+};
+
+export const formatScoreboardLeadersFootball = (competition: any) => {
+  return (competition?.leaders as any[])?.map((leader) => {
+    return {
+      shortDisplayName: leader?.shortDisplayName,
+      displayValue: leader?.leaders?.[0]?.displayValue,
+      shortName: leader?.leaders?.[0]?.athlete?.shortName,
+      position: leader?.leaders?.[0]?.athlete?.position?.abbreviation,
+      headshot: leader?.leaders?.[0]?.athlete?.headshot,
+      id: leader?.leaders?.[0]?.athlete?.id,
+    };
+  });
+};
+
+export const formatScoreboardLeadersBasketball = (competition: any) => {
+  const team1Leaders = competition?.competitors?.[0]?.leaders?.slice(0, 3);
+  const team2Leaders = competition?.competitors?.[1]?.leaders?.slice(0, 3);
+  const displayLeaders = [] as any[];
+
+  team1Leaders?.forEach((leader: any, index: number) => {
+    const team1Leader = leader;
+    const team2Leader = team2Leaders[index];
+
+    if (team1Leader.leaders[0].value >= team2Leader.leaders[0].value) {
+      displayLeaders.push(team1Leader);
+    } else {
+      displayLeaders.push(team2Leader);
+    }
+  });
+
+  return displayLeaders.map((leader) => {
+    return {
+      shortDisplayName: leader?.shortDisplayName,
+      displayValue: leader?.leaders?.[0]?.displayValue,
+      shortName: leader?.leaders?.[0]?.athlete?.shortName,
+      position: leader?.leaders?.[0]?.athlete?.position?.abbreviation,
+      headshot: leader?.leaders?.[0]?.athlete?.headshot,
+      id: leader?.leaders?.[0]?.athlete?.id,
+    };
+  });
 };

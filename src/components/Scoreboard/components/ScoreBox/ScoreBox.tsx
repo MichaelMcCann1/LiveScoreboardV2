@@ -19,12 +19,12 @@ const getTimeDisplay = (gameData: ScoreboardData) => {
   if (gameData.status === "Final") return "Final";
   if (gameData.status === "In Progress") {
     return `${gameData.clock} ${getPeriodDisplay(gameData.period)} - ${
-      gameData.tv
+      gameData.tv ? `- ${gameData.tv}` : ""
     }`;
   }
   if (gameData.status === "Scheduled") {
-    return `${DateTime.fromISO(gameData.date).toFormat("h:mma")} - ${
-      gameData.tv
+    return `${DateTime.fromISO(gameData.date).toFormat("h:mma")} ${
+      gameData.tv ? `- ${gameData.tv}` : ""
     }`;
   }
 };
@@ -42,7 +42,8 @@ export default function ScoreBox({ gameData, sport }: Props) {
           <span className="text-sm font-semibold">
             {getTimeDisplay(gameData)}
           </span>
-          {gameData.status !== "Scheduled" && <Linescores periods={periods} />}
+          {gameData.status !== "Scheduled" &&
+            gameData.status !== "Postponed" && <Linescores periods={periods} />}
         </div>
         <TeamBox
           teamData={gameData.awayTeamData}

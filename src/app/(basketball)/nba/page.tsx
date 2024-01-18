@@ -1,12 +1,13 @@
-import { getNflWeek } from "@/api/nflAPI";
+import { getNbaDay } from "@/api/nbaAPI";
+import { NbaUrl } from "@/lib/constants";
 import { redirect } from "next/navigation";
 import React from "react";
 
 export default async function page() {
-  const data = await getNflWeek();
+  const data = await getNbaDay();
 
   if (data) {
-    redirect(`/nfl/week/${data}`);
+    redirect(`/${NbaUrl}/date/${data}`);
   }
 
   return <div>Loading</div>;

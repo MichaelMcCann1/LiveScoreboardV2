@@ -5,7 +5,7 @@ import Link from "next/link";
 import React from "react";
 
 interface Props {
-  data: PlayerData;
+  data: PlayerData | undefined;
   sport: string;
 }
 
@@ -30,7 +30,7 @@ export default function PlayerProfile({ data, sport }: Props) {
             <img
               className="h-[250px] max-w-none opacity-30"
               src={data?.logo}
-              alt={`${data.location} logo`}
+              alt={`${data?.location} logo`}
             />
           </div>
           <img

@@ -5,7 +5,7 @@ export const formatTeamBannerData = (data: any) => {
 
   return {
     location: teamData?.location,
-    nickname: teamData?.nickname,
+    nickname: teamData?.name,
     standingSummary: teamData?.standingSummary,
     logo: teamData?.logos?.[0]?.href,
     record: teamData?.record?.items?.[0]?.summary,

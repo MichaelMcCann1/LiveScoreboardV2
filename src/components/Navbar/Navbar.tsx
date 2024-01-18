@@ -1,7 +1,8 @@
 "use client";
 
-import { NcaafUrl, NflUrl } from "@/lib/constants";
+import { NbaUrl, NcaafUrl, NflUrl } from "@/lib/constants";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
@@ -16,14 +17,15 @@ const linkData = [
   { text: "Home", href: "/" },
   { text: "NFL", href: `/${NflUrl}` },
   { text: "NCAAF", href: `/${NcaafUrl}` },
+  { text: "NBA", href: `/${NbaUrl}` },
 ];
 
 export default function Navbar() {
   const pathname = usePathname();
 
   return (
-    <div className="flex h-[60px] bg-gray-200 shadow-lg fixed top-0 w-full z-10 items-center justify-center">
-      <nav className="flex gap-16">
+    <div className="flex h-[60px] bg-gray-200 shadow-lg sticky top-0 w-full z-10 items-center justify-center">
+      <nav className="flex gap-16 items-center">
         {linkData.map((link) => (
           <Link
             key={link.text}
@@ -38,6 +40,13 @@ export default function Navbar() {
             {link.text}
           </Link>
         ))}
+        <Link
+          href={"https://github.com/MichaelMcCann1/LiveScoreboardV2"}
+          className="absolute right-10 opacity-40 hover:opacity-100 transition-all duration-500"
+          target="_blank"
+        >
+          <Image src={"/github.svg"} width={40} height={40} alt="Git-hub" />
+        </Link>
       </nav>
     </div>
   );

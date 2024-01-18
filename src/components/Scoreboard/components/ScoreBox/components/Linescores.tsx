@@ -27,7 +27,7 @@ export default function Linescores({ periods, total, losingTeam }: Props) {
           total !== undefined && "text-xl font-semibold"
         )}
       >
-        {total ?? "T"}
+        {periods === undefined ? "" : total ?? "T"}
       </span>
     </div>
   );

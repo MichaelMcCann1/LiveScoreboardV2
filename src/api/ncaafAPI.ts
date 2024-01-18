@@ -3,7 +3,10 @@
 import { NcaafWeeks } from "../lib/constants";
 import { getCurrentNcaafYear } from "../lib/getCurrentSportYear";
 import { StandingsData } from "../lib/types";
-import { formatScoreboardData } from "./utils/formatScoreboardData";
+import {
+  formatScoreboardData,
+  formatScoreboardLeadersFootball,
+} from "./utils/formatScoreboardData";
 import { formatPlayerData } from "./utils/formatPlayerData";
 import { formatTeamBannerData } from "./utils/formatTeamBannerData";
 import {
@@ -24,7 +27,7 @@ export const getNcaafScoreboardData = async (week: string) => {
   );
   const data = await reponse.json();
 
-  return formatScoreboardData(data);
+  return formatScoreboardData(data, formatScoreboardLeadersFootball);
 };
 
 export const getNcaafWeek = async () => {
