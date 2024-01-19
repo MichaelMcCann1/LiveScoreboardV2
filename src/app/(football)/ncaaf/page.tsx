@@ -1,5 +1,5 @@
 import { getNcaafWeek } from "@/api/ncaafAPI";
-import { NcaafUrl } from "@/lib/constants";
+import { NcaafUrl } from "@/constants";
 import { redirect } from "next/navigation";
 import React from "react";
 

@@ -1,8 +1,8 @@
 "use server";
 
-import { NcaafWeeks } from "../lib/constants";
-import { getCurrentNcaafYear } from "../lib/getCurrentSportYear";
-import { StandingsData } from "../lib/types";
+import { NcaafWeeks } from "../constants";
+import { getCurrentNcaafYear } from "../utils/getCurrentSportYear";
+import { StandingsData } from "../types";
 import {
   formatScoreboardData,
   formatScoreboardLeadersFootball,

@@ -1,6 +1,6 @@
 import { getNbaScoreboardData } from "@/api/nbaAPI";
 import Scoreboard from "@/components/Scoreboard/Scoreboard";
-import { NbaUrl } from "@/lib/constants";
+import { NbaUrl } from "@/constants";
 import React from "react";
 
 interface Props {

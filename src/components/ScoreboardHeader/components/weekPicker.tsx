@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/select";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { WeeksList } from "@/lib/types";
+import { WeeksList } from "@/types";
 
 interface Props {
   currentWeek: string;

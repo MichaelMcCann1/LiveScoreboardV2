@@ -1,6 +1,6 @@
 import { getNbaPlayerPageData } from "@/api/nbaAPI";
 import PlayerProfile from "@/components/PlayerProfile/PlayerProfile";
-import { NbaUrl } from "@/lib/constants";
+import { NbaUrl } from "@/constants";
 import React, { Suspense } from "react";
 
 interface Props {

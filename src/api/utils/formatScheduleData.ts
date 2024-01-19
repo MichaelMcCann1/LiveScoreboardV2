@@ -1,4 +1,4 @@
-import { TeamScheduleData, ScheduleData } from "@/lib/types";
+import { TeamScheduleData, ScheduleData } from "@/types";
 import { isEmpty } from "lodash";
 
 export const formatScheduleData = (data: any, team: string) => {

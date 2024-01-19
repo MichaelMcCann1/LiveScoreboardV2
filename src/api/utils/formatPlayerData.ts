@@ -1,4 +1,4 @@
-import { PlayerData } from "@/lib/types";
+import { PlayerData } from "@/types";
 
 export const formatPlayerData = async (playerData: any) => {
   if (!playerData?.team?.$ref) {

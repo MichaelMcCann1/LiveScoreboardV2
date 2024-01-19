@@ -2,7 +2,7 @@
 
 import PlayerHeadshot from "@/components/PlayerHeadshot/PlayerHeadshot";
 import { Separator } from "@/components/ui/separator";
-import { Categories, TeamLeaderData } from "@/lib/types";
+import { Categories, TeamLeaderData } from "@/types";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import React, { Fragment, useState } from "react";

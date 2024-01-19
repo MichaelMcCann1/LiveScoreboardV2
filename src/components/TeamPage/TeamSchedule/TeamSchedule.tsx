@@ -4,7 +4,7 @@ import WidgetWrapper from "@/components/WidgetWrapper/WidgetWrapper";
 import { times } from "lodash";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Separator } from "@/components/ui/separator";
-import { ScheduleData } from "@/lib/types";
+import { ScheduleData } from "@/types";
 
 interface Props {
   team: string;

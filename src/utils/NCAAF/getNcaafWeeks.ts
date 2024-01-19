@@ -1,4 +1,4 @@
-import { NcaafWeeks } from "@/lib/constants";
+import { NcaafWeeks } from "@/constants";
 import { times } from "lodash";
 
 export const getNcaaWeeks = () => {

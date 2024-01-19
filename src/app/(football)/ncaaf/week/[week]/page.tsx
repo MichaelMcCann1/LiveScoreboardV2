@@ -1,8 +1,8 @@
 import ScoreboardHeader from "@/components/ScoreboardHeader/ScoreboardHeader";
 import React from "react";
 import NcaafScoreboard from "./_components/NcaafScoreboard";
-import { getNcaaWeeks } from "@/lib/utils/NCAAF/getNcaafWeeks";
-import { NcaafUrl } from "@/lib/constants";
+import { getNcaaWeeks } from "@/utils/NCAAF/getNcaafWeeks";
+import { NcaafUrl } from "@/constants";
 import WeekPicker from "@/components/ScoreboardHeader/components/weekPicker";
 import WeekButtons from "@/components/ScoreboardHeader/components/weekButtons";
 

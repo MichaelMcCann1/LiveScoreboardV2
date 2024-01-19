@@ -1,4 +1,4 @@
-import { Categories, TeamLeaderAthleteData, TeamLeaderData } from "@/lib/types";
+import { Categories, TeamLeaderAthleteData, TeamLeaderData } from "@/types";
 
 export const formatTeamLeadersData = async (
   offenseData: any[],

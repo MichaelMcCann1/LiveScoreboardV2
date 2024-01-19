@@ -3,7 +3,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { isEmpty, times } from "lodash";
 import React from "react";
 import indicator from "ordinal/indicator";
-import { TeamStat } from "@/lib/types";
+import { TeamStat } from "@/types";
 
 interface Props {
   team: string;

@@ -3,7 +3,7 @@ import React from "react";
 import TeamBox from "./components/TeamBox";
 import Linescores from "./components/Linescores";
 import Leader from "./components/Leader";
-import { ScoreboardData } from "@/lib/types";
+import { ScoreboardData } from "@/types";
 
 const periods = [1, 2, 3, 4];
 

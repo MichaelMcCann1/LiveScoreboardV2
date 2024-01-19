@@ -1,5 +1,5 @@
 import { getNflWeek } from "@/api/nflAPI";
-import { NflUrl } from "@/lib/constants";
+import { NflUrl } from "@/constants";
 import { redirect } from "next/navigation";
 import React from "react";
 

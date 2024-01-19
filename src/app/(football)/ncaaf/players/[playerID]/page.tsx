@@ -1,5 +1,5 @@
 import PlayerProfile from "@/components/PlayerProfile/PlayerProfile";
-import { NcaafUrl } from "@/lib/constants";
+import { NcaafUrl } from "@/constants";
 import { getNcaafPlayerPageData } from "@/api/ncaafAPI";
 import React, { Suspense } from "react";
 
