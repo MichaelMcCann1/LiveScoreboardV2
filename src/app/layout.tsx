@@ -13,6 +13,7 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: "Live Scoreboard",
   description: "NextJS project created by Michael McCann",
+  icons: [{ url: "/Logo.png", href: "/Logo.png" }],
 };
 
 export default function RootLayout({
