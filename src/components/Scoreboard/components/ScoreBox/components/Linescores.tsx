@@ -5,15 +5,16 @@ interface Props {
   periods: number[];
   total?: string;
   losingTeam?: boolean;
+  final: boolean;
 }
 
-export default function Linescores({ periods, total, losingTeam }: Props) {
+export default function Linescores({ periods, total, losingTeam, final }: Props) {
   return (
     <div
       className={cn(
         "flex gap-2 ml-auto items-center text-sm",
         total === undefined && "font-semibold",
-        losingTeam && "opacity-60"
+        losingTeam && final && "opacity-60"
       )}
     >
       {periods?.map((period, index) => (

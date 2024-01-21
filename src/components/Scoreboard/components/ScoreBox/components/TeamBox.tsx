@@ -9,9 +9,16 @@ interface Props {
   odds?: string;
   oddsType: string;
   sport: string;
+  final: boolean;
 }
 
-export default function TeamBox({ teamData, odds, oddsType, sport }: Props) {
+export default function TeamBox({
+  teamData,
+  odds,
+  oddsType,
+  sport,
+  final,
+}: Props) {
   return (
     <div className={"flex h-14 py-2 items-center gap-2"}>
       <Link
@@ -26,7 +33,7 @@ export default function TeamBox({ teamData, odds, oddsType, sport }: Props) {
         <div
           className={cn(
             "flex flex-col",
-            teamData.winner === false && "opacity-60"
+            teamData.winner === false && final && "opacity-60"
           )}
         >
           <span className="text-xs leading-3">{teamData.location}</span>
@@ -52,6 +59,7 @@ export default function TeamBox({ teamData, odds, oddsType, sport }: Props) {
           periods={teamData.linescores}
           total={teamData.score}
           losingTeam={!teamData.winner}
+          final={final}
         />
       )}
     </div>
