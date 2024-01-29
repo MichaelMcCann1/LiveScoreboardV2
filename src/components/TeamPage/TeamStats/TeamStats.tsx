@@ -23,7 +23,7 @@ export default async function TeamStats({ team, query }: Props) {
         {data?.map((stat) => (
           <div
             key={stat.stat}
-            className="flex flex-col h-full items-center border rounded-lg"
+            className="flex flex-col items-center border rounded-lg"
           >
             <span className="text-sm font-extralight text-center flex-[2]">
               {stat.stat}
