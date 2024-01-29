@@ -11,20 +11,20 @@ const linkData = [
 export default function Home() {
   return (
     <div className="h-[calc(100vh-100px)] flex flex-col items-center justify-center gap-4 px-2">
-      <h1 className="text-6xl">Live Scoreboard</h1>
-      <h3 className="text-2xl">Check the scores of your favorite leagues</h3>
-      <div className="flex items-center gap-8 my-12">
+      <h1 className="text-4xl sm:text-6xl">Live Scoreboard</h1>
+      <h3 className="sm:text-2xl">Check the scores of your favorite leagues</h3>
+      <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-8 my-12">
         {linkData.map((league) => (
           <Button
             asChild
             variant="outline"
-            className="text-xl px-8 py-4 h-auto border-gray-500"
+            className="w-[140px] sm:w-auto text-xl px-8 py-4 h-auto border-gray-500"
           >
             <Link href={league.href}>{league.text}</Link>
           </Button>
         ))}
       </div>
-      <p className="max-w-[600px]">
+      <p className="max-w-[600px] px-3 text-sm">
         This app was made with the NextJS 14 React framework using TypeScript.
         Styles were created by using Tailwind. Basic UI elements were added from
         the{" "}
