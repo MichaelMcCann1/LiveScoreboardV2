@@ -11,7 +11,7 @@ export default async function TeamBanner({ team, query }: Props) {
   const data = await query(team);
 
   return (
-    <div className="flex gap-6 items-center justify-center py-10">
+    <div className="flex flex-col sm:flex-row sm:gap-6 items-center justify-center py-10">
       {!data?.location ? (
         <h3 className="text-2xl">No Team Found</h3>
       ) : (
@@ -38,7 +38,7 @@ export default async function TeamBanner({ team, query }: Props) {
 
 TeamBanner.Skeleton = function TeamBannerSkeleton() {
   return (
-    <div className="flex gap-6 items-center justify-center py-10 ">
+    <div className="flex flex-col sm:flex-row gap-6 items-center justify-center py-10 ">
       <Skeleton className="w-[160px] h-[160px] bg-gray-200" />
       <div className="flex flex-col gap-2">
         <Skeleton className="w-[250px] h-9 bg-gray-200" />

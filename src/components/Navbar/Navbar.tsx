@@ -6,6 +6,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
+import { Sheet, SheetClose, SheetContent, SheetTrigger } from "../ui/sheet";
+import { Button } from "../ui/button";
+import { Menu } from "lucide-react";
 
 const isActivePathname = (pathname: string, link: string) => {
   if (pathname === "/" && link === "/") return true;
@@ -24,8 +27,8 @@ export default function Navbar() {
   const pathname = usePathname();
 
   return (
-    <div className="flex h-[60px] bg-gray-200 shadow-lg sticky top-0 w-full z-10 items-center justify-center">
-      <nav className="flex gap-16 items-center">
+    <div className="flex h-[60px] bg-gray-200 shadow-lg sticky top-0 w-full z-10 items-center justify-end sm:justify-center">
+      <nav className="hidden sm:flex gap-16 items-center">
         {linkData.map((link) => (
           <Link
             key={link.text}
@@ -48,6 +51,41 @@ export default function Navbar() {
           <Image src={"/github.svg"} width={30} height={30} alt="Git-hub" />
         </Link>
       </nav>
+      <div className="sm:hidden">
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button variant="ghost" className="ml-auto hover:bg-inherit">
+              <Menu size={36} />
+            </Button>
+          </SheetTrigger>
+          <SheetContent>
+            <nav className="flex flex-col gap-3">
+              {linkData.map((link) => (
+                <SheetClose asChild>
+                  <Link
+                    key={link.text}
+                    className={cn("text-xl font-medium", {
+                      underline: isActivePathname(pathname, link.href),
+                    })}
+                    href={link.href}
+                  >
+                    {link.text}
+                  </Link>
+                </SheetClose>
+              ))}
+              <SheetClose asChild>
+                <Link
+                  href={"https://github.com/MichaelMcCann1/LiveScoreboardV2"}
+                  className="text-xl"
+                  target="_blank"
+                >
+                  GitHub
+                </Link>
+              </SheetClose>
+            </nav>
+          </SheetContent>
+        </Sheet>
+      </div>
     </div>
   );
 }

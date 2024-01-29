@@ -12,7 +12,7 @@ export default function Linescores({ periods, total, losingTeam, final }: Props)
   return (
     <div
       className={cn(
-        "flex gap-2 ml-auto items-center text-sm",
+        "gap-2 ml-auto items-center text-sm hidden min-[500px]:flex",
         total === undefined && "font-semibold",
         losingTeam && final && "opacity-60"
       )}

@@ -24,7 +24,7 @@ export const formatTeamLeadersData = async (
           athlete: {
             fullName: athleteData?.fullName,
             headshot: athleteData?.headshot?.href,
-            position: athleteData?.position?.id,
+            position: athleteData?.position?.abbreviation,
             jersey: athleteData?.jersey,
             id: athleteData?.id,
           } as TeamLeaderAthleteData,
