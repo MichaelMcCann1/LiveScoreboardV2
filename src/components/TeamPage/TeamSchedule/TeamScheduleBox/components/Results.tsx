@@ -24,7 +24,7 @@ export default function Results({
     <>
       <span
         className={cn(
-          "font-semibold absolute right-[50px] text-center w-5",
+          "font-semibold absolute right-[55px] text-center w-5",
           winner ? "text-green-600" : "text-red-600"
         )}
       >
