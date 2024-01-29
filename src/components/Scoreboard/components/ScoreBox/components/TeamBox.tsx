@@ -9,7 +9,7 @@ interface Props {
   odds?: string;
   oddsType: string;
   sport: string;
-  final: boolean;
+  status: string;
 }
 
 export default function TeamBox({
@@ -17,7 +17,7 @@ export default function TeamBox({
   odds,
   oddsType,
   sport,
-  final,
+  status,
 }: Props) {
   return (
     <div className={"flex h-14 py-2 items-center gap-2"}>
@@ -33,7 +33,7 @@ export default function TeamBox({
         <div
           className={cn(
             "flex flex-col",
-            teamData.winner === false && final && "opacity-60"
+            teamData.winner === false && status === "Final" && "opacity-60"
           )}
         >
           <span className="text-xs leading-3">{teamData.location}</span>
@@ -46,7 +46,7 @@ export default function TeamBox({
         </div>
       </Link>
       {odds !== undefined ? (
-        <div className="flex flex-1 justify-end">
+        <div className="hidden flex-1 justify-end min-[500px]:flex">
           <div className="w-[150px] flex gap-2 items-center">
             <span className="font-medium text-xs text-gray-500">
               {oddsType}:
@@ -59,8 +59,13 @@ export default function TeamBox({
           periods={teamData.linescores}
           total={teamData.score}
           losingTeam={!teamData.winner}
-          final={final}
+          final={status === "Final"}
         />
+      )}
+      {(status === "In Progress" || status === "Final") && (
+        <span className="text-2xl font-medium ml-auto min-[500px]:hidden">
+          {teamData.score}
+        </span>
       )}
     </div>
   );

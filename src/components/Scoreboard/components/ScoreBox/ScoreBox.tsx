@@ -52,14 +52,14 @@ export default function ScoreBox({ gameData, sport }: Props) {
           oddsType={"Spread"}
           odds={gameData.spread}
           sport={sport}
-          final={gameData.status === "Final"}
+          status={gameData.status}
         />
         <TeamBox
           teamData={gameData.homeTeamData}
           oddsType={"Total"}
           odds={gameData.overUnder}
           sport={sport}
-          final={gameData.status === "Final"}
+          status={gameData.status}
         />
       </div>
       <div className="hidden flex-col gap-2 md:flex">
