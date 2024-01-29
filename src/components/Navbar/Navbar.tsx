@@ -61,9 +61,8 @@ export default function Navbar() {
           <SheetContent>
             <nav className="flex flex-col gap-3">
               {linkData.map((link) => (
-                <SheetClose asChild>
+                <SheetClose asChild key={link.text}>
                   <Link
-                    key={link.text}
                     className={cn("text-xl font-medium", {
                       underline: isActivePathname(pathname, link.href),
                     })}

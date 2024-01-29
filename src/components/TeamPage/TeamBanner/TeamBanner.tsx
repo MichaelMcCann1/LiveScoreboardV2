@@ -1,5 +1,6 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { TeamBannerData } from "@/types";
+import Image from "next/image";
 import React from "react";
 
 interface Props {
@@ -16,10 +17,11 @@ export default async function TeamBanner({ team, query }: Props) {
         <h3 className="text-2xl">No Team Found</h3>
       ) : (
         <>
-          <img
+          <Image
             src={data?.logo}
-            className="h-[160px]"
             alt={`${data.location} logo`}
+            width={160}
+            height={160}
           />
           <div className="flex flex-col gap-2">
             <span className="text-3xl font-medium">
