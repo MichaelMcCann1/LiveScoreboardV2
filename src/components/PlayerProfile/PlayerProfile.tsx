@@ -23,8 +23,8 @@ export default function PlayerProfile({ data, sport }: Props) {
   }
 
   return (
-    <div className="flex flex-col gap-10 items-center pt-20">
-      <div className="flex gap-6 items-center">
+    <div className="flex flex-col gap-10 items-center pt-5 sm:pt-20">
+      <div className="flex flex-col sm:flex-row gap-6 items-center">
         <div className="h-[220px] min-w-[250px] relative">
           <div className="h-full overflow-hidden absolute left-1/2 -translate-x-1/2">
             <img
@@ -39,7 +39,7 @@ export default function PlayerProfile({ data, sport }: Props) {
             alt={`${data?.firstName} ${data?.lastName}`}
           />
         </div>
-        <div className="flex flex-col">
+        <div className="flex flex-col text-center sm:text-left">
           <span className="text-5xl font-light">{data?.firstName}</span>
           <span className="text-6xl font-medium">{data?.lastName}</span>
           <div className="mt-2">
@@ -52,7 +52,7 @@ export default function PlayerProfile({ data, sport }: Props) {
           </div>
         </div>
       </div>
-      <div className="grid grid-cols-2 gap-y-2 gap-x-6">
+      <div className="flex flex-col sm:grid grid-cols-2 gap-y-2 gap-x-6">
         {stats.map((stat) => (
           <div key={stat.label} className="flex gap-2">
             <span className="font-light">{stat.label}:</span>
