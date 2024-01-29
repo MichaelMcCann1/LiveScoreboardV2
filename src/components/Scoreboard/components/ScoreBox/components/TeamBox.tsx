@@ -3,6 +3,7 @@ import Linescores from "./Linescores";
 import Link from "next/link";
 import { TeamData } from "@/types";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 interface Props {
   teamData: TeamData;
@@ -25,10 +26,11 @@ export default function TeamBox({
         href={`/${sport}/teams/${teamData.id}`}
         className="h-full flex items-center gap-2"
       >
-        <img
-          className="h-full"
+        <Image
           src={teamData.logo}
           alt={`${teamData.name} logo`}
+          width={40}
+          height={40}
         />
         <div
           className={cn(

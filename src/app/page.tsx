@@ -16,6 +16,7 @@ export default function Home() {
       <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-8 my-4 sm:my-12">
         {linkData.map((league) => (
           <Button
+            key={league.text}
             asChild
             variant="outline"
             className="w-[140px] sm:w-auto text-xl px-8 py-4 h-auto border-gray-500"

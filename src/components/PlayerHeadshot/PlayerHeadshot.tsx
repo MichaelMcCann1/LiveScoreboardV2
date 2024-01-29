@@ -1,5 +1,6 @@
 import React from "react";
 import { UserRound } from "lucide-react";
+import Image from "next/image";
 
 interface Props {
   src: string;
@@ -15,11 +16,11 @@ export default function PlayerHeadshot({ src, size, name }: Props) {
         width: `${size}px`,
       }}
       className={
-        "border border-gray-300 rounded-full flex items-center justify-center overflow-hidden"
+        "border border-gray-300 rounded-full flex items-center justify-center overflow-hidden relative"
       }
     >
       {src ? (
-        <img className="h-full w-auto max-w-none" src={src} alt={name} />
+        <Image src={src} alt={name} fill className="max-w-none object-cover" />
       ) : (
         <UserRound className="h-full w-auto" />
       )}

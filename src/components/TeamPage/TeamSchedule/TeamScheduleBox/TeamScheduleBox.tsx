@@ -3,6 +3,7 @@ import Link from "next/link";
 import React from "react";
 import Results from "./components/Results";
 import GameInfo from "./components/GameInfo";
+import Image from "next/image";
 
 interface Props {
   gameData: TeamScheduleData;
@@ -16,10 +17,11 @@ export default function TeamScheduleBox({ gameData, sportUrl }: Props) {
       href={`/${sportUrl}/teams/${gameData.opponentId}`}
     >
       <div className="flex items-center relative">
-        <img
+        <Image
           src={gameData.logo}
-          className="h-[36px]"
           alt={`${gameData.opponentNickname} logo`}
+          width={36}
+          height={36}
         />
         <span className="text-xs px-2">
           {gameData.homeAway === "home" ? "vs" : "@"}

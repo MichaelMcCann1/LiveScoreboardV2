@@ -1,6 +1,7 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { PlayerData } from "@/types";
 import { times } from "lodash";
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
@@ -27,17 +28,22 @@ export default function PlayerProfile({ data, sport }: Props) {
       <div className="flex flex-col sm:flex-row gap-6 items-center">
         <div className="h-[220px] min-w-[250px] relative">
           <div className="h-full overflow-hidden absolute left-1/2 -translate-x-1/2">
-            <img
-              className="h-[250px] max-w-none opacity-30"
+            <Image
+              className="opacity-30 max-w-none"
               src={data?.logo}
               alt={`${data?.location} logo`}
+              height={250}
+              width={250}
             />
           </div>
-          <img
-            className="h-full max-w-none relative z-10"
-            src={data?.headshot}
-            alt={`${data?.firstName} ${data?.lastName}`}
-          />
+          <div className="h-full relative z-10">
+            <Image
+              className="max-w-none object-cover"
+              src={data?.headshot}
+              alt={`${data?.firstName} ${data?.lastName}`}
+              fill
+            />
+          </div>
         </div>
         <div className="flex flex-col text-center sm:text-left">
           <span className="text-5xl font-light">{data?.firstName}</span>
