@@ -10,7 +10,7 @@ const linkData = [
 
 export default function Home() {
   return (
-    <div className="h-[calc(100vh-100px)] flex flex-col items-center justify-center gap-4 px-2">
+    <div className="h-[calc(100dvh-100px)] flex flex-col items-center justify-center gap-4 px-2">
       <h1 className="text-4xl sm:text-6xl">Live Scoreboard</h1>
       <h3 className="sm:text-2xl">Check the scores of your favorite leagues</h3>
       <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-8 my-4 sm:my-12">
