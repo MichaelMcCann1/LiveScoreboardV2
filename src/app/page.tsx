@@ -13,7 +13,7 @@ export default function Home() {
     <div className="h-[calc(100vh-100px)] flex flex-col items-center justify-center gap-4 px-2">
       <h1 className="text-4xl sm:text-6xl">Live Scoreboard</h1>
       <h3 className="sm:text-2xl">Check the scores of your favorite leagues</h3>
-      <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-8 my-12">
+      <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-8 my-4 sm:my-12">
         {linkData.map((league) => (
           <Button
             asChild
@@ -43,7 +43,7 @@ export default function Home() {
           ESPN web api.
         </Link>
       </p>
-      <span className="absolute bottom-10 text-sm">
+      <span className="absolute bottom-4 sm:bottom-10 text-sm">
         Developed by{" "}
         <Link
           className="underline text-sky-700"
