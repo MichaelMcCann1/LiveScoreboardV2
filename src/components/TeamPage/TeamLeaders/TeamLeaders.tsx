@@ -18,7 +18,7 @@ export default async function TeamLeaders({ team, query, sportUrl }: Props) {
   }
 
   return (
-    <WidgetWrapper title="Team Leaders" maxWidth={350}>
+    <WidgetWrapper title="Team Leaders" maxWidth={300}>
       <TeamLeadersContent data={data} sportUrl={sportUrl} />
     </WidgetWrapper>
   );
@@ -26,7 +26,7 @@ export default async function TeamLeaders({ team, query, sportUrl }: Props) {
 
 TeamLeaders.Skeleton = function TeamLeadersSkeleton() {
   return (
-    <WidgetWrapper.Skeleton maxWidth={350}>
+    <WidgetWrapper.Skeleton maxWidth={300}>
       <div className="flex flex-col py-4 gap-6">
         <Skeleton className="w-full h-10" />
         {times(3).map((leader) => (
