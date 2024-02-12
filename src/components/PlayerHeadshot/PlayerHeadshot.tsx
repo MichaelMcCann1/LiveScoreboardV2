@@ -20,7 +20,7 @@ export default function PlayerHeadshot({ src, size, name }: Props) {
       }
     >
       {src ? (
-        <Image src={src} alt={name} fill className="max-w-none object-cover" />
+        <Image src={src} alt={name} fill className="max-w-none object-cover" sizes="100px" />
       ) : (
         <UserRound className="h-full w-auto" />
       )}

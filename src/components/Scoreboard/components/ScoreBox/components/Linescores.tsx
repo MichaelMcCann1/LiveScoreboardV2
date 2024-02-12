@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 import React from "react";
 
 interface Props {
-  periods: number[];
+  periods: (number | string)[];
   total?: string;
   losingTeam?: boolean;
   final: boolean;

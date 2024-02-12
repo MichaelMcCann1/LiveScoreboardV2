@@ -5,7 +5,20 @@ import Linescores from "./components/Linescores";
 import Leader from "./components/Leader";
 import { ScoreboardData } from "@/types";
 
-const periods = [1, 2, 3, 4];
+const getPeriodsDisplay = (count: number) => {
+  const periods = [1, 2, 3, 4] as (number | string)[];
+
+  const overtimePeriods = count - 4;
+  for (let i = 0; i < overtimePeriods; i++) {
+    if (i === 0) {
+      periods.push("OT");
+    } else {
+      periods.push(`${i + 1}OT`);
+    }
+  }
+
+  return periods
+};
 
 const getTimeDisplay = (gameData: ScoreboardData) => {
   const getPeriodDisplay = (period: number) => {
@@ -44,7 +57,12 @@ export default function ScoreBox({ gameData, sport }: Props) {
           </span>
           {gameData.status !== "Scheduled" &&
             gameData.status !== "Postponed" && (
-              <Linescores periods={periods} final={true} />
+              <Linescores
+                periods={getPeriodsDisplay(
+                  gameData.awayTeamData.linescores.length
+                )}
+                final={true}
+              />
             )}
         </div>
         <TeamBox
