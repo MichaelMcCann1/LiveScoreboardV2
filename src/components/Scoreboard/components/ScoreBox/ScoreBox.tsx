@@ -59,7 +59,7 @@ export default function ScoreBox({ gameData, sport }: Props) {
             gameData.status !== "Postponed" && (
               <Linescores
                 periods={getPeriodsDisplay(
-                  gameData.awayTeamData.linescores.length
+                  gameData?.awayTeamData?.linescores?.length
                 )}
                 final={true}
               />

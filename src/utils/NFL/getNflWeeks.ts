@@ -12,7 +12,6 @@ export const getNflWeeks = () => {
     { week: 19, text: "Wild Card" },
     { week: 20, text: "Divisonal" },
     { week: 21, text: "Conf Champ" },
-    { week: 22, text: "Pro Bowl" },
     { week: 23, text: "Super Bowl" },
   ];
   return [...regularSeasonWeeks, ...playoffWeeks];

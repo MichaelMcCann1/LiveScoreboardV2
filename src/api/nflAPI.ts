@@ -27,6 +27,10 @@ export const getNflScoreboardData = async (week: string) => {
   );
   const data = await reponse.json();
 
+  if (week === "22") { //pro bowl
+    return [];
+  }
+
   return formatScoreboardData(data, formatScoreboardLeadersFootball);
 };
 

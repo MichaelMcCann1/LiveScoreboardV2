@@ -4,8 +4,9 @@ import { Button } from "@/components/ui/button";
 import { WeeksList } from "@/types";
 
 const getButtonText = (currentWeek: number, weeksList: WeeksList) => {
+  if (currentWeek === 22) return []; //pro bowl
   if (currentWeek === 1) return weeksList.slice(0, 3);
-  if (currentWeek === weeksList.length)
+  if (currentWeek === weeksList.length + 1)
     return weeksList.slice(weeksList.length - 3);
   return weeksList.slice(currentWeek - 2, currentWeek + 1);
 };
