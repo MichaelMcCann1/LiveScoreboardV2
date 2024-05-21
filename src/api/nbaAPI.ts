@@ -113,7 +113,14 @@ export const getNbaStandings = async () => {
   const reponse = await fetch(`https://cdn.espn.com/core/nba/standings?xhr=1`, {
     cache: "no-cache",
   });
-  const data = await reponse.json();
+
+  let data;
+
+  try {
+    data = await reponse.json();
+  } catch {
+    return [];
+  }
 
   const divisions = [...data.content.standings.groups];
 

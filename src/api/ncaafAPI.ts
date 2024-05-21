@@ -96,7 +96,14 @@ export const getNcaafStandings = async () => {
       cache: "no-cache",
     }
   );
-  const data = await reponse.json();
+
+  let data;
+
+  try {
+    data = await reponse.json();
+  } catch {
+    return [];
+  }
 
   const conferences = [...data.content.standings.groups];
 
